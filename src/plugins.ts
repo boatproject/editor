@@ -1,8 +1,6 @@
 import {
   createReactPlugin,
   createHistoryPlugin,
-  createBasicMarkPlugins,
-  createBasicElementPlugins,
   createImagePlugin,
   createSelectOnBackspacePlugin,
   PlatePlugin,
@@ -38,7 +36,10 @@ import {
 import { CONFIG } from "./config";
 
 const PLUGIN_MAP = {
-  core: [createReactPlugin(), createHistoryPlugin()],
+  core: {
+    react: createReactPlugin(),
+    history: createHistoryPlugin(),
+  },
   elements: {
     blockQuote: createBlockquotePlugin(),
     codeBlock: createCodeBlockPlugin(),
@@ -73,6 +74,24 @@ const PLUGIN_MAP = {
   },
 };
 
+/**
+ * Consolidate all the plugins in the plugin object into a single flat array
+ * @returns Flat array of plugins to use
+ */
+function flattenPlugins() {
+  return [
+    ...Object.values(PLUGIN_MAP.core),
+    ...Object.values(PLUGIN_MAP.elements),
+    ...Object.values(PLUGIN_MAP.marks),
+    ...Object.values(PLUGIN_MAP.util),
+  ];
+}
+
+/**
+ * Create serializer plugins and add them to the array
+ * @param plugins
+ * @returns
+ */
 function createSerializerPlugins(plugins: PlatePlugin[]) {
   plugins.push(
     ...[
@@ -85,17 +104,12 @@ function createSerializerPlugins(plugins: PlatePlugin[]) {
   return plugins;
 }
 
-function createPlugins(): PlatePlugin<SPEditor>[] {
-  const plugins = [
-    ...Object.values(PLUGIN_MAP.core),
-    ...Object.values(PLUGIN_MAP.elements),
-    ...Object.values(PLUGIN_MAP.marks),
-    ...Object.values(PLUGIN_MAP.util),
-  ];
+function setupPlugins(): PlatePlugin<SPEditor>[] {
+  const plugins = flattenPlugins();
 
   createSerializerPlugins(plugins);
 
   return plugins;
 }
 
-export const PLUGINS = createPlugins();
+export const PLUGINS = setupPlugins();
