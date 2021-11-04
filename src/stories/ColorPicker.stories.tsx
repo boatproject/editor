@@ -1,24 +1,24 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { TextEditor } from "../components/TextEditor";
+import { ColorPicker } from "../components/ColorPicker";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "BoatsoftEditor/TextEditor",
-  component: TextEditor,
+  title: "BoatsoftEditor/ColorPicker",
+  component: ColorPicker,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   // argTypes: {
-  //   backgroundColor: { control: "color" },
+  //   color: { control: "color" },
   // },
   args: {
-    id: "TextEditor-story",
+    open: true,
   },
-} as ComponentMeta<typeof TextEditor>;
+} as ComponentMeta<typeof ColorPicker>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof TextEditor> = (args) => (
-  <TextEditor {...args} />
+const Template: ComponentStory<typeof ColorPicker> = (args) => (
+  <ColorPicker {...args} />
 );
 
 export const Basic = Template.bind({});

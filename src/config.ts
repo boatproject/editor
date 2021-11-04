@@ -1,38 +1,36 @@
 import {
+  AlignPluginOptions,
   createPlateComponents,
   createPlateOptions,
-  ELEMENT_IMAGE,
-  ELEMENT_PARAGRAPH,
-  ELEMENT_H1,
   ELEMENT_BLOCKQUOTE,
-  ELEMENT_TODO_LI,
-  isBlockAboveEmpty,
-  isSelectionAtBlockStart,
   ELEMENT_CODE_BLOCK,
-  ELEMENT_TD,
-  KEYS_HEADING,
-  MARK_COLOR,
-  withStyledProps,
-  StyledLeaf,
-  MARK_BG_COLOR,
-  MARK_FONT_SIZE,
+  ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6,
   ELEMENT_HR,
-  AlignPluginOptions,
-  AutoformatPluginOptions,
+  ELEMENT_IMAGE,
+  ELEMENT_PARAGRAPH,
+  ELEMENT_TD,
+  ELEMENT_TODO_LI,
+  // AutoformatPluginOptions,
   ExitBreakPluginOptions,
   IndentPluginOptions,
-  NormalizeTypesPluginOptions,
+  isBlockAboveEmpty,
+  isSelectionAtBlockStart,
+  KEYS_HEADING,
+  LineHeightPluginOptions,
+  MARK_BG_COLOR,
+  MARK_COLOR,
+  MARK_FONT_SIZE,
   PlatePluginOptions,
   ResetBlockTypePluginOptions,
   SelectOnBackspacePluginOptions,
   SoftBreakPluginOptions,
-  TrailingBlockPluginOptions,
-  // createAutoformatPlugin,
+  StyledLeaf,
+  withStyledProps,
 } from "@udecode/plate";
 import { EditableProps } from "slate-react/dist/components/editable";
 
@@ -67,6 +65,7 @@ export interface Config {
   editableProps: EditableProps;
   align: AlignPluginOptions;
   // autoformat: AutoformatPluginOptions;
+  lineHeight: LineHeightPluginOptions;
   exitBreak: ExitBreakPluginOptions;
   indent: IndentPluginOptions;
   resetBlockType: ResetBlockTypePluginOptions;
@@ -104,6 +103,10 @@ export const CONFIG: Config = {
       ELEMENT_BLOCKQUOTE,
       ELEMENT_CODE_BLOCK,
     ],
+  },
+  lineHeight: {
+    defaultLineHeight: 1.65,
+    lineHeights: [1, 1.2, 1.65, 2, 3],
   },
   resetBlockType: {
     rules: [

@@ -31,85 +31,91 @@ import {
   createSuperscriptPlugin,
   createDeserializeMDPlugin,
   createDeserializeCSVPlugin,
+  createLineHeightPlugin,
+  WithImageUploadOptions,
   // createAutoformatPlugin,
 } from "@udecode/plate";
 import { CONFIG } from "./config";
 
-const PLUGIN_MAP = {
-  core: {
-    react: createReactPlugin(),
-    history: createHistoryPlugin(),
-  },
-  elements: {
-    blockQuote: createBlockquotePlugin(),
-    codeBlock: createCodeBlockPlugin(),
-    heading: createHeadingPlugin(),
-    paragraph: createParagraphPlugin(),
-    align: createAlignPlugin(),
-    image: createImagePlugin(),
-    selectOnBackspace: createSelectOnBackspacePlugin(CONFIG.selectOnBackspace),
-    indent: createIndentPlugin(CONFIG.indent),
-    link: createLinkPlugin(),
-    list: createListPlugin(),
-    todoList: createTodoListPlugin(),
-  },
-  marks: {
-    bold: createBoldPlugin(),
-    italic: createItalicPlugin(),
-    underline: createUnderlinePlugin(),
-    strikethrough: createStrikethroughPlugin(),
-    subscript: createSubscriptPlugin(),
-    superscript: createSuperscriptPlugin(),
-    code: createCodeBlockPlugin(),
-    fontColor: createFontColorPlugin(),
-    fontBg: createFontBackgroundColorPlugin(),
-    fontSize: createFontSizePlugin(),
-    highlight: createHighlightPlugin(),
-  },
-  util: {
-    resetNode: createResetNodePlugin(CONFIG.resetBlockType),
-    softBreak: createSoftBreakPlugin(CONFIG.softBreak),
-    exitBreak: createExitBreakPlugin(CONFIG.exitBreak),
-    // autoformat: createAutoformatPlugin(PLUGINS_CONFIG.autoFormat),
-  },
-};
-
 /**
- * Consolidate all the plugins in the plugin object into a single flat array
- * @returns Flat array of plugins to use
+ * Create any plugins that dont require dynamic configuration
+ * @param config
+ * @returns
  */
-function flattenPlugins() {
-  return [
-    ...Object.values(PLUGIN_MAP.core),
-    ...Object.values(PLUGIN_MAP.elements),
-    ...Object.values(PLUGIN_MAP.marks),
-    ...Object.values(PLUGIN_MAP.util),
+function createStaticPlugins(config = CONFIG) {
+  const corePlugins = [createReactPlugin(), createHistoryPlugin()];
+
+  const elementPlugins = [
+    createBlockquotePlugin(),
+    createCodeBlockPlugin(),
+    createHeadingPlugin(),
+    createParagraphPlugin(),
+    createAlignPlugin(),
+    createLineHeightPlugin(config.lineHeight),
+    createSelectOnBackspacePlugin(config.selectOnBackspace),
+    createIndentPlugin(config.indent),
+    createLinkPlugin(),
+    createListPlugin(),
+    createTodoListPlugin(),
   ];
+
+  const markPlugins = [
+    createBoldPlugin(),
+    createItalicPlugin(),
+    createUnderlinePlugin(),
+    createStrikethroughPlugin(),
+    createSubscriptPlugin(),
+    createSuperscriptPlugin(),
+    createCodeBlockPlugin(),
+    createFontColorPlugin(),
+    createFontBackgroundColorPlugin(),
+    createFontSizePlugin(),
+    createHighlightPlugin(),
+  ];
+
+  const utilPlugins = [
+    createResetNodePlugin(config.resetBlockType),
+    createSoftBreakPlugin(config.softBreak),
+    createExitBreakPlugin(config.exitBreak),
+    // createAutoformatPlugin(PLUGINS_CONFIG.autoFormat),
+  ];
+
+  const plugins = [
+    ...corePlugins,
+    ...elementPlugins,
+    ...markPlugins,
+    ...utilPlugins,
+  ];
+  plugins.push(...createSerializerPlugins(plugins));
+
+  return plugins;
 }
 
 /**
- * Create serializer plugins and add them to the array
+ * Create serializer plugins passing plugins as argument
  * @param plugins
  * @returns
  */
 function createSerializerPlugins(plugins: PlatePlugin[]) {
-  plugins.push(
-    ...[
-      createDeserializeMDPlugin({ plugins }),
-      createDeserializeCSVPlugin({ plugins }),
-      createDeserializeHTMLPlugin({ plugins }),
-      createDeserializeAstPlugin({ plugins }),
-    ]
-  );
-  return plugins;
+  return [
+    createDeserializeMDPlugin({ plugins }),
+    createDeserializeCSVPlugin({ plugins }),
+    createDeserializeHTMLPlugin({ plugins }),
+    createDeserializeAstPlugin({ plugins }),
+  ];
 }
 
-function setupPlugins(): PlatePlugin<SPEditor>[] {
-  const plugins = flattenPlugins();
+const PLUGINS = createStaticPlugins();
 
-  createSerializerPlugins(plugins);
+export type GetPluginsOptions = WithImageUploadOptions;
+
+/**
+ * Get full array of plugins. Needed to create dynamic
+ * plugins that take props from outside the component
+ */
+export function createPlugins({ uploadImage }: GetPluginsOptions = {}) {
+  const plugins = [...PLUGINS, createImagePlugin({ uploadImage })];
+  plugins.push(...createSerializerPlugins(plugins));
 
   return plugins;
 }
-
-export const PLUGINS = setupPlugins();
