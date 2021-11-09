@@ -3,7 +3,7 @@ import {
   toggleNodeType,
   usePlateEditorState,
 } from "@udecode/plate";
-import hasSelectionOfType from "../../plate/hasSelectionOfType";
+import hasSelectionOfType from "../../../plate/hasSelectionOfType";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {

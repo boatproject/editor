@@ -10,8 +10,8 @@ import {
 import { MouseEventHandler, useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
-import hasSelection from "../../plate/hasSelection";
-import { ColorPicker } from "../ColorPicker";
+import hasSelection from "../../../plate/hasSelection";
+import { ColorPicker } from "../../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface ColorPickerToolbarButtonProps

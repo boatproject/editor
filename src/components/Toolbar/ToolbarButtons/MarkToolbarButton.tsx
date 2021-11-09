@@ -4,7 +4,7 @@ import {
   toggleMark,
   usePlateEditorState,
 } from "@udecode/plate";
-import hasSelection from "../../plate/hasSelection";
+import hasSelection from "../../../plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
 export interface MarkToolbarButtonProps extends ToolbarButtonProps {
