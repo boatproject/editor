@@ -25,7 +25,9 @@ export function MarkToolbarButton(props: MarkToolbarButtonProps) {
         selected ?? (hasSelection(editor) && isMarkActive(editor, value))
       }
       onMouseDown={
-        editor && getPreventDefaultHandler(toggleMark, editor, value, clear)
+        editor
+          ? getPreventDefaultHandler(toggleMark, editor, value, clear)
+          : undefined
       }
       {...buttonProps}
     />

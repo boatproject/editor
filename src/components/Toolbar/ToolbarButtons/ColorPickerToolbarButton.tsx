@@ -19,23 +19,11 @@ export interface ColorPickerToolbarButtonProps
   pluginKey?: string;
 }
 
-/**
- * ColorPicker toolbar component
- * @param props
- */
-export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
-  const { pluginKey, ...buttonProps } = props;
-
+function useMenuAnchor() {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
-  const editor = usePlateEditorState();
-  const editorRef = usePlateEditorRef();
-  const type = getPlatePluginType(editor, pluginKey);
-  const color = editorRef && getMark(editorRef, type);
-  const [selectedColor, setSelectedColor] = useState<string>();
-
-  const handleOpenClick: MouseEventHandler<HTMLButtonElement> = useCallback(
+  const handleOpen: MouseEventHandler<HTMLButtonElement> = useCallback(
     (event) => setAnchorEl(event.currentTarget),
     []
   );
@@ -43,6 +31,29 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const handleClose = useCallback(() => {
     setAnchorEl(null);
   }, []);
+
+  return {
+    anchorEl,
+    open,
+    handleOpen,
+    handleClose,
+  };
+}
+
+/**
+ * ColorPicker toolbar component
+ * @param props
+ */
+export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
+  const { pluginKey, ...buttonProps } = props;
+
+  const { anchorEl, open, handleOpen, handleClose } = useMenuAnchor();
+
+  const editor = usePlateEditorState();
+  const editorRef = usePlateEditorRef();
+  const type = getPlatePluginType(editor, pluginKey);
+  const color = editorRef && getMark(editorRef, type);
+  const [selectedColor, setSelectedColor] = useState<string>();
 
   const updateColor = useCallback(
     (color: string) => {
@@ -83,11 +94,15 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
     <>
       <ToolbarButton
         id={"color-picker-button"}
-        sx={{ color: selectedColor || color }}
+        sx={{
+          "&.Mui-selected": {
+            color: selectedColor || color,
+          },
+        }}
         aria-controls={menuId}
         aria-haspopup="true"
         aria-expanded={open}
-        onClick={handleOpenClick}
+        onClick={handleOpen}
         value={type}
         selected={hasSelection(editor) && isMarkActive(editor, type)}
         {...buttonProps}
