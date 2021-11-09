@@ -25,6 +25,7 @@ import {
   MARK_BG_COLOR,
   MARK_COLOR,
   MARK_FONT_SIZE,
+  PlatePluginComponent,
   PlatePluginOptions,
   ResetBlockTypePluginOptions,
   SelectOnBackspacePluginOptions,
@@ -61,7 +62,7 @@ function createComponents() {
 
 export interface Config {
   options: Record<string, PlatePluginOptions>;
-  components: Record<string, any>;
+  components: Record<string, PlatePluginComponent>;
   editableProps: EditableProps;
   align: AlignPluginOptions;
   // autoformat: AutoformatPluginOptions;
@@ -78,7 +79,7 @@ export const CONFIG: Config = {
   options: createPlateOptions(),
   editableProps: {},
   align: {
-    types: [
+    validTypes: [
       ELEMENT_PARAGRAPH,
       ELEMENT_H1,
       ELEMENT_H2,
@@ -92,7 +93,7 @@ export const CONFIG: Config = {
   //   rules: [autoformatArrow],
   // },
   indent: {
-    types: [
+    validTypes: [
       ELEMENT_PARAGRAPH,
       ELEMENT_H1,
       ELEMENT_H2,
@@ -105,8 +106,8 @@ export const CONFIG: Config = {
     ],
   },
   lineHeight: {
-    defaultLineHeight: 1.65,
-    lineHeights: [1, 1.2, 1.65, 2, 3],
+    defaultNodeValue: 1.65,
+    validNodeValues: [1, 1.2, 1.65, 2, 3],
   },
   resetBlockType: {
     rules: [

@@ -13,6 +13,7 @@ export default {
   // },
   args: {
     open: true,
+    anchorEl: document.querySelector("body"),
   },
 } as ComponentMeta<typeof ColorPicker>;
 

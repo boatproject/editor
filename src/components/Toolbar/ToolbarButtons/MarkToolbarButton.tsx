@@ -2,27 +2,27 @@ import {
   getPreventDefaultHandler,
   isMarkActive,
   toggleMark,
-  useEventEditorId,
-  useStoreEditorState,
+  usePlateEditorState,
 } from "@udecode/plate";
+import hasSelection from "../../plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
-export interface ToolbarMarkProps extends ToolbarButtonProps {
+export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   /**
    * Node properties to delete.
    */
   clear?: string | string[];
 }
 
-export function ToolbarMark(props: ToolbarMarkProps) {
+export function MarkToolbarButton(props: MarkToolbarButtonProps) {
   const { selected, value, clear, ...buttonProps } = props;
-  const editor = useStoreEditorState(useEventEditorId("focus"));
+  const editor = usePlateEditorState();
 
   return (
     <ToolbarButton
       value={value}
       selected={
-        selected ?? (!!editor?.selection && isMarkActive(editor, value))
+        selected ?? (hasSelection(editor) && isMarkActive(editor, value))
       }
       onMouseDown={
         editor && getPreventDefaultHandler(toggleMark, editor, value, clear)
@@ -32,4 +32,4 @@ export function ToolbarMark(props: ToolbarMarkProps) {
   );
 }
 
-export default ToolbarMark;
+export default MarkToolbarButton;

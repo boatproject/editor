@@ -16,8 +16,7 @@ export const ColorContainer = styled(Box, {
 
   "&:hover": {
     "& .MuiButton-root:not(:hover)": {
-      opacity: 0.5,
-      // backgroundColor: "rgba(25, 118, 210, 0.04)",
+      opacity: 0.7,
     },
   },
 

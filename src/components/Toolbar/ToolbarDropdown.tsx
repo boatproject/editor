@@ -1,6 +1,9 @@
 import { Menu, MenuProps } from "@mui/material";
 import { MouseEvent, MouseEventHandler, ReactNode, useState } from "react";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import {
+  ToolbarButton,
+  ToolbarButtonProps,
+} from "./ToolbarButtons/ToolbarButton";
 
 export interface ToolbarDropdownProps extends ToolbarButtonProps {
   id?: string;

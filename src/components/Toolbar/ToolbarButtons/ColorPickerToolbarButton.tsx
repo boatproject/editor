@@ -4,41 +4,33 @@ import {
   isMarkActive,
   removeMark,
   setMarks,
-  useEventEditorId,
-  useStoreEditorRef,
-  useStoreEditorState,
+  usePlateEditorState,
+  usePlateEditorRef,
 } from "@udecode/plate";
-import {
-  MouseEventHandler,
-  ReactNode,
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
+import { MouseEventHandler, useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
+import hasSelection from "../../plate/hasSelection";
 import { ColorPicker } from "../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
-export interface ToolbarColorPickerProps
+export interface ColorPickerToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
   pluginKey?: string;
-  icon: ReactNode;
 }
 
 /**
  * ColorPicker toolbar component
  * @param props
  */
-export function ToolbarColorPicker(props: ToolbarColorPickerProps) {
-  const { pluginKey, icon, ...buttonProps } = props;
+export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
+  const { pluginKey, ...buttonProps } = props;
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
-  const editorId = useEventEditorId("focus");
-  const editor = useStoreEditorState(editorId);
-  const editorRef = useStoreEditorRef(editorId);
+  const editor = usePlateEditorState();
+  const editorRef = usePlateEditorRef();
   const type = getPlatePluginType(editor, pluginKey);
   const color = editorRef && getMark(editorRef, type);
   const [selectedColor, setSelectedColor] = useState<string>();
@@ -68,7 +60,7 @@ export function ToolbarColorPicker(props: ToolbarColorPickerProps) {
 
   const clearColor = useCallback(() => {
     if (editorRef && editor && editor.selection) {
-      setSelectedColor(color);
+      // setSelectedColor(undefined);
 
       Transforms.select(editorRef, editor.selection);
       ReactEditor.focus(editorRef);
@@ -97,11 +89,9 @@ export function ToolbarColorPicker(props: ToolbarColorPickerProps) {
         aria-expanded={open}
         onClick={handleOpenClick}
         value={type}
-        selected={!!editor?.selection && isMarkActive(editor, type)}
+        selected={hasSelection(editor) && isMarkActive(editor, type)}
         {...buttonProps}
-      >
-        {icon}
-      </ToolbarButton>
+      />
       <ColorPicker
         id={menuId}
         open={open}
@@ -115,4 +105,4 @@ export function ToolbarColorPicker(props: ToolbarColorPickerProps) {
   );
 }
 
-export default ToolbarColorPicker;
+export default ColorPickerToolbarButton;

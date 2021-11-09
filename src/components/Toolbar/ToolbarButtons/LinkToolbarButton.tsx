@@ -1,6 +1,5 @@
 import {
-  useStoreEditorState,
-  useEventEditorId,
+  usePlateEditorState,
   getPlatePluginType,
   ELEMENT_LINK,
   someNode,
@@ -10,21 +9,22 @@ import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
 export type GetLinkUrl = (prevUrl?: string | null) => Promise<string | null>;
 
-export interface ToolbarLinkProps extends Omit<ToolbarButtonProps, "value"> {
+export interface LinkToolbarButtonProps
+  extends Omit<ToolbarButtonProps, "value"> {
   getLinkUrl?: GetLinkUrl;
 }
 
-export function ToolbarLink(props: ToolbarLinkProps) {
+export function LinkToolbarButton(props: LinkToolbarButtonProps) {
   const { getLinkUrl, ...buttonProps } = props;
 
-  const editor = useStoreEditorState(useEventEditorId("focus"));
+  const editor = usePlateEditorState();
 
   const type = getPlatePluginType(editor, ELEMENT_LINK);
   const isLink = !!editor?.selection && someNode(editor, { match: { type } });
 
   return (
     <ToolbarButton
-      value={ELEMENT_LINK}
+      value={type}
       selected={isLink}
       onMouseDown={async (event) => {
         if (!editor) return;
@@ -37,4 +37,4 @@ export function ToolbarLink(props: ToolbarLinkProps) {
   );
 }
 
-export default ToolbarLink;
+export default LinkToolbarButton;

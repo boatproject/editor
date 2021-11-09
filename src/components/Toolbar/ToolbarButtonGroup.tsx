@@ -4,11 +4,9 @@ import {
   ToggleButtonGroupProps,
 } from "@mui/material";
 
-export interface ToolbarButtonGroupProps extends ToggleButtonGroupProps {}
+export type ToolbarButtonGroupProps = ToggleButtonGroupProps;
 
-export const ToolbarButtonGroup = styled(
-  ToggleButtonGroup
-)<ToolbarButtonGroupProps>(({ theme }) => ({
+export const ToolbarButtonGroup = styled(ToggleButtonGroup)(({ theme }) => ({
   "& .MuiToggleButtonGroup-grouped": {
     margin: theme.spacing(0.5),
     border: 0,

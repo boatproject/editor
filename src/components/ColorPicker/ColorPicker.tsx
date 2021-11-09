@@ -1,17 +1,21 @@
 import { PopoverProps, Button } from "@mui/material";
-import { useCallback, useEffect, useState, MouseEvent } from "react";
+import { useCallback, useEffect, useState, MouseEvent, useRef } from "react";
 import ColorContainer from "./ColorContainer";
 import { ColorPickerRoot } from "./ColorPickerRoot";
 import { DEFAULT_COLORS } from "./colors";
 import { ColorTile } from "./ColorTile";
 import { OnSelectColorEventHandler } from "./types";
 
-export interface ColorPickerProps extends Omit<PopoverProps, "children"> {
+export interface ColorPickerProps
+  extends Omit<PopoverProps, "children" | "onClose"> {
   color?: string;
   /** Memoized options for selecting color */
   colorOptions?: string[];
   onSelectColor?: OnSelectColorEventHandler;
   clearColor?: () => void;
+  /** If true, automatically close window when a color is selected */
+  closeOnSelect?: boolean;
+  onClose?: () => void;
 }
 
 export function ColorPicker(props: ColorPickerProps) {
@@ -20,22 +24,38 @@ export function ColorPicker(props: ColorPickerProps) {
     colorOptions = DEFAULT_COLORS,
     onSelectColor,
     clearColor,
+    onClose,
+    closeOnSelect = true,
     ...popoverProps
   } = props;
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
-
+  const colorRef = useRef(color);
   useEffect(() => {
-    setSelectedColor(color);
+    if (colorRef.current !== color) {
+      setSelectedColor(color);
+      colorRef.current = color;
+    }
   }, [color]);
+
+  const selectColor = useCallback(
+    (color: string) => {
+      onSelectColor?.(color);
+      setSelectedColor(color);
+
+      if (closeOnSelect && onClose) {
+        onClose();
+      }
+    },
+    [onSelectColor, onClose, closeOnSelect]
+  );
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       const color = event.currentTarget.value;
-      onSelectColor?.(color);
-      setSelectedColor(color);
+      selectColor(color);
     },
-    [onSelectColor]
+    [selectColor]
   );
 
   const handleClear = useCallback(() => {
@@ -44,7 +64,7 @@ export function ColorPicker(props: ColorPickerProps) {
   }, [clearColor]);
 
   return (
-    <ColorPickerRoot color={selectedColor} {...popoverProps}>
+    <ColorPickerRoot color={selectedColor} onClose={onClose} {...popoverProps}>
       <ColorContainer sx={{ width: 300, height: 300 }}>
         {colorOptions.map((color) => (
           <ColorTile key={color} value={color} onClick={handleClick} />

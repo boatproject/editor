@@ -1,27 +1,23 @@
 import {
   getPreventDefaultHandler,
-  someNode,
   toggleNodeType,
-  useEventEditorId,
-  useStoreEditorState,
+  usePlateEditorState,
 } from "@udecode/plate";
+import hasSelectionOfType from "../../plate/hasSelectionOfType";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
-export interface ToolbarElementProps extends ToolbarButtonProps {
+export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
 }
 
-export function ToolbarElement(props: ToolbarElementProps) {
+export function BlockToolbarButton(props: BlockToolbarButtonProps) {
   const { selected, value, inactiveType, ...buttonProps } = props;
-  const editor = useStoreEditorState(useEventEditorId("focus"));
+  const editor = usePlateEditorState();
 
   return (
     <ToolbarButton
       value={value}
-      selected={
-        selected ??
-        (!!editor?.selection && someNode(editor, { match: { type: value } }))
-      }
+      selected={selected ?? hasSelectionOfType(editor, value)}
       onMouseDown={
         editor &&
         getPreventDefaultHandler(toggleNodeType, editor, {
@@ -34,4 +30,4 @@ export function ToolbarElement(props: ToolbarElementProps) {
   );
 }
 
-export default ToolbarElement;
+export default BlockToolbarButton;

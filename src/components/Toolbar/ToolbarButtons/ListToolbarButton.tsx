@@ -1,23 +1,25 @@
 import {
   ELEMENT_UL,
-  useStoreEditorState,
-  useEventEditorId,
+  usePlateEditorState,
   getListItemEntry,
   getPreventDefaultHandler,
   toggleList,
 } from "@udecode/plate";
-import { ToolbarElement, ToolbarElementProps } from "./ToolbarElement";
+import {
+  BlockToolbarButton,
+  BlockToolbarButtonProps,
+} from "./BlockToolbarButton";
 
-export interface ToolbarListProps extends ToolbarElementProps {}
+export type ListToolbarButtonProps = BlockToolbarButtonProps;
 
-export function ToolbarList(props: ToolbarListProps) {
+export function ListToolbarButton(props: BlockToolbarButtonProps) {
   const { value = ELEMENT_UL, ...elementProps } = props;
-  const editor = useStoreEditorState(useEventEditorId("focus"));
+  const editor = usePlateEditorState();
 
   const res = !!editor?.selection && getListItemEntry(editor);
 
   return (
-    <ToolbarElement
+    <BlockToolbarButton
       selected={!!res && res.list[0].type === value}
       value={value}
       onMouseDown={
@@ -31,4 +33,4 @@ export function ToolbarList(props: ToolbarListProps) {
   );
 }
 
-export default ToolbarList;
+export default ListToolbarButton;
