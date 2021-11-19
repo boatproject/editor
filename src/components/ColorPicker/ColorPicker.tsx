@@ -1,16 +1,26 @@
 import { PopoverProps, Button } from "@mui/material";
 import { useCallback, useEffect, useState, MouseEvent, useRef } from "react";
 import ColorContainer from "./ColorContainer";
-import { ColorPickerRoot } from "./ColorPickerRoot";
-import { DEFAULT_COLORS } from "./colors";
+import { DEFAULT_COLOR_ENTRIES } from "./colors";
 import { ColorTile } from "./ColorTile";
 import { OnSelectColorEventHandler } from "./types";
+import { Popover, Stack, styled } from "@mui/material";
+
+const ColorPickerStack = styled(Stack, {
+  shouldForwardProp: (prop) => prop !== "color",
+})<{ color?: string }>(({ theme, color = "transparent" }) => ({
+  padding: theme.spacing(1),
+  border: `3px solid ${color}`,
+  transition: theme.transitions.create("border"),
+}));
 
 export interface ColorPickerProps
-  extends Omit<PopoverProps, "children" | "onClose"> {
+  extends Pick<PopoverProps, "open" | "anchorEl"> {
   color?: string;
-  /** Memoized options for selecting color */
-  colorOptions?: string[];
+  /**
+   * Memoized array of [name, colorValue] for populating color buttons
+   */
+  colorEntries?: [string, string][];
   onSelectColor?: OnSelectColorEventHandler;
   clearColor?: () => void;
   /** If true, automatically close window when a color is selected */
@@ -21,12 +31,13 @@ export interface ColorPickerProps
 export function ColorPicker(props: ColorPickerProps) {
   const {
     color,
-    colorOptions = DEFAULT_COLORS,
+    colorEntries: colorOptions = DEFAULT_COLOR_ENTRIES,
     onSelectColor,
     clearColor,
+    anchorEl,
+    open,
     onClose,
     closeOnSelect = true,
-    ...popoverProps
   } = props;
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
@@ -64,21 +75,36 @@ export function ColorPicker(props: ColorPickerProps) {
   }, [clearColor]);
 
   return (
-    <ColorPickerRoot color={selectedColor} onClose={onClose} {...popoverProps}>
-      <ColorContainer sx={{ width: 300, height: 300 }}>
-        {colorOptions.map((color) => (
-          <ColorTile key={color} value={color} onClick={handleClick} />
-        ))}
-      </ColorContainer>
-      <Button
-        fullWidth
-        onClick={handleClear}
-        disabled={!selectedColor}
-        sx={{ color: selectedColor }}
-      >
-        Clear
-      </Button>
-    </ColorPickerRoot>
+    <Popover
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "left",
+      }}
+      onClose={onClose}
+      open={open}
+      anchorEl={anchorEl}
+    >
+      <ColorPickerStack color={selectedColor}>
+        <ColorContainer sx={{ width: 300, height: 300 }}>
+          {colorOptions.map(([name, color]) => (
+            <ColorTile
+              key={color}
+              title={name}
+              value={color}
+              onClick={handleClick}
+            />
+          ))}
+        </ColorContainer>
+        <Button
+          fullWidth
+          onClick={handleClear}
+          disabled={!selectedColor}
+          sx={{ color: selectedColor }}
+        >
+          Clear
+        </Button>
+      </ColorPickerStack>
+    </Popover>
   );
 }
 

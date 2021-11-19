@@ -1,13 +1,14 @@
-import { Button, ButtonProps, Paper, styled } from "@mui/material";
+import { Button, ButtonProps, Paper, styled, Tooltip } from "@mui/material";
 
 interface TileProps {
+  title: string;
   value: string;
 }
 
 const TileButton = styled(Button, {
   name: "ColorPicker",
   slot: "tileButton",
-})<TileProps>(({ value }) => ({
+})<{ value: string }>(({ value }) => ({
   backgroundColor: value,
   padding: 0,
   transition: "all 200ms ease",
@@ -23,9 +24,16 @@ const TileButton = styled(Button, {
 export type ColorTileProps = TileProps & ButtonProps;
 
 export function ColorTile(props: ColorTileProps) {
+  const { title, value, ...buttonProps } = props;
   return (
     <Paper>
-      <TileButton {...props} />
+      <Tooltip title={title}>
+        <TileButton
+          {...buttonProps}
+          name={`pick-color-${props.value}`}
+          value={value}
+        />
+      </Tooltip>
     </Paper>
   );
 }

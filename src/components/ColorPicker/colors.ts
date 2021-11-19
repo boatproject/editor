@@ -47,4 +47,27 @@ export const DEFAULT_COLORS = [
   // white,
 ];
 
+export const DEFAULT_COLOR_ENTRIES = [
+  ["black", black],
+  ["brown", brown[500]],
+  ["teal", teal[500]],
+  ["green", green[500]],
+  ["light green", lightGreen[500]],
+  ["lime", lime[500]],
+  ["yellow", yellow[500]],
+  ["amber", amber[500]],
+  ["orange", orange[500]],
+  ["deep orange", deepOrange[500]],
+  ["red", red[500]],
+  ["pink", pink[500]],
+  ["purple", purple[500]],
+  ["deep purple", deepPurple[500]],
+  ["indigo", indigo[500]],
+  ["blue", blue[500]],
+  ["light blue", lightBlue[500]],
+  ["cyan", cyan[500]],
+  ["blue grey", blueGrey[500]],
+  ["grey", grey[500]],
+];
+
 export default colors;
