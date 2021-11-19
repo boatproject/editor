@@ -1,5 +1,3 @@
-# boatsoft-editor
-
 # Boat Project editor
 
 Built with:
