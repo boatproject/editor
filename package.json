@@ -45,9 +45,13 @@
   "scripts": {
     "test": "jest",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "prepare": "tsc"
   },
   "author": "zimmerel",
   "license": "ISC",
-  "description": "Text editor for boatsoft"
+  "description": "Text editor for boatsoft",
+  "files": [
+    "build/**/*"
+  ]
 }

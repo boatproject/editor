@@ -1,18 +1,13 @@
-import {
-  Plate,
-  PlateProps,
-  SPEditor,
-  WithImageUploadOptions,
-} from "@udecode/plate";
+import { ForwardedRef, forwardRef, useMemo, useState } from "react";
+import { Plate, PlateProps, WithImageUploadOptions } from "@udecode/plate";
+import { Box, Button, Collapse, Tooltip } from "@mui/material";
+import { MoreHoriz } from "@mui/icons-material";
 import { Toolbar } from "./Toolbar";
 import { CONFIG } from "../config";
 import { createPlugins } from "../plugins";
-import { ForwardedRef, forwardRef, useMemo, useState } from "react";
 import EditorRef from "./EditorRef";
-import { Box, Button, Collapse, Tooltip } from "@mui/material";
-import { MoreHoriz } from "@mui/icons-material";
 
-export type TextEditorProps<T extends SPEditor = SPEditor> = Pick<
+export type TextEditorProps<T = unknown> = Pick<
   PlateProps<T>,
   "id" | "onChange" | "initialValue"
 > &
@@ -20,9 +15,10 @@ export type TextEditorProps<T extends SPEditor = SPEditor> = Pick<
     defaultToolbarOpen?: boolean;
   };
 
-export const TextEditor = forwardRef(function TextEditor<
-  T extends SPEditor = SPEditor
->(props: TextEditorProps<T>, ref: ForwardedRef<HTMLDivElement>) {
+export const TextEditor = forwardRef(function TextEditor<T = unknown>(
+  props: TextEditorProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   const {
     id,
     onChange,
