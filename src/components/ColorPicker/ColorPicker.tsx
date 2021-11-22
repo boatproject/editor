@@ -16,6 +16,7 @@ const ColorPickerStack = styled(Stack, {
 
 export interface ColorPickerProps
   extends Pick<PopoverProps, "open" | "anchorEl"> {
+  id?: string;
   color?: string;
   /**
    * Memoized array of [name, colorValue] for populating color buttons
@@ -30,6 +31,7 @@ export interface ColorPickerProps
 
 export function ColorPicker(props: ColorPickerProps) {
   const {
+    id,
     color,
     colorEntries: colorOptions = DEFAULT_COLOR_ENTRIES,
     onSelectColor,
@@ -76,6 +78,7 @@ export function ColorPicker(props: ColorPickerProps) {
 
   return (
     <Popover
+      id={id}
       anchorOrigin={{
         vertical: "bottom",
         horizontal: "left",

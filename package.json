@@ -25,19 +25,17 @@
     "typescript": "^4.4.4"
   },
   "dependencies": {
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
+    "@mui/material": "^5.0.4",
     "@udecode/plate": "^7.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "slate": "^0.66.5",
     "slate-history": "^0.66.0",
     "slate-hyperscript": "^0.67.0",
     "slate-react": "^0.67.0",
     "styled-components": "^5.3.3"
-  },
-  "peerDependencies": {
-    "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.0.4",
-    "@mui/material": "^5.0.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
   },
   "name": "boatsoft-editor",
   "version": "1.0.0",
@@ -46,7 +44,8 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "build": "tsc"
   },
   "author": "zimmerel",
   "license": "ISC",
