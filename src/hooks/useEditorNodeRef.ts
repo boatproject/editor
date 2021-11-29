@@ -6,7 +6,7 @@ import { ReactEditor } from "slate-react";
  * Hook that sets the provided ref to the underlying editor DOM node
  * @param ref Forwarded ref to set to the DOM node
  */
-export function useEditorRefSetter<E extends HTMLElement = HTMLDivElement>(
+export function useEditorNodeRef<E extends HTMLElement = HTMLDivElement>(
   ref: ForwardedRef<E>
 ) {
   const editor = useEditorRef();
@@ -22,4 +22,4 @@ export function useEditorRefSetter<E extends HTMLElement = HTMLDivElement>(
   }, []);
 }
 
-export default useEditorRefSetter;
+export default useEditorNodeRef;

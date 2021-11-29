@@ -26,7 +26,7 @@ export function MarkToolbarButton(props: MarkToolbarButtonProps) {
       }
       onMouseDown={
         editor
-          ? getPreventDefaultHandler(toggleMark, editor, value, clear)
+          ? getPreventDefaultHandler(toggleMark, editor, { key: value, clear })
           : undefined
       }
       {...buttonProps}

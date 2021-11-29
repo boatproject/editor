@@ -1,24 +1,24 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ColorPicker, { ColorPickerProps } from "./ColorPicker";
-import { black, red, white } from "./colors";
+import { black, red, white, Color } from "./colors";
 
 describe("<ColorPicker />", () => {
   let props: ColorPickerProps;
-  let colorEntries: [string, string][] = [];
+  let colorOptions: Color[] = [];
 
   beforeEach(() => {
-    colorEntries = [
-      ["black", black],
-      ["white", white],
-      ["red", red[500]],
+    colorOptions = [
+      { name: "black", value: black },
+      { name: "white", value: white },
+      { name: "red", value: red[500] },
     ];
     props = {
       open: true,
       anchorEl: document.body,
       onSelectColor: jest.fn((color) => color),
       clearColor: jest.fn(),
-      colorEntries,
+      colorOptions,
     };
   });
 
@@ -42,20 +42,20 @@ describe("<ColorPicker />", () => {
     it("should render a button for each color", () => {
       const { getByRole } = render(<ColorPicker {...props} />);
 
-      colorEntries.forEach(([name, color]) => {
+      colorOptions.forEach(({ name, value }) => {
         const button = getByRole("button", { name }) as HTMLButtonElement;
         expect(button).toBeInTheDocument();
-        expect(button.value).toEqual(color);
+        expect(button.value).toEqual(value);
       });
     });
 
     it("should call onSelectColor with a color when it is clicked", () => {
       const { getByRole } = render(<ColorPicker {...props} />);
 
-      colorEntries.forEach(([name, color]) => {
+      colorOptions.forEach(({ name, value }) => {
         const button = getByRole("button", { name }) as HTMLButtonElement;
         button.click();
-        expect(props.onSelectColor).toHaveBeenCalledWith(color);
+        expect(props.onSelectColor).toHaveBeenCalledWith(value);
       });
     });
   });

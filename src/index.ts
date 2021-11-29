@@ -1,2 +1,2 @@
 export * from "./components/TextEditor";
-export * from "./components/Toolbar/Toolbar";
+export * from "./components/Toolbar";

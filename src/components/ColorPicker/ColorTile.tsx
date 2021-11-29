@@ -1,8 +1,8 @@
 import { Button, ButtonProps, Paper, styled, Tooltip } from "@mui/material";
+import { Color } from "./colors";
 
 interface TileProps {
-  title: string;
-  value: string;
+  color: Color;
 }
 
 const TileButton = styled(Button, {
@@ -21,18 +21,14 @@ const TileButton = styled(Button, {
   },
 }));
 
-export type ColorTileProps = TileProps & ButtonProps;
+export type ColorTileProps = TileProps & Omit<ButtonProps, "color">;
 
 export function ColorTile(props: ColorTileProps) {
-  const { title, value, ...buttonProps } = props;
+  const { color, ...buttonProps } = props;
   return (
     <Paper>
-      <Tooltip title={title}>
-        <TileButton
-          {...buttonProps}
-          name={`pick-color-${props.value}`}
-          value={value}
-        />
+      <Tooltip title={color.name}>
+        <TileButton {...buttonProps} name={color.name} value={color.value} />
       </Tooltip>
     </Paper>
   );

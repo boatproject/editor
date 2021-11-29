@@ -1,6 +1,6 @@
 import {
   getMark,
-  getPlatePluginType,
+  getPluginType,
   isMarkActive,
   removeMark,
   setMarks,
@@ -16,7 +16,7 @@ import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface ColorPickerToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
-  pluginKey?: string;
+  pluginKey: string;
 }
 
 function useMenuAnchor() {
@@ -50,8 +50,11 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const { anchorEl, open, handleOpen, handleClose } = useMenuAnchor();
 
   const editor = usePlateEditorState();
+  if (!editor) {
+    return null;
+  }
   const editorRef = usePlateEditorRef();
-  const type = getPlatePluginType(editor, pluginKey);
+  const type = getPluginType(editor, pluginKey);
   const color = editorRef && getMark(editorRef, type);
   const [selectedColor, setSelectedColor] = useState<string>();
 

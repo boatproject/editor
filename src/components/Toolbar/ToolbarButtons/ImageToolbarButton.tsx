@@ -1,38 +1,77 @@
+import { styled } from "@mui/material";
 import { insertImage, usePlateEditorRef } from "@udecode/plate";
+import { ForwardedRef, forwardRef } from "react";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import type { GetImageUrl, UploadImage } from "../../types";
 
-export type GetImageUrl = () => Promise<string>;
+// const defaultGetImageUrl = () => window.prompt("Enter the URL of the image:");
 
-const defaultGetImageUrl = () => window.prompt("Enter the URL of the image:");
+const Input = styled("input")({
+  display: "none",
+});
 
 export interface ImageToolbarButtonProps extends ToolbarButtonProps {
   getImageUrl?: GetImageUrl;
+  uploadImage?: UploadImage;
 }
 
-export function ImageToolbarButton(props: ImageToolbarButtonProps) {
-  const { getImageUrl, ...buttonProps } = props;
+/**
+ * Button to upload an image and insert into editor
+ * @todo support getImageUrl and adding image by url
+ */
+export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
+  props: ImageToolbarButtonProps,
+  ref: ForwardedRef<HTMLButtonElement>
+) {
+  const { uploadImage, getImageUrl, ...buttonProps } = props;
   const editor = usePlateEditorRef();
 
-  const handleGetImageUrl = getImageUrl ?? defaultGetImageUrl;
+  // const handleGetImageUrl = async (e: MouseEvent<HTMLButtonElement>) => {
+  //   if (!editor) {
+  //     return;
+  //   }
+
+  //   e.preventDefault();
+
+  //   let url;
+  //   if (getImageUrl) {
+  //     url = await getImageUrl();
+  //   } else {
+  //     url = defaultGetImageUrl();
+  //   }
+
+  //   if (url) {
+  //     insertImage(editor, url);
+  //   }
+  // };
 
   return (
-    <ToolbarButton
-      onMouseDown={async (event) => {
-        if (!editor) {
-          return;
-        }
+    <label htmlFor="image-upload">
+      <Input
+        accept="image/*"
+        id={"image-upload"}
+        type="file"
+        onChange={async (e) => {
+          if (!editor) {
+            return;
+          }
 
-        event.preventDefault();
-
-        const url = await handleGetImageUrl();
-
-        if (url) {
-          insertImage(editor, url);
-        }
-      }}
-      {...buttonProps}
-    />
+          const file = e.target.files?.[0];
+          if (file && uploadImage) {
+            try {
+              const url = await uploadImage(file);
+              if (url) {
+                insertImage(editor, url);
+              }
+            } catch (err) {
+              console.error(err);
+            }
+          }
+        }}
+      />
+      <ToolbarButton ref={ref} component="span" {...buttonProps} />
+    </label>
   );
-}
+});
 
 export default ImageToolbarButton;

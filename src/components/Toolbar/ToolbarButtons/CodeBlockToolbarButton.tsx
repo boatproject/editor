@@ -3,7 +3,8 @@ import {
   insertEmptyCodeBlock,
   usePlateEditorState,
   CodeBlockInsertOptions,
-  getCodeBlockType,
+  getPluginType,
+  ELEMENT_CODE_BLOCK,
 } from "@udecode/plate";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
@@ -23,7 +24,7 @@ export function CodeBlockToolbarButton(props: CodeBlockToolbarButtonProps) {
 
   return (
     <ToolbarButton
-      value={getCodeBlockType(editor)}
+      value={getPluginType(editor, ELEMENT_CODE_BLOCK)}
       onMouseDown={getPreventDefaultHandler(insertEmptyCodeBlock, editor, {
         insertNodesOptions: { select: true },
         ...options,

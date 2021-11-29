@@ -1,7 +1,7 @@
 import { PopoverProps, Button } from "@mui/material";
 import { useCallback, useEffect, useState, MouseEvent, useRef } from "react";
 import ColorContainer from "./ColorContainer";
-import { DEFAULT_COLOR_ENTRIES } from "./colors";
+import { Color, DEFAULT_COLOR_OPTIONS } from "./colors";
 import { ColorTile } from "./ColorTile";
 import { OnSelectColorEventHandler } from "./types";
 import { Popover, Stack, styled } from "@mui/material";
@@ -19,9 +19,9 @@ export interface ColorPickerProps
   id?: string;
   color?: string;
   /**
-   * Memoized array of [name, colorValue] for populating color buttons
+   * Memoized array of colors for populating color tiles
    */
-  colorEntries?: [string, string][];
+  colorOptions?: Color[];
   onSelectColor?: OnSelectColorEventHandler;
   clearColor?: () => void;
   /** If true, automatically close window when a color is selected */
@@ -33,7 +33,7 @@ export function ColorPicker(props: ColorPickerProps) {
   const {
     id,
     color,
-    colorEntries: colorOptions = DEFAULT_COLOR_ENTRIES,
+    colorOptions = DEFAULT_COLOR_OPTIONS,
     onSelectColor,
     clearColor,
     anchorEl,
@@ -44,6 +44,7 @@ export function ColorPicker(props: ColorPickerProps) {
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
   const colorRef = useRef(color);
+
   useEffect(() => {
     if (colorRef.current !== color) {
       setSelectedColor(color);
@@ -89,13 +90,8 @@ export function ColorPicker(props: ColorPickerProps) {
     >
       <ColorPickerStack color={selectedColor}>
         <ColorContainer sx={{ width: 300, height: 300 }}>
-          {colorOptions.map(([name, color]) => (
-            <ColorTile
-              key={color}
-              title={name}
-              value={color}
-              onClick={handleClick}
-            />
+          {colorOptions.map((color) => (
+            <ColorTile key={color.value} color={color} onClick={handleClick} />
           ))}
         </ColorContainer>
         <Button

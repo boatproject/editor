@@ -3,7 +3,6 @@ import {
   createHistoryPlugin,
   createImagePlugin,
   createSelectOnBackspacePlugin,
-  PlatePlugin,
   createIndentPlugin,
   createLinkPlugin,
   createResetNodePlugin,
@@ -14,8 +13,6 @@ import {
   createFontColorPlugin,
   createFontBackgroundColorPlugin,
   createFontSizePlugin,
-  createDeserializeHTMLPlugin,
-  createDeserializeAstPlugin,
   createHighlightPlugin,
   createAlignPlugin,
   createBlockquotePlugin,
@@ -28,10 +25,9 @@ import {
   createStrikethroughPlugin,
   createSubscriptPlugin,
   createSuperscriptPlugin,
-  createDeserializeMDPlugin,
-  createDeserializeCSVPlugin,
   createLineHeightPlugin,
-  WithImageUploadOptions,
+  createPlugins,
+  PlatePlugin,
   // createAutoformatPlugin,
 } from "@udecode/plate";
 import { CONFIG } from "./config";
@@ -56,6 +52,7 @@ function createStaticPlugins(config = CONFIG) {
     createLinkPlugin(),
     createListPlugin(),
     createTodoListPlugin(),
+    createImagePlugin(),
   ];
 
   const markPlugins = [
@@ -79,42 +76,18 @@ function createStaticPlugins(config = CONFIG) {
     // createAutoformatPlugin(PLUGINS_CONFIG.autoFormat),
   ];
 
-  const plugins = [
-    ...corePlugins,
-    ...elementPlugins,
-    ...markPlugins,
-    ...utilPlugins,
-  ];
-  plugins.push(...createSerializerPlugins(plugins));
-
-  return plugins;
+  return [...corePlugins, ...elementPlugins, ...markPlugins, ...utilPlugins];
 }
 
-/**
- * Create serializer plugins passing plugins as argument
- * @param plugins
- * @returns
- */
-function createSerializerPlugins(plugins: PlatePlugin[]) {
-  return [
-    createDeserializeMDPlugin({ plugins }),
-    createDeserializeCSVPlugin({ plugins }),
-    createDeserializeHTMLPlugin({ plugins }),
-    createDeserializeAstPlugin({ plugins }),
-  ];
-}
-
-const PLUGINS = createStaticPlugins();
-
-export type GetPluginsOptions = WithImageUploadOptions;
+const PLUGINS = createStaticPlugins(CONFIG);
 
 /**
  * Get full array of plugins. Needed to create dynamic
  * plugins that take props from outside the component
  */
-export function createPlugins({ uploadImage }: GetPluginsOptions = {}) {
-  const plugins = [...PLUGINS, createImagePlugin({ uploadImage })];
-  plugins.push(...createSerializerPlugins(plugins));
-
-  return plugins;
+export function createEditorPlugins<T = Record<string, unknown>>() {
+  return createPlugins<T>(
+    PLUGINS as PlatePlugin<T, Record<string, unknown>>[],
+    { components: CONFIG.components }
+  );
 }

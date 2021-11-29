@@ -1,58 +1,29 @@
-import { ForwardedRef, forwardRef, useMemo, useState } from "react";
-import { Plate, PlateProps, WithImageUploadOptions } from "@udecode/plate";
-import { Box, Button, Collapse, Tooltip } from "@mui/material";
-import { MoreHoriz } from "@mui/icons-material";
+import { ForwardedRef, forwardRef, useMemo } from "react";
+import { Plate, PlateProps } from "@udecode/plate";
 import { Toolbar } from "./Toolbar";
-import { CONFIG } from "../config";
-import { createPlugins } from "../plugins";
-import EditorRef from "./EditorRef";
+import { createEditorPlugins } from "../plugins";
+import EditorNodeRef from "./EditorNodeRef";
+import { UploadImage } from "./types";
 
-export type TextEditorProps<T = unknown> = Pick<
+export type TextEditorProps<T = Record<string, unknown>> = Pick<
   PlateProps<T>,
-  "id" | "onChange" | "initialValue"
-> &
-  WithImageUploadOptions & {
-    defaultToolbarOpen?: boolean;
-  };
+  "value" | "onChange" | "initialValue" | "editableProps" | "enabled"
+> & {
+  id?: string;
+  uploadImage?: UploadImage;
+};
 
-export const TextEditor = forwardRef(function TextEditor<T = unknown>(
-  props: TextEditorProps<T>,
-  ref: ForwardedRef<HTMLDivElement>
-) {
-  const {
-    id,
-    onChange,
-    initialValue,
-    defaultToolbarOpen = true,
-    uploadImage,
-  } = props;
-  const [toolbarOpen, setToolbarOpen] = useState(defaultToolbarOpen);
+export const TextEditor = forwardRef(function TextEditor<
+  T = Record<string, unknown>
+>(props: TextEditorProps<T>, ref: ForwardedRef<HTMLDivElement>) {
+  const { uploadImage, ...plateProps } = props;
 
-  const toggleToolbar = () => setToolbarOpen((prev) => !prev);
-
-  const plugins = useMemo(() => createPlugins({ uploadImage }), [uploadImage]);
+  const plugins = useMemo(() => createEditorPlugins<T>(), []);
 
   return (
-    <Plate
-      id={id}
-      plugins={plugins}
-      components={CONFIG.components}
-      options={CONFIG.options}
-      onChange={onChange}
-      initialValue={initialValue}
-    >
-      <EditorRef ref={ref} />
-
-      <Collapse in={toolbarOpen}>
-        <Toolbar />
-      </Collapse>
-      <Box sx={{ display: "flex", justifyContent: "center" }}>
-        <Tooltip title={`${toolbarOpen ? "Hide" : "Show"} Formatting Bar`}>
-          <Button onClick={toggleToolbar} sx={{ p: 0 }} size="small">
-            <MoreHoriz />
-          </Button>
-        </Tooltip>
-      </Box>
+    <Plate {...plateProps} plugins={plugins}>
+      <EditorNodeRef ref={ref} />
+      <Toolbar uploadImage={uploadImage} />
     </Plate>
   );
 });

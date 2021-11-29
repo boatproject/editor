@@ -42,7 +42,7 @@ import {
   ELEMENT_OL,
   ELEMENT_TODO_LI,
   ELEMENT_UL,
-  getPlatePluginType,
+  getPluginType,
   getPreventDefaultHandler,
   indent,
   MARK_BG_COLOR,
@@ -56,64 +56,70 @@ import {
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
   outdent,
+  usePlateEditorRef,
   usePlateEditorState,
 } from "@udecode/plate";
 import { AlignToolbarButton } from "./AlignToolbarButton";
 import { ToolbarButton } from "./ToolbarButton";
 import { ColorPickerToolbarButton } from "./ColorPickerToolbarButton";
 import { BlockToolbarButton } from "./BlockToolbarButton";
-import { GetImageUrl, ImageToolbarButton } from "./ImageToolbarButton";
-import { GetLinkUrl, LinkToolbarButton } from "./LinkToolbarButton";
+import { ImageToolbarButton } from "./ImageToolbarButton";
+import { LinkToolbarButton } from "./LinkToolbarButton";
 import { ListToolbarButton } from "./ListToolbarButton";
 import { MarkToolbarButton } from "./MarkToolbarButton";
 import { CodeBlockToolbarButton } from "./CodeBlockToolbarButton";
+import type { GetImageUrl, GetLinkUrl, UploadImage } from "../../types";
 
 export function ToolbarMarkButtons() {
-  const editor = usePlateEditorState();
+  const editor = usePlateEditorRef();
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <>
       {/* <ToolbarButtonGroup size="small"> */}
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_BOLD)}
+        value={getPluginType(editor, MARK_BOLD)}
         tooltip="Bold"
       >
         <FormatBold />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_ITALIC)}
+        value={getPluginType(editor, MARK_ITALIC)}
         tooltip="Italic"
       >
         <FormatItalic />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_UNDERLINE)}
+        value={getPluginType(editor, MARK_UNDERLINE)}
         tooltip="Underline"
       >
         <FormatUnderlined />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_STRIKETHROUGH)}
+        value={getPluginType(editor, MARK_STRIKETHROUGH)}
         tooltip="Strikethrough"
       >
         <FormatStrikethrough />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_CODE)}
+        value={getPluginType(editor, MARK_CODE)}
         tooltip="Code Inline"
       >
         <Code />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_SUPERSCRIPT)}
-        clear={getPlatePluginType(editor, MARK_SUBSCRIPT)}
+        value={getPluginType(editor, MARK_SUPERSCRIPT)}
+        clear={getPluginType(editor, MARK_SUBSCRIPT)}
         tooltip="Superscript"
       >
         <Superscript />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_SUBSCRIPT)}
-        clear={getPlatePluginType(editor, MARK_SUPERSCRIPT)}
+        value={getPluginType(editor, MARK_SUBSCRIPT)}
+        clear={getPluginType(editor, MARK_SUPERSCRIPT)}
         tooltip="Subscript"
       >
         <Subscript />
@@ -125,7 +131,7 @@ export function ToolbarMarkButtons() {
         <FormatColorFill />
       </ColorPickerToolbarButton>
       <MarkToolbarButton
-        value={getPlatePluginType(editor, MARK_HIGHLIGHT)}
+        value={getPluginType(editor, MARK_HIGHLIGHT)}
         tooltip="Highlight"
       >
         <Highlight />
@@ -136,43 +142,47 @@ export function ToolbarMarkButtons() {
 }
 
 function ToolbarHeadingButtons() {
-  const editor = usePlateEditorState();
+  const editor = usePlateEditorRef();
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <>
       {/* <ToolbarButtonGroup size="small"> */}
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H1)}
+        value={getPluginType(editor, ELEMENT_H1)}
         tooltip="Heading One"
       >
         <LooksOne />
       </BlockToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H2)}
+        value={getPluginType(editor, ELEMENT_H2)}
         tooltip="Heading Two"
       >
         <LooksTwo />
       </BlockToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H3)}
+        value={getPluginType(editor, ELEMENT_H3)}
         tooltip="Heading Three"
       >
         <Looks3 />
       </BlockToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H4)}
+        value={getPluginType(editor, ELEMENT_H4)}
         tooltip="Heading Four"
       >
         <Looks4 />
       </BlockToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H5)}
+        value={getPluginType(editor, ELEMENT_H5)}
         tooltip="Heading Five"
       >
         <Looks5 />
       </BlockToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_H6)}
+        value={getPluginType(editor, ELEMENT_H6)}
         tooltip="Heading Six"
       >
         <Looks6 />
@@ -205,24 +215,29 @@ function ToolbarIndentButtons() {
 }
 
 function ToolbarListButtons() {
-  const editor = usePlateEditorState();
+  const editor = usePlateEditorRef();
+
+  if (!editor) {
+    return null;
+  }
+
   return (
     <>
       {/* <ToolbarButtonGroup size="small"> */}
       <ListToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_UL)}
+        value={getPluginType(editor, ELEMENT_UL)}
         tooltip="Bulleted List"
       >
         <FormatListBulleted />
       </ListToolbarButton>
       <ListToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_OL)}
+        value={getPluginType(editor, ELEMENT_OL)}
         tooltip="Numbered List"
       >
         <FormatListNumbered />
       </ListToolbarButton>
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_TODO_LI)}
+        value={getPluginType(editor, ELEMENT_TODO_LI)}
         tooltip="Check List"
       >
         <CheckBox />
@@ -256,23 +271,28 @@ function ToolbarAlignButtons() {
 export interface ToolbarBlockButtonsProps {
   getImageUrl?: GetImageUrl;
   getLinkUrl?: GetLinkUrl;
+  uploadImage?: UploadImage;
 }
 
 function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
-  const { getImageUrl, getLinkUrl } = props;
-  const editor = usePlateEditorState();
+  const { getImageUrl, getLinkUrl, uploadImage } = props;
+  const editor = usePlateEditorRef();
+
+  if (!editor) {
+    return null;
+  }
 
   return (
     <>
       {/* <ToolbarButtonGroup size="small"> */}
       <BlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_BLOCKQUOTE)}
+        value={getPluginType(editor, ELEMENT_BLOCKQUOTE)}
         tooltip="Block Quote"
       >
         <FormatQuote />
       </BlockToolbarButton>
       <CodeBlockToolbarButton
-        value={getPlatePluginType(editor, ELEMENT_CODE_BLOCK)}
+        value={getPluginType(editor, ELEMENT_CODE_BLOCK)}
         tooltip="Code Block"
       >
         <CodeOff />
@@ -280,6 +300,7 @@ function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
       <ImageToolbarButton
         value={ELEMENT_IMAGE}
         getImageUrl={getImageUrl}
+        uploadImage={uploadImage}
         tooltip="Insert Image"
       >
         <Image />
@@ -295,13 +316,17 @@ function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
 export type ToolbarButtonsProps = ToolbarBlockButtonsProps;
 
 export function ToolbarButtons(props: ToolbarButtonsProps) {
-  const { getImageUrl, getLinkUrl } = props;
+  const { getImageUrl, getLinkUrl, uploadImage } = props;
 
   return (
     <>
       <ToolbarMarkButtons />
       <ToolbarHeadingButtons />
-      <ToolbarBlockButtons getImageUrl={getImageUrl} getLinkUrl={getLinkUrl} />
+      <ToolbarBlockButtons
+        getImageUrl={getImageUrl}
+        getLinkUrl={getLinkUrl}
+        uploadImage={uploadImage}
+      />
       <ToolbarIndentButtons />
       <ToolbarListButtons />
       <ToolbarAlignButtons />

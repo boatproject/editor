@@ -1,13 +1,12 @@
 import {
   usePlateEditorState,
-  getPlatePluginType,
+  getPluginType,
   ELEMENT_LINK,
   someNode,
   getAndUpsertLink,
 } from "@udecode/plate";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-
-export type GetLinkUrl = (prevUrl?: string | null) => Promise<string | null>;
+import type { GetLinkUrl } from "../../types";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -19,14 +18,18 @@ export function LinkToolbarButton(props: LinkToolbarButtonProps) {
 
   const editor = usePlateEditorState();
 
-  const type = getPlatePluginType(editor, ELEMENT_LINK);
+  if (!editor) {
+    return null;
+  }
+
+  const type = getPluginType(editor, ELEMENT_LINK);
   const isLink = !!editor?.selection && someNode(editor, { match: { type } });
 
   return (
     <ToolbarButton
       value={type}
       selected={isLink}
-      onMouseDown={async (event) => {
+      onMouseDown={async (event: { preventDefault: () => void }) => {
         if (!editor) return;
 
         event.preventDefault();
