@@ -4,13 +4,10 @@ name: Typescript Build
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [ master ]
     tags: 
       - 'v*'
   pull_request:
-    branches: [ master ]
     tags:
       - 'v*'
 
@@ -26,7 +23,6 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
       - uses: actions/setup-node@v1
@@ -36,22 +32,15 @@ jobs:
       - run: npm install
       
       - run: npm pack --filename=package.tgz
-      
-      - uses: Klemensas/action-autotag@stable
-        id: update_tag
-        with:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          tag_prefix: "v"
           
       - name: Create Release
-        if: steps.update_tag.outputs.tagname
         uses: actions/create-release@v1
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.update_tag.outputs.tagname }}
-          release_name: Release ${{ steps.update_tag.outputs.tagname }}
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
       
       - name: Upload Release Asset
         if: steps.update_tag.outputs.tagname
