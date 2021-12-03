@@ -1,10 +1,18 @@
 import { styled, Toolbar as MuiToolbar } from "@mui/material";
 import { ForwardedRef, forwardRef, HTMLAttributes } from "react";
-import { ToolbarButtons, ToolbarButtonsProps } from "./ToolbarButtons";
+import {
+  ToolbarAlignButtons,
+  ToolbarBlockButtons,
+  ToolbarBlockButtonsProps,
+  ToolbarHeadingButtons,
+  ToolbarIndentButtons,
+  ToolbarListButtons,
+  ToolbarMarkButtons,
+} from "./ToolbarButtons";
 
 export interface ToolbarProps
   extends HTMLAttributes<HTMLDivElement>,
-    ToolbarButtonsProps {}
+    ToolbarBlockButtonsProps {}
 
 export const ToolbarRoot = styled(MuiToolbar, {
   name: "Toolbar",
@@ -23,11 +31,16 @@ export const Toolbar = forwardRef(function Toolbar(
 
   return (
     <ToolbarRoot {...toolbarProps} ref={ref} disableGutters variant="dense">
-      <ToolbarButtons
+      <ToolbarMarkButtons />
+      <ToolbarHeadingButtons />
+      <ToolbarBlockButtons
         getImageUrl={getImageUrl}
         getLinkUrl={getLinkUrl}
         uploadImage={uploadImage}
       />
+      <ToolbarIndentButtons />
+      <ToolbarListButtons />
+      <ToolbarAlignButtons />
     </ToolbarRoot>
   );
 });

@@ -1,7 +1,8 @@
-import React from "react";
+import { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
+import { AnyObject, TNode } from "@udecode/plate";
 
-import { TextEditor } from "../components/TextEditor";
+import { TextEditor } from "./TextEditor";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -13,6 +14,7 @@ export default {
   // },
   args: {
     id: "TextEditor-story",
+    value: undefined,
   },
 } as ComponentMeta<typeof TextEditor>;
 
@@ -23,6 +25,19 @@ const Template: ComponentStory<typeof TextEditor> = (args) => (
 
 export const Basic = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-// Primary.args = {
-//   label: "Button",
-// };
+
+const DebugTemplate = Template.bind({});
+/**
+ * Story to print the value state as it updates
+ * @param args
+ * @returns
+ */
+export const Debug: ComponentStory<typeof TextEditor> = (args) => {
+  const [debugValue, setDebugValue] = useState<TNode<AnyObject>[] | null>(null);
+
+  return (
+    <DebugTemplate {...args} onChange={(value) => setDebugValue(value)}>
+      {JSON.stringify(debugValue)}
+    </DebugTemplate>
+  );
+};

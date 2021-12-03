@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ColorPicker, { ColorPickerProps } from "./ColorPicker";
 import { black, red, white, Color } from "./colors";
@@ -38,18 +38,27 @@ describe("<ColorPicker />", () => {
     expect(rootElement).not.toBeInTheDocument();
   });
 
-  describe("ColorTile buttons", () => {
-    it("should render a button for each color", () => {
-      const { getByRole } = render(<ColorPicker {...props} />);
+  it("should render a button for each color", () => {
+    const { getByRole } = render(<ColorPicker {...props} />);
 
-      colorOptions.forEach(({ name, value }) => {
-        const button = getByRole("button", { name }) as HTMLButtonElement;
-        expect(button).toBeInTheDocument();
-        expect(button.value).toEqual(value);
-      });
+    colorOptions.forEach(({ name, value }) => {
+      const button = getByRole("button", { name }) as HTMLButtonElement;
+      expect(button).toBeInTheDocument();
+      expect(button.value).toEqual(value);
+    });
+  });
+
+  describe("on color select", () => {
+    it("should close window if closeOnSelect = true", () => {
+      const { getByRole } = render(<ColorPicker {...props} closeOnSelect />);
+
+      const button = getByRole("button", {
+        name: colorOptions[0].name,
+      }) as HTMLButtonElement;
+      button.click();
     });
 
-    it("should call onSelectColor with a color when it is clicked", () => {
+    it("should call onSelectColor with the clicked color", () => {
       const { getByRole } = render(<ColorPicker {...props} />);
 
       colorOptions.forEach(({ name, value }) => {
@@ -71,14 +80,13 @@ describe("<ColorPicker />", () => {
       expect(button.disabled).toBeTruthy();
     });
 
-    it("should call clearColor when clicked and a color is set", () => {
+    it("should call clearColor when clicked", () => {
       const { getByRole } = render(<ColorPicker {...props} color={"#000"} />);
 
       const button = getByRole("button", {
         name: /clear/i,
       }) as HTMLButtonElement;
 
-      screen.debug(button);
       button.click();
       expect(props.clearColor).toHaveBeenCalled();
     });

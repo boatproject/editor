@@ -1,34 +1,122 @@
-import { ForwardedRef, forwardRef, ReactNode } from "react";
-import { LabeledOutline } from "./LabeledOutline";
-import TextEditor, { TextEditorProps } from "../TextEditor";
+import { ForwardedRef, forwardRef } from "react";
+import {
+  InputBaseComponentProps,
+  styled,
+  TextField,
+  TextFieldProps,
+} from "@mui/material";
+import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
+import { EditableProps } from "slate-react/dist/components/editable";
+import { AnyObject } from "../types";
 
-export interface RichTextFieldProps<T = Record<string, unknown>>
-  extends TextEditorProps<T> {
-  label: string;
-  error?: boolean;
-  helperText?: ReactNode;
+const RichTextFieldRoot = styled(TextField)({
+  "& .MuiInputBase-root": {
+    display: "flex",
+  },
+});
+
+interface RichTextInputProps<T = AnyObject> extends InputBaseComponentProps {
+  editorProps?: TextEditorProps<T>;
 }
 
-// const StyledEditable = styled(MaterialEditable)(({ theme }) => ({
-//   ...theme.typography.body1,
-//   minHeight: "150px !important",
-//   width: "100%",
-// }));
+const RichTextInputComponent = forwardRef(function InputComponent<
+  T = AnyObject
+>(props: RichTextInputProps<T>, ref: ForwardedRef<HTMLElement>) {
+  const { editorProps, ...editableProps } = props;
+  return (
+    <TextEditor
+      ref={ref}
+      editableProps={editableProps as EditableProps}
+      {...editorProps}
+    />
+  );
+});
 
-export const RichTextField = forwardRef(function RichTextField<
-  T = Record<string, unknown>
->(props: RichTextFieldProps<T>, ref: ForwardedRef<HTMLDivElement>) {
-  const { label, error, helperText, ...plateProps } = props;
+type RichTextTextFieldProps = Pick<
+  TextFieldProps,
+  "id" | "label" | "error" | "helperText" | "color" | "required"
+>;
+
+type RichTextTextEditorProps<T = AnyObject> = Pick<
+  TextEditorProps<T>,
+  "value" | "initialValue" | "onChange"
+>;
+
+export interface RichTextFieldProps<T = AnyObject>
+  extends RichTextTextFieldProps,
+    RichTextTextEditorProps<T> {
+  /**
+   * Style variant to render
+   * @default "outlined"
+   */
+  variant?: "standard" | "outlined";
+  /**
+   * Additional props passed to text field component
+   */
+  textFieldProps?: TextFieldProps;
+  /**
+   * Additional props passed to TextEditor component
+   */
+  textEditorProps?: TextEditorProps<T>;
+  /**
+   * Ref passed to the TextEditor component
+   */
+  textEditorRef?: ForwardedRef<HTMLElement>;
+}
+
+/**
+ * Material-UI TextField wrapper around TextEditor
+ * @param props
+ * @see https://stackoverflow.com/a/55036265/4272428
+ * @see https://stackoverflow.com/a/58421725/4272428
+ * @see https://github.com/mui-org/material-ui/blob/81f445cfeb4bf0c231818e80b699f3102736548c/packages/mui-material/src/OutlinedInput/OutlinedInput.js
+ */
+export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
+  props: RichTextFieldProps<T>,
+  ref: ForwardedRef<HTMLDivElement>
+) {
+  const {
+    id,
+    label,
+    error,
+    helperText,
+    variant = "outlined",
+    color,
+    required = false,
+    value,
+    initialValue,
+    onChange,
+    textFieldProps,
+    textEditorProps,
+    textEditorRef,
+  } = props;
 
   return (
-    <LabeledOutline
-      id="rich-text-field"
+    <RichTextFieldRoot
+      ref={ref}
+      id={id}
       label={label}
       error={error}
       helperText={helperText}
-    >
-      <TextEditor {...plateProps} ref={ref} />
-    </LabeledOutline>
+      variant={variant}
+      multiline
+      color={color}
+      required={required}
+      InputLabelProps={{ shrink: true }}
+      InputProps={{
+        inputComponent: RichTextInputComponent,
+      }}
+      inputProps={{
+        editorProps: {
+          ...textEditorProps,
+          initialValue,
+          onChange,
+        },
+      }}
+      inputRef={textEditorRef}
+      value={value}
+      {...textFieldProps}
+    />
   );
 });
 

@@ -56,9 +56,8 @@ import {
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
   outdent,
-  usePlateEditorRef,
-  usePlateEditorState,
 } from "@udecode/plate";
+import { usePlateEditorRef, usePlateEditorState } from "../../../plate";
 import { AlignToolbarButton } from "./AlignToolbarButton";
 import { ToolbarButton } from "./ToolbarButton";
 import { ColorPickerToolbarButton } from "./ColorPickerToolbarButton";
@@ -68,18 +67,14 @@ import { LinkToolbarButton } from "./LinkToolbarButton";
 import { ListToolbarButton } from "./ListToolbarButton";
 import { MarkToolbarButton } from "./MarkToolbarButton";
 import { CodeBlockToolbarButton } from "./CodeBlockToolbarButton";
+
 import type { GetImageUrl, GetLinkUrl, UploadImage } from "../../types";
 
 export function ToolbarMarkButtons() {
   const editor = usePlateEditorRef();
 
-  if (!editor) {
-    return null;
-  }
-
   return (
     <>
-      {/* <ToolbarButtonGroup size="small"> */}
       <MarkToolbarButton
         value={getPluginType(editor, MARK_BOLD)}
         tooltip="Bold"
@@ -136,21 +131,15 @@ export function ToolbarMarkButtons() {
       >
         <Highlight />
       </MarkToolbarButton>
-      {/* </ToolbarButtonGroup> */}
     </>
   );
 }
 
-function ToolbarHeadingButtons() {
+export function ToolbarHeadingButtons() {
   const editor = usePlateEditorRef();
-
-  if (!editor) {
-    return null;
-  }
 
   return (
     <>
-      {/* <ToolbarButtonGroup size="small"> */}
       <BlockToolbarButton
         value={getPluginType(editor, ELEMENT_H1)}
         tooltip="Heading One"
@@ -187,12 +176,11 @@ function ToolbarHeadingButtons() {
       >
         <Looks6 />
       </BlockToolbarButton>
-      {/* </ToolbarButtonGroup> */}
     </>
   );
 }
 
-function ToolbarIndentButtons() {
+export function ToolbarIndentButtons() {
   const editor = usePlateEditorState();
   return (
     <>
@@ -214,16 +202,11 @@ function ToolbarIndentButtons() {
   );
 }
 
-function ToolbarListButtons() {
+export function ToolbarListButtons() {
   const editor = usePlateEditorRef();
-
-  if (!editor) {
-    return null;
-  }
 
   return (
     <>
-      {/* <ToolbarButtonGroup size="small"> */}
       <ListToolbarButton
         value={getPluginType(editor, ELEMENT_UL)}
         tooltip="Bulleted List"
@@ -242,15 +225,13 @@ function ToolbarListButtons() {
       >
         <CheckBox />
       </BlockToolbarButton>
-      {/* </ToolbarButtonGroup> */}
     </>
   );
 }
 
-function ToolbarAlignButtons() {
+export function ToolbarAlignButtons() {
   return (
     <>
-      {/* <ToolbarButtonGroup size="small"> */}
       <AlignToolbarButton value="left" tooltip="Align Left">
         <FormatAlignLeft />
       </AlignToolbarButton>
@@ -263,7 +244,6 @@ function ToolbarAlignButtons() {
       <AlignToolbarButton value="justify" tooltip="Justify">
         <FormatAlignJustify />
       </AlignToolbarButton>
-      {/* </ToolbarButtonGroup> */}
     </>
   );
 }
@@ -274,13 +254,9 @@ export interface ToolbarBlockButtonsProps {
   uploadImage?: UploadImage;
 }
 
-function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
+export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
   const { getImageUrl, getLinkUrl, uploadImage } = props;
   const editor = usePlateEditorRef();
-
-  if (!editor) {
-    return null;
-  }
 
   return (
     <>
@@ -312,26 +288,3 @@ function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
     </>
   );
 }
-
-export type ToolbarButtonsProps = ToolbarBlockButtonsProps;
-
-export function ToolbarButtons(props: ToolbarButtonsProps) {
-  const { getImageUrl, getLinkUrl, uploadImage } = props;
-
-  return (
-    <>
-      <ToolbarMarkButtons />
-      <ToolbarHeadingButtons />
-      <ToolbarBlockButtons
-        getImageUrl={getImageUrl}
-        getLinkUrl={getLinkUrl}
-        uploadImage={uploadImage}
-      />
-      <ToolbarIndentButtons />
-      <ToolbarListButtons />
-      <ToolbarAlignButtons />
-    </>
-  );
-}
-
-export default ToolbarButtons;

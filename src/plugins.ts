@@ -1,6 +1,6 @@
 import {
-  createReactPlugin,
-  createHistoryPlugin,
+  createBasicElementsPlugin,
+  createBasicMarksPlugin,
   createImagePlugin,
   createSelectOnBackspacePlugin,
   createIndentPlugin,
@@ -15,54 +15,37 @@ import {
   createFontSizePlugin,
   createHighlightPlugin,
   createAlignPlugin,
-  createBlockquotePlugin,
-  createCodeBlockPlugin,
-  createHeadingPlugin,
-  createParagraphPlugin,
-  createBoldPlugin,
-  createItalicPlugin,
-  createUnderlinePlugin,
-  createStrikethroughPlugin,
-  createSubscriptPlugin,
-  createSuperscriptPlugin,
   createLineHeightPlugin,
   createPlugins,
   PlatePlugin,
+  createPlateUI,
+  createTrailingBlockPlugin,
   // createAutoformatPlugin,
 } from "@udecode/plate";
+import { AnyObject } from "./components/types";
 import { CONFIG } from "./config";
 
 /**
- * Create any plugins that dont require dynamic configuration
+ * Create any plugins that dont require dynamic
+ * configuration (from props or state)
  * @param config
  * @returns
  */
 function createStaticPlugins(config = CONFIG) {
-  const corePlugins = [createReactPlugin(), createHistoryPlugin()];
-
   const elementPlugins = [
-    createBlockquotePlugin(),
-    createCodeBlockPlugin(),
-    createHeadingPlugin(),
-    createParagraphPlugin(),
+    createBasicElementsPlugin(),
     createAlignPlugin(config.align),
     createLineHeightPlugin(config.lineHeight),
     createSelectOnBackspacePlugin(config.selectOnBackspace),
     createIndentPlugin(config.indent),
     createLinkPlugin(),
+    createImagePlugin(),
     createListPlugin(),
     createTodoListPlugin(),
-    createImagePlugin(),
   ];
 
   const markPlugins = [
-    createBoldPlugin(),
-    createItalicPlugin(),
-    createUnderlinePlugin(),
-    createStrikethroughPlugin(),
-    createSubscriptPlugin(),
-    createSuperscriptPlugin(),
-    createCodeBlockPlugin(),
+    createBasicMarksPlugin(),
     createFontColorPlugin(),
     createFontBackgroundColorPlugin(),
     createFontSizePlugin(),
@@ -72,22 +55,27 @@ function createStaticPlugins(config = CONFIG) {
   const utilPlugins = [
     createResetNodePlugin(config.resetBlockType),
     createSoftBreakPlugin(config.softBreak),
+    createTrailingBlockPlugin(config.trailingBlock),
     createExitBreakPlugin(config.exitBreak),
     // createAutoformatPlugin(PLUGINS_CONFIG.autoFormat),
   ];
 
-  return [...corePlugins, ...elementPlugins, ...markPlugins, ...utilPlugins];
+  return createPlugins<AnyObject>(
+    [...elementPlugins, ...markPlugins, ...utilPlugins],
+    {
+      components: createPlateUI(),
+    }
+  );
 }
 
-const PLUGINS = createStaticPlugins(CONFIG);
+export const PLUGINS = createStaticPlugins(CONFIG);
 
 /**
  * Get full array of plugins. Needed to create dynamic
  * plugins that take props from outside the component
  */
-export function createEditorPlugins<T = Record<string, unknown>>() {
-  return createPlugins<T>(
-    PLUGINS as PlatePlugin<T, Record<string, unknown>>[],
-    { components: CONFIG.components }
-  );
+export function createEditorPlugins() {
+  return createPlugins(PLUGINS as PlatePlugin[], {
+    components: createPlateUI(),
+  });
 }

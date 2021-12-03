@@ -37,7 +37,7 @@ export function ColorPicker(props: ColorPickerProps) {
     onSelectColor,
     clearColor,
     anchorEl,
-    open,
+    open = false,
     onClose,
     closeOnSelect = true,
   } = props;

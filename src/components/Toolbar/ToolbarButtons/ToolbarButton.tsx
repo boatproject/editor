@@ -10,14 +10,6 @@ export type ToolbarButtonProps<
   D extends ElementType = "button"
 > = ToggleButtonProps<D, { tooltip?: ReactNode; component?: D; value: string }>;
 
-// export interface ToolbarButtonProps<D extends ElementType = "button", P = {}>
-//   extends ToggleButtonProps<D, P> {
-//   /** Plugin type */
-//   value: string;
-//   tooltip?: ReactNode;
-//   component?: D;
-// }
-
 const ToggleButton = styled(MuiToggleButton)({
   border: 0,
 });

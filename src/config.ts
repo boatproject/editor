@@ -26,6 +26,7 @@ import {
   SoftBreakPlugin,
   TrailingBlockPlugin,
   ELEMENT_MEDIA_EMBED,
+  PlateProps,
 } from "@udecode/plate";
 import { EditableProps } from "slate-react/dist/components/editable";
 
@@ -37,8 +38,13 @@ const resetBlockTypesCommonRule = {
 type PluginConfig<T> = Partial<PlatePlugin<Record<string, unknown>, T>>;
 
 export interface Config {
+  defaultProps: Partial<PlateProps>;
   components: Record<string, PlatePluginComponent>;
   editableProps: EditableProps;
+  /**
+   * Merge additional props with the base config
+   */
+  getEditableProps: (props: EditableProps) => EditableProps;
   align: Partial<PlatePlugin>;
   // autoformat: AutoformatPluginOptions;
   lineHeight: Partial<PlatePlugin>;
@@ -51,8 +57,17 @@ export interface Config {
 }
 
 export const CONFIG: Config = {
+  defaultProps: {
+    initialValue: [{ type: "p", children: [{ text: "" }] }],
+    // normalizeInitialValue: true,
+  },
   components: createPlateUI(),
-  editableProps: {},
+  editableProps: {
+    style: {
+      minHeight: 150,
+    },
+  },
+  getEditableProps: (props) => ({ ...props, ...CONFIG.editableProps }),
   align: {
     inject: {
       props: {
@@ -92,7 +107,7 @@ export const CONFIG: Config = {
     inject: {
       props: {
         defaultNodeValue: 1.5,
-        validNodeValues: [1, 1.2, 1.65, 2, 3],
+        validNodeValues: [1, 1.2, 1.5, 2, 3],
         validTypes: [
           ELEMENT_PARAGRAPH,
           ELEMENT_H1,

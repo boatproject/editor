@@ -1,11 +1,11 @@
 import {
-  usePlateEditorState,
   getPluginType,
   ELEMENT_LINK,
   someNode,
   getAndUpsertLink,
 } from "@udecode/plate";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import { usePlateEditorState } from "../../../plate";
 import type { GetLinkUrl } from "../../types";
 
 export interface LinkToolbarButtonProps
@@ -17,10 +17,6 @@ export function LinkToolbarButton(props: LinkToolbarButtonProps) {
   const { getLinkUrl, ...buttonProps } = props;
 
   const editor = usePlateEditorState();
-
-  if (!editor) {
-    return null;
-  }
 
   const type = getPluginType(editor, ELEMENT_LINK);
   const isLink = !!editor?.selection && someNode(editor, { match: { type } });
