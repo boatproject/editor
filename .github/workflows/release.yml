@@ -46,6 +46,7 @@ jobs:
       - name: Create Release
         if: steps.update_tag.outputs.tagname
         uses: actions/create-release@v1
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
