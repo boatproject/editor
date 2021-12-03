@@ -35,7 +35,7 @@ jobs:
           
       - run: npm install
       
-      - run: npm pack --filename=release.tgz
+      - run: npm pack --filename=package.tgz
       
       - uses: Klemensas/action-autotag@stable
         id: update_tag
