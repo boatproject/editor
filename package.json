@@ -48,7 +48,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "prepare": "tsc",
-    "build": "tsc"
+    "build": "tsc",
+    "postversion": "git push --follow-tags"
   },
   "author": "zimmerel",
   "license": "ISC",
