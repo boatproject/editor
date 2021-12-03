@@ -41,7 +41,7 @@
     "styled-components": "^5.3.3"
   },
   "name": "boatsoft-editor",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "main": "src/index.ts",
   "scripts": {
     "test": "jest",
