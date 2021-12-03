@@ -47,8 +47,9 @@
     "test": "jest",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "prepare": "tsc",
     "build": "tsc",
+    "prepare": "tsc",
+    "prepack": "npm build",
     "postversion": "git push --follow-tags"
   },
   "author": "zimmerel",
