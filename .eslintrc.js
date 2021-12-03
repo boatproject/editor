@@ -1,5 +1,4 @@
 /*eslint-env node*/
-
 module.exports = {
   env: {
     browser: true,
@@ -10,6 +9,8 @@ module.exports = {
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
+    "plugin:jest-dom/recommended",
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {
@@ -18,15 +19,5 @@ module.exports = {
     },
     ecmaVersion: 13,
     sourceType: "module",
-  },
-  plugins: ["react", "@typescript-eslint"],
-  rules: {
-    "react/jsx-uses-react": "off",
-    "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      { ignoreRestSiblings: true },
-    ],
   },
 };
