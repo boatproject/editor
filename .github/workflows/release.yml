@@ -27,19 +27,19 @@ jobs:
       
       - uses: actions/setup-node@v1
         with: 
-          node-version: '14.x'
+          node-version: '14'
           
       - name: Install Dependencies
-        id: install_deps
+        id: install-deps
         run: npm ci
       
       - name: Package Release
-        id: package_release
-        run: echo "::set-output name=release_file::$(npm pack)"
+        id: package-release
+        run: echo "::set-output name=release_file::$(echo $(npm pack . ))"
           
       - name: Create Release
         uses: actions/create-release@v1
-        id: create_release
+        id: create-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -52,7 +52,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${{ steps.package_release.outputs.release_file }}
-          asset_name: ${{ steps.package_release.outputs.release_file }}
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          asset_path: ./${{ steps.package-release.outputs.release_file }}
+          asset_name: ${{ steps.package-release.outputs.release_file }}
           asset_content_type: application/tgz
