@@ -36,14 +36,14 @@ jobs:
       - name: Package Release
         id: package-release
         run: |
-          mkdir -p ./release
-          npm pack . --pack-destination "./release"
+          RELEASE_FILE=$(npm pack .)
+          echo "::set-output name=release_file::$(echo $RELEASE_FILE)"
           
       - name: Release
         id: release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: ./release/*
+          files: ${{ steps.package-release.outputs.release_file }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
