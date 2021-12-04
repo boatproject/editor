@@ -37,7 +37,7 @@ jobs:
         id: package-release
         run: |
           RELEASE_FILE=$(npm pack .)
-          echo "::set-output name=release_file::$(echo $RELEASE_FILE)"
+          echo "::set-output name=release_file::$($RELEASE_FILE)"
           
       - name: Release
         id: release
