@@ -49,7 +49,7 @@
     "build-storybook": "build-storybook",
     "build": "tsc",
     "prepare": "tsc",
-    "prepack": "npm build",
+    "prepack": "npm run build",
     "postversion": "git push --follow-tags"
   },
   "author": "zimmerel",
