@@ -36,8 +36,8 @@ jobs:
       - name: Package Release
         id: package-release
         run: |
-          mkdir -p release
-          npm pack --pack-destination release
+          mkdir -p ./release
+          npm pack --pack-destination ./release
           
       - name: Release
         id: release
