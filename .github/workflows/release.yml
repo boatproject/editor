@@ -35,8 +35,7 @@ jobs:
       
       - name: Package Release
         id: package_release
-        run: |
-          npm pack . | xargs echo "::set-output name=release_file::"
+        run: echo "::set-output name=release_file::$(npm pack)"
           
       - name: Create Release
         uses: actions/create-release@v1
