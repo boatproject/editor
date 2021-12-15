@@ -42,7 +42,7 @@
   },
   "name": "boatsoft-editor",
   "version": "2.1.0",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "storybook": "start-storybook -p 6006",
