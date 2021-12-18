@@ -16,7 +16,7 @@ export const EditorNodeRef = forwardRef<HTMLElement, unknown>(
       const domNode = editor ? ReactEditor.toDOMNode(editor, editor) : null;
 
       setRef(ref, domNode);
-    });
+    }, [editor]);
 
     return null;
   }
