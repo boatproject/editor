@@ -11,8 +11,6 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^12.1.2",
     "@types/jest": "^27.0.2",
-    "@types/react": "^17.0.31",
-    "@types/react-dom": "^17.0.10",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
     "babel-jest": "^27.3.1",
@@ -32,13 +30,17 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "@udecode/plate": "^8.0.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
     "slate": "^0.66.5",
     "slate-history": "^0.66.0",
     "slate-hyperscript": "^0.67.0",
     "slate-react": "^0.67.0",
     "styled-components": "^5.3.3"
+  },
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "@types/react": "^17.0.31",
+    "@types/react-dom": "^17.0.10"
   },
   "name": "boatsoft-editor",
   "version": "2.3.0",

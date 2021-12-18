@@ -34,7 +34,7 @@ const RichTextInputComponent = forwardRef(function InputComponent<
 
 type RichTextTextFieldProps = Pick<
   TextFieldProps,
-  "id" | "label" | "error" | "helperText" | "color" | "required"
+  "id" | "label" | "error" | "helperText" | "color" | "required" | "name"
 >;
 
 type RichTextTextEditorProps<T = AnyObject> = Pick<
@@ -77,6 +77,7 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
 ) {
   const {
     id,
+    name,
     label,
     error,
     helperText,
@@ -95,6 +96,7 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
     <RichTextFieldRoot
       ref={ref}
       id={id}
+      name={name}
       label={label}
       error={error}
       helperText={helperText}
