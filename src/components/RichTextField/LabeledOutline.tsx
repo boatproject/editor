@@ -3,7 +3,12 @@ import {
   TextField,
   TextFieldProps,
 } from "@mui/material";
-import { ReactNode, TextareaHTMLAttributes } from "react";
+import {
+  ForwardedRef,
+  forwardRef,
+  ReactNode,
+  TextareaHTMLAttributes,
+} from "react";
 
 export interface LabeledOutlineProps {
   htmlFor?: string;
@@ -22,12 +27,18 @@ export interface LabeledOutlineProps {
  * @see https://stackoverflow.com/a/55036265/4272428
  * @see https://stackoverflow.com/a/58421725/4272428
  */
-const InputComponent = (props: InputBaseComponentProps) => {
+const InputComponent = forwardRef(function InputComponent(
+  props: InputBaseComponentProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   const { inputRef, style, ...divProps } = props;
   return (
-    <div {...(divProps as unknown as TextareaHTMLAttributes<HTMLDivElement>)} />
+    <div
+      {...(divProps as unknown as TextareaHTMLAttributes<HTMLDivElement>)}
+      ref={ref}
+    />
   );
-};
+});
 
 export function LabeledOutline(props: LabeledOutlineProps) {
   const { htmlFor, children, label, error, helperText, required, color } =
