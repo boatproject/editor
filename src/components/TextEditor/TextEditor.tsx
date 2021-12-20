@@ -1,4 +1,4 @@
-import { forwardRef, CSSProperties, ForwardedRef } from "react";
+import { forwardRef, CSSProperties, ForwardedRef, useMemo } from "react";
 import { Plate, PlateProps } from "@udecode/plate";
 import { Divider, Stack } from "@mui/material";
 import { Toolbar } from "../Toolbar";
@@ -14,6 +14,7 @@ type PlateEditorProps<T = AnyObject> = Pick<
 
 export interface TextEditorProps<T = AnyObject> extends PlateEditorProps<T> {
   id?: string;
+  name?: string;
   uploadImage?: UploadImage;
   className?: string;
   style?: CSSProperties;
@@ -29,8 +30,9 @@ export const TextEditor = forwardRef(function TextEditor<T = AnyObject>(
 ) {
   const {
     id,
+    name,
     uploadImage,
-    children,
+    // children,
     className,
     style,
     value,
@@ -40,7 +42,10 @@ export const TextEditor = forwardRef(function TextEditor<T = AnyObject>(
     plateProps = {},
   } = props;
 
-  const editableProps = { ...CONFIG.editableProps, ...propEditableProps };
+  const editableProps = useMemo(
+    () => ({ name, ...CONFIG.editableProps, ...propEditableProps }),
+    [propEditableProps, name]
+  );
 
   return (
     <Stack className={className} style={style}>
@@ -57,7 +62,6 @@ export const TextEditor = forwardRef(function TextEditor<T = AnyObject>(
         <EditorNodeRef ref={ref} />
         <Toolbar uploadImage={uploadImage} />
         <Divider sx={{ mb: 2 }} />
-        {children}
       </Plate>
     </Stack>
   );

@@ -58,10 +58,11 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
       <TextEditor
         ref={ref}
         id={id}
+        name={name}
         value={value}
         initialValue={initialValue}
         onChange={onChange}
-        editableProps={{ name, ...editableProps }}
+        editableProps={editableProps}
         uploadImage={uploadImage}
         style={style}
         className={className}
