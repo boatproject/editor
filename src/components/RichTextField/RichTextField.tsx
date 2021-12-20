@@ -11,7 +11,14 @@ type RichTextTextFieldProps = Pick<
 
 type RichTextTextEditorProps<T = AnyObject> = Pick<
   TextEditorProps<T>,
-  "value" | "initialValue" | "onChange" | "editableProps"
+  | "value"
+  | "initialValue"
+  | "onChange"
+  | "editableProps"
+  | "uploadImage"
+  | "style"
+  | "className"
+  | "plateProps"
 >;
 
 export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
