@@ -40,6 +40,10 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
     initialValue,
     onChange,
     editableProps,
+    uploadImage,
+    style,
+    className,
+    plateProps,
   } = props;
 
   return (
@@ -58,6 +62,10 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
         initialValue={initialValue}
         onChange={onChange}
         editableProps={{ name, ...editableProps }}
+        uploadImage={uploadImage}
+        style={style}
+        className={className}
+        plateProps={plateProps}
       />
     </LabeledOutline>
   );
