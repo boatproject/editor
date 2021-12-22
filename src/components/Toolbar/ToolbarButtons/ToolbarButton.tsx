@@ -23,14 +23,15 @@ export const ToolbarButton = memo(function ToolbarButton<
    * types on the rest doesn't work properly with
    * generic arguments
    */
-  const button = (
-    <ToggleButton
-      size="small"
-      {...(buttonProps as unknown as ToggleButtonProps)}
-    />
-  );
 
-  return tooltip ? <Tooltip title={tooltip}>{button}</Tooltip> : button;
+  return (
+    <Tooltip title={tooltip || ""}>
+      <ToggleButton
+        size="small"
+        {...(buttonProps as unknown as ToggleButtonProps)}
+      />
+    </Tooltip>
+  );
 });
 
 export default ToolbarButton;

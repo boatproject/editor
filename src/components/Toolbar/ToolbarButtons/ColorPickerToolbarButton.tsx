@@ -6,7 +6,13 @@ import {
   usePlateEditorState,
   usePlateEditorRef,
 } from "@udecode/plate";
-import { MouseEventHandler, useCallback, useEffect, useState } from "react";
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 import { hasMarkSelected } from "../../../plate";
@@ -18,7 +24,18 @@ export interface ColorPickerToolbarButtonProps
   pluginKey: string;
 }
 
-function useMenuAnchor() {
+/**
+ * ColorPicker toolbar component
+ * @param props
+ */
+export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
+  const { pluginKey, ...buttonProps } = props;
+
+  const editor = usePlateEditorState();
+  const editorRef = usePlateEditorRef();
+  const type = getPluginType(editor, pluginKey);
+  const color = editorRef && getMark(editorRef, type);
+  const [selectedColor, setSelectedColor] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
 
@@ -28,29 +45,6 @@ function useMenuAnchor() {
   );
 
   const handleClose = useCallback(() => setAnchorEl(null), []);
-
-  return {
-    anchorEl,
-    open,
-    handleOpen,
-    handleClose,
-  };
-}
-
-/**
- * ColorPicker toolbar component
- * @param props
- */
-export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
-  const { pluginKey, ...buttonProps } = props;
-
-  const { anchorEl, open, handleOpen, handleClose } = useMenuAnchor();
-
-  const editor = usePlateEditorState();
-  const editorRef = usePlateEditorRef();
-  const type = getPluginType(editor, pluginKey);
-  const color = editorRef && getMark(editorRef, type);
-  const [selectedColor, setSelectedColor] = useState<string>();
 
   const updateColor = useCallback(
     (color: string) => {
@@ -88,15 +82,20 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const menuId = "color-picker-menu";
   const actualColor = selectedColor || color;
 
+  const buttonStyles = useMemo(
+    () => ({
+      "&.Mui-selected": {
+        color: actualColor,
+      },
+    }),
+    [actualColor]
+  );
+
   return (
     <>
       <ToolbarButton
-        id={"color-picker-button"}
-        sx={{
-          "&.Mui-selected": {
-            color: actualColor,
-          },
-        }}
+        id="color-picker-button"
+        sx={buttonStyles}
         aria-controls={menuId}
         aria-haspopup="true"
         aria-expanded={open}
