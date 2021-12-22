@@ -1,4 +1,4 @@
-import { usePlateEditorState } from "@udecode/plate";
+import { usePlateEditorRef } from "@udecode/plate";
 import { forwardRef, useEffect } from "react";
 import { ReactEditor } from "slate-react";
 import setRef from "../../utils/setRef";
@@ -8,7 +8,7 @@ import setRef from "../../utils/setRef";
  */
 export const EditorNodeRef = forwardRef<HTMLElement, unknown>(
   function EditorRef(_props, ref) {
-    const editor = usePlateEditorState();
+    const editor = usePlateEditorRef();
 
     // console.log(editor);
 
@@ -16,7 +16,7 @@ export const EditorNodeRef = forwardRef<HTMLElement, unknown>(
       const domNode = editor ? ReactEditor.toDOMNode(editor, editor) : null;
 
       setRef(ref, domNode);
-    }, [editor]);
+    }, []);
 
     return null;
   }

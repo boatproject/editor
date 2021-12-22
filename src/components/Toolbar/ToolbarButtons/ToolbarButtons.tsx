@@ -56,8 +56,9 @@ import {
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
   outdent,
+  usePlateEditorRef,
+  usePlateEditorState,
 } from "@udecode/plate";
-import { usePlateEditorRef, usePlateEditorState } from "../../../plate";
 import { AlignToolbarButton } from "./AlignToolbarButton";
 import { ToolbarButton } from "./ToolbarButton";
 import { ColorPickerToolbarButton } from "./ColorPickerToolbarButton";
@@ -260,7 +261,6 @@ export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
 
   return (
     <>
-      {/* <ToolbarButtonGroup size="small"> */}
       <BlockToolbarButton
         value={getPluginType(editor, ELEMENT_BLOCKQUOTE)}
         tooltip="Block Quote"
@@ -273,18 +273,19 @@ export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
       >
         <CodeOff />
       </CodeBlockToolbarButton>
-      <ImageToolbarButton
-        value={ELEMENT_IMAGE}
-        getImageUrl={getImageUrl}
-        uploadImage={uploadImage}
-        tooltip="Insert Image"
-      >
-        <Image />
-      </ImageToolbarButton>
+      {uploadImage && (
+        <ImageToolbarButton
+          value={ELEMENT_IMAGE}
+          getImageUrl={getImageUrl}
+          uploadImage={uploadImage}
+          tooltip="Insert Image"
+        >
+          <Image />
+        </ImageToolbarButton>
+      )}
       <LinkToolbarButton getLinkUrl={getLinkUrl} tooltip="Insert Image">
         <Link />
       </LinkToolbarButton>
-      {/* </ToolbarButtonGroup> */}
     </>
   );
 }

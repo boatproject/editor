@@ -1,12 +1,15 @@
-import { getMark, getPluginType, removeMark, setMarks } from "@udecode/plate";
+import {
+  getMark,
+  getPluginType,
+  removeMark,
+  setMarks,
+  usePlateEditorState,
+  usePlateEditorRef,
+} from "@udecode/plate";
 import { MouseEventHandler, useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
-import {
-  hasMarkSelected,
-  usePlateEditorState,
-  usePlateEditorRef,
-} from "../../../plate";
+import { hasMarkSelected } from "../../../plate";
 import { ColorPicker } from "../../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
@@ -24,9 +27,7 @@ function useMenuAnchor() {
     []
   );
 
-  const handleClose = useCallback(() => {
-    setAnchorEl(null);
-  }, []);
+  const handleClose = useCallback(() => setAnchorEl(null), []);
 
   return {
     anchorEl,

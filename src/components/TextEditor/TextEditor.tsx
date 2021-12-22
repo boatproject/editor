@@ -9,7 +9,7 @@ import { CONFIG } from "../../config";
 
 type PlateEditorProps<T = AnyObject> = Pick<
   PlateProps<T>,
-  "initialValue" | "value" | "onChange" | "editableProps" | "children"
+  "initialValue" | "value" | "onChange" | "editableProps"
 >;
 
 export interface TextEditorProps<T = AnyObject> extends PlateEditorProps<T> {

@@ -4,19 +4,18 @@ import {
   ToggleButtonProps,
   Tooltip,
 } from "@mui/material";
-import { ElementType, ReactNode } from "react";
+import { ElementType, memo, ReactNode } from "react";
 
-export type ToolbarButtonProps<
-  D extends ElementType = "button"
-> = ToggleButtonProps<D, { tooltip?: ReactNode; component?: D; value: string }>;
+export type ToolbarButtonProps<D extends ElementType = "button"> =
+  ToggleButtonProps<D, { tooltip?: ReactNode; component?: D; value: string }>;
 
 const ToggleButton = styled(MuiToggleButton)({
   border: 0,
 });
 
-export function ToolbarButton<D extends ElementType = "button">(
-  props: ToolbarButtonProps<D>
-) {
+export const ToolbarButton = memo(function ToolbarButton<
+  D extends ElementType = "button"
+>(props: ToolbarButtonProps<D>) {
   const { tooltip, ...buttonProps } = props;
 
   /**
@@ -27,11 +26,11 @@ export function ToolbarButton<D extends ElementType = "button">(
   const button = (
     <ToggleButton
       size="small"
-      {...((buttonProps as unknown) as ToggleButtonProps)}
+      {...(buttonProps as unknown as ToggleButtonProps)}
     />
   );
 
   return tooltip ? <Tooltip title={tooltip}>{button}</Tooltip> : button;
-}
+});
 
 export default ToolbarButton;

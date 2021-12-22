@@ -57,6 +57,7 @@ export function LabeledOutline(props: LabeledOutlineProps) {
       helperText={helperText}
       required={required}
       color={color}
+      fullWidth
     />
   );
 }

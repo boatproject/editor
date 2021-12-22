@@ -9,6 +9,7 @@ import {
   BlockToolbarButton,
   BlockToolbarButtonProps,
 } from "./BlockToolbarButton";
+import { useCallback } from "react";
 
 export type ListToolbarButtonProps = BlockToolbarButtonProps;
 
@@ -18,16 +19,19 @@ export function ListToolbarButton(props: BlockToolbarButtonProps) {
 
   const res = !!editor?.selection && getListItemEntry(editor);
 
+  const onMouseDown = useCallback(
+    (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+      toggleList(editor, { type: value });
+    },
+    [editor, value]
+  );
+
   return (
     <BlockToolbarButton
       selected={!!res && res.list[0].type === value}
       value={value}
-      onMouseDown={
-        editor &&
-        getPreventDefaultHandler(toggleList, editor, {
-          type: value,
-        })
-      }
+      onMouseDown={onMouseDown}
       {...elementProps}
     />
   );

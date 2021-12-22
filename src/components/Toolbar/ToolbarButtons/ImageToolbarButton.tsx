@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import { insertImage, usePlateEditorRef } from "@udecode/plate";
-import { ForwardedRef, forwardRef } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef, useCallback } from "react";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import type { GetImageUrl, UploadImage } from "../../types";
 
@@ -23,7 +23,7 @@ export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
   props: ImageToolbarButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
-  const { uploadImage, getImageUrl, ...buttonProps } = props;
+  const { uploadImage, ...buttonProps } = props;
   const editor = usePlateEditorRef();
 
   // const handleGetImageUrl = async (e: MouseEvent<HTMLButtonElement>) => {
@@ -45,29 +45,34 @@ export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
   //   }
   // };
 
+  const onChange = useCallback(
+    async (e: ChangeEvent<HTMLInputElement>) => {
+      if (!editor) {
+        return;
+      }
+
+      const file = e.target.files?.[0];
+      if (file && uploadImage) {
+        try {
+          const url = await uploadImage(file);
+          if (url) {
+            insertImage(editor, url);
+          }
+        } catch (err) {
+          console.error(err);
+        }
+      }
+    },
+    [editor, uploadImage]
+  );
+
   return (
     <label htmlFor="image-upload">
       <Input
         accept="image/*"
         id={"image-upload"}
         type="file"
-        onChange={async (e) => {
-          if (!editor) {
-            return;
-          }
-
-          const file = e.target.files?.[0];
-          if (file && uploadImage) {
-            try {
-              const url = await uploadImage(file);
-              if (url) {
-                insertImage(editor, url);
-              }
-            } catch (err) {
-              console.error(err);
-            }
-          }
-        }}
+        onChange={onChange}
       />
       <ToolbarButton ref={ref} component="span" {...buttonProps} />
     </label>

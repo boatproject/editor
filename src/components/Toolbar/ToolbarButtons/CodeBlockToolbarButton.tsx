@@ -4,9 +4,11 @@ import {
   CodeBlockInsertOptions,
   getPluginType,
   ELEMENT_CODE_BLOCK,
+  usePlateEditorState,
 } from "@udecode/plate";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import { usePlateEditorState } from "../../../plate";
+import { ToolbarButtonProps } from "./ToolbarButton";
+import BlockToolbarButton from "./BlockToolbarButton";
+import { useCallback } from "react";
 
 export interface CodeBlockToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -18,13 +20,22 @@ export function CodeBlockToolbarButton(props: CodeBlockToolbarButtonProps) {
   const { options, ...buttonProps } = props;
   const editor = usePlateEditorState();
 
-  return (
-    <ToolbarButton
-      value={getPluginType(editor, ELEMENT_CODE_BLOCK)}
-      onMouseDown={getPreventDefaultHandler(insertEmptyCodeBlock, editor, {
+  const onMouseDown = useCallback(
+    (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+
+      insertEmptyCodeBlock(editor, {
         insertNodesOptions: { select: true },
         ...options,
-      })}
+      });
+    },
+    [editor, options]
+  );
+
+  return (
+    <BlockToolbarButton
+      value={getPluginType(editor, ELEMENT_CODE_BLOCK)}
+      onMouseDown={onMouseDown}
       {...buttonProps}
     />
   );

@@ -6,6 +6,7 @@ import {
 } from "@udecode/plate";
 import hasSelection from "../../../plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import { useCallback } from "react";
 
 export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   /**
@@ -15,20 +16,25 @@ export interface MarkToolbarButtonProps extends ToolbarButtonProps {
 }
 
 export function MarkToolbarButton(props: MarkToolbarButtonProps) {
-  const { selected, value, clear, ...buttonProps } = props;
+  const { selected: propSelected, value, clear, ...buttonProps } = props;
   const editor = usePlateEditorState();
+
+  const selected =
+    propSelected ?? (hasSelection(editor) && isMarkActive(editor, value));
+
+  const onMouseDown = useCallback(
+    (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+      toggleMark(editor, { key: value, clear });
+    },
+    [editor, value, clear]
+  );
 
   return (
     <ToolbarButton
       value={value}
-      selected={
-        selected ?? (hasSelection(editor) && isMarkActive(editor, value))
-      }
-      onMouseDown={
-        editor
-          ? getPreventDefaultHandler(toggleMark, editor, { key: value, clear })
-          : undefined
-      }
+      selected={selected}
+      onMouseDown={onMouseDown}
       {...buttonProps}
     />
   );

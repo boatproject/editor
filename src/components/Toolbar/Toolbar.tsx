@@ -1,5 +1,5 @@
 import { styled, Toolbar as MuiToolbar } from "@mui/material";
-import { ForwardedRef, forwardRef, HTMLAttributes } from "react";
+import { ForwardedRef, forwardRef, HTMLAttributes, memo } from "react";
 import {
   ToolbarAlignButtons,
   ToolbarBlockButtons,
@@ -23,7 +23,7 @@ export const ToolbarRoot = styled(MuiToolbar, {
   marginBottom: theme.spacing(1),
 }));
 
-export const Toolbar = forwardRef(function Toolbar(
+const ToolbarBase = forwardRef(function Toolbar(
   props: ToolbarProps,
   ref: ForwardedRef<HTMLDivElement>
 ) {
@@ -44,5 +44,7 @@ export const Toolbar = forwardRef(function Toolbar(
     </ToolbarRoot>
   );
 });
+
+export const Toolbar = memo(ToolbarBase);
 
 export default Toolbar;
