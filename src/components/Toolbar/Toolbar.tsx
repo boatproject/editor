@@ -23,14 +23,11 @@ export const ToolbarRoot = styled(MuiToolbar, {
   marginBottom: theme.spacing(1),
 }));
 
-const ToolbarBase = forwardRef(function Toolbar(
-  props: ToolbarProps,
-  ref: ForwardedRef<HTMLDivElement>
-) {
+export function Toolbar(props: ToolbarProps) {
   const { getImageUrl, getLinkUrl, uploadImage, ...toolbarProps } = props;
 
   return (
-    <ToolbarRoot {...toolbarProps} ref={ref} disableGutters variant="dense">
+    <ToolbarRoot {...toolbarProps} disableGutters variant="dense">
       <ToolbarMarkButtons />
       <ToolbarHeadingButtons />
       <ToolbarBlockButtons
@@ -43,8 +40,6 @@ const ToolbarBase = forwardRef(function Toolbar(
       <ToolbarAlignButtons />
     </ToolbarRoot>
   );
-});
-
-export const Toolbar = memo(ToolbarBase);
+}
 
 export default Toolbar;

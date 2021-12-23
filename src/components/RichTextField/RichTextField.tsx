@@ -1,4 +1,4 @@
-import { ForwardedRef, forwardRef } from "react";
+import { memo } from "react";
 import { TextFieldProps } from "@mui/material";
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
 import { AnyObject } from "../types";
@@ -24,9 +24,8 @@ type RichTextTextEditorProps<T = AnyObject> = Pick<
 export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
   RichTextTextEditorProps<T>;
 
-export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
-  props: RichTextFieldProps<T>,
-  ref: ForwardedRef<HTMLDivElement>
+export const RichTextField = memo(function RichTextField<T = AnyObject>(
+  props: RichTextFieldProps<T>
 ) {
   const {
     id,
@@ -56,7 +55,6 @@ export const RichTextField = forwardRef(function RichTextField<T = AnyObject>(
       helperText={helperText}
     >
       <TextEditor
-        ref={ref}
         id={id}
         name={name}
         value={value}

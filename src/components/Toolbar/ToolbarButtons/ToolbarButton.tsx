@@ -6,8 +6,10 @@ import {
 } from "@mui/material";
 import { ElementType, memo, ReactNode } from "react";
 
-export type ToolbarButtonProps<D extends ElementType = "button"> =
-  ToggleButtonProps<D, { tooltip?: ReactNode; component?: D; value: string }>;
+export type ToolbarButtonProps<D extends ElementType = "button"> = {
+  value: string;
+  tooltip?: NonNullable<ReactNode>;
+} & ToggleButtonProps<D, { component?: D }>;
 
 const ToggleButton = styled(MuiToggleButton)({
   border: 0,
@@ -16,20 +18,11 @@ const ToggleButton = styled(MuiToggleButton)({
 export const ToolbarButton = memo(function ToolbarButton<
   D extends ElementType = "button"
 >(props: ToolbarButtonProps<D>) {
-  const { tooltip, ...buttonProps } = props;
-
-  /**
-   * Need to assert the type because the inferred
-   * types on the rest doesn't work properly with
-   * generic arguments
-   */
+  const { tooltip = "", value, ...buttonProps } = props;
 
   return (
-    <Tooltip title={tooltip || ""}>
-      <ToggleButton
-        size="small"
-        {...(buttonProps as unknown as ToggleButtonProps)}
-      />
+    <Tooltip title={tooltip}>
+      <ToggleButton value={value} size="small" {...buttonProps} />
     </Tooltip>
   );
 });

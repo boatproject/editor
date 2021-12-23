@@ -23,7 +23,7 @@ export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
   props: ImageToolbarButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {
-  const { uploadImage, ...buttonProps } = props;
+  const { uploadImage, getImageUrl, ...buttonProps } = props;
   const editor = usePlateEditorRef();
 
   // const handleGetImageUrl = async (e: MouseEvent<HTMLButtonElement>) => {

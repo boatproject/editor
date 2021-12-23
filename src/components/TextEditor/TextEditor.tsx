@@ -1,9 +1,8 @@
-import { forwardRef, CSSProperties, ForwardedRef, useMemo } from "react";
+import { CSSProperties, memo, useMemo } from "react";
 import { Plate, PlateProps } from "@udecode/plate";
 import { Divider, Stack } from "@mui/material";
 import { Toolbar } from "../Toolbar";
 import { PLUGINS } from "../../plugins";
-import EditorNodeRef from "../EditorNodeRef/EditorNodeRef";
 import { AnyObject, UploadImage } from "../types";
 import { CONFIG } from "../../config";
 
@@ -24,9 +23,8 @@ export interface TextEditorProps<T = AnyObject> extends PlateEditorProps<T> {
   plateProps?: Partial<PlateProps>;
 }
 
-export const TextEditor = forwardRef(function TextEditor<T = AnyObject>(
-  props: TextEditorProps<T>,
-  ref: ForwardedRef<HTMLElement>
+export const TextEditor = memo(function TextEditor<T = AnyObject>(
+  props: TextEditorProps<T>
 ) {
   const {
     id,
@@ -59,7 +57,6 @@ export const TextEditor = forwardRef(function TextEditor<T = AnyObject>(
         plugins={PLUGINS}
         {...plateProps}
       >
-        <EditorNodeRef ref={ref} />
         <Toolbar uploadImage={uploadImage} />
         <Divider sx={{ mb: 2 }} />
       </Plate>
