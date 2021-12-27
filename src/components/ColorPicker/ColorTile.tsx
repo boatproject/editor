@@ -27,7 +27,7 @@ export function ColorTile(props: ColorTileProps) {
   const { color, ...buttonProps } = props;
   return (
     <Paper>
-      <Tooltip title={color.name}>
+      <Tooltip title={color.name} disableInteractive>
         <TileButton {...buttonProps} name={color.name} value={color.value} />
       </Tooltip>
     </Paper>
