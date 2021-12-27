@@ -1,3 +1,4 @@
+import { styled } from "@mui/material";
 import {
   getMark,
   getPluginType,
@@ -6,13 +7,7 @@ import {
   usePlateEditorState,
   usePlateEditorRef,
 } from "@udecode/plate";
-import {
-  MouseEventHandler,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { MouseEventHandler, useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 import { hasMarkSelected } from "../../../plate";
@@ -24,6 +19,19 @@ export interface ColorPickerToolbarButtonProps
   pluginKey: string;
 }
 
+const ColorPickerButton = styled(
+  (props: Omit<ToolbarButtonProps, "color">) => <ToolbarButton {...props} />,
+  {
+    name: "ColorPicker",
+    slot: "ToolbarButton",
+    shouldForwardProp: (prop) => prop !== "color",
+  }
+)<{ color?: string }>(({ color }) => ({
+  "&.Mui-selected": {
+    color,
+  },
+}));
+
 /**
  * ColorPicker toolbar component
  * @param props
@@ -34,7 +42,7 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const editor = usePlateEditorState();
   const editorRef = usePlateEditorRef();
   const type = getPluginType(editor, pluginKey);
-  const color = editorRef && getMark(editorRef, type);
+  const color: string = editorRef && getMark(editorRef, type);
   const [selectedColor, setSelectedColor] = useState<string>();
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const open = Boolean(anchorEl);
@@ -82,20 +90,11 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const menuId = "color-picker-menu";
   const actualColor = selectedColor || color;
 
-  const buttonStyles = useMemo(
-    () => ({
-      "&.Mui-selected": {
-        color: actualColor,
-      },
-    }),
-    [actualColor]
-  );
-
   return (
     <>
-      <ToolbarButton
+      <ColorPickerButton
         id="color-picker-button"
-        sx={buttonStyles}
+        color={actualColor}
         aria-controls={menuId}
         aria-haspopup="true"
         aria-expanded={open}

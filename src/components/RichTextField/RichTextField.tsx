@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { TextFieldProps } from "@mui/material";
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
 import { AnyObject } from "../types";
@@ -24,9 +23,7 @@ type RichTextTextEditorProps<T = AnyObject> = Pick<
 export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
   RichTextTextEditorProps<T>;
 
-export const RichTextField = memo(function RichTextField<T = AnyObject>(
-  props: RichTextFieldProps<T>
-) {
+export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
   const {
     id,
     name,
@@ -68,6 +65,6 @@ export const RichTextField = memo(function RichTextField<T = AnyObject>(
       />
     </LabeledOutline>
   );
-});
+}
 
 export default RichTextField;

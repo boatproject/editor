@@ -1,4 +1,4 @@
-import { CSSProperties, memo, useMemo } from "react";
+import { CSSProperties, useMemo } from "react";
 import { Plate, PlateProps } from "@udecode/plate";
 import { Divider, Stack } from "@mui/material";
 import { Toolbar } from "../Toolbar";
@@ -23,9 +23,7 @@ export interface TextEditorProps<T = AnyObject> extends PlateEditorProps<T> {
   plateProps?: Partial<PlateProps>;
 }
 
-export const TextEditor = memo(function TextEditor<T = AnyObject>(
-  props: TextEditorProps<T>
-) {
+export function TextEditor<T = AnyObject>(props: TextEditorProps<T>) {
   const {
     id,
     name,
@@ -62,6 +60,6 @@ export const TextEditor = memo(function TextEditor<T = AnyObject>(
       </Plate>
     </Stack>
   );
-});
+}
 
 export default TextEditor;

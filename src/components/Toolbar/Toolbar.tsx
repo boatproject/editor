@@ -1,5 +1,5 @@
 import { styled, Toolbar as MuiToolbar } from "@mui/material";
-import { ForwardedRef, forwardRef, HTMLAttributes, memo } from "react";
+import { HTMLAttributes } from "react";
 import {
   ToolbarAlignButtons,
   ToolbarBlockButtons,
