@@ -1,5 +1,4 @@
 import {
-  getPreventDefaultHandler,
   insertEmptyCodeBlock,
   CodeBlockInsertOptions,
   getPluginType,

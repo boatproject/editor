@@ -11,6 +11,9 @@ import { useCallback } from "react";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
+  /**
+   * Async function to get the link url
+   */
   getLinkUrl?: GetLinkUrl;
 }
 

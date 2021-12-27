@@ -1,11 +1,6 @@
-import {
-  getPreventDefaultHandler,
-  someNode,
-  toggleNodeType,
-  usePlateEditorState,
-} from "@udecode/plate";
+import { someNode, toggleNodeType, usePlateEditorState } from "@udecode/plate";
+import { useCallback, MouseEvent } from "react";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import { useCallback } from "react";
 
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
@@ -20,15 +15,15 @@ export function BlockToolbarButton(props: BlockToolbarButtonProps) {
     (!!editor?.selection && someNode(editor, { match: { type: value } }));
 
   const onMouseDown = useCallback(
-    (e: { preventDefault: () => void }) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
 
       toggleNodeType(editor, {
-        activeType: value,
+        activeType: e.currentTarget.value,
         inactiveType,
       });
     },
-    [value, inactiveType, editor]
+    [inactiveType, editor]
   );
 
   return (

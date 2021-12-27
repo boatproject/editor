@@ -256,7 +256,7 @@ export interface ToolbarBlockButtonsProps {
 }
 
 export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
-  const { getImageUrl, getLinkUrl, uploadImage } = props;
+  const { getLinkUrl, uploadImage } = props;
   const editor = usePlateEditorRef();
 
   return (
@@ -276,7 +276,6 @@ export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
       {uploadImage && (
         <ImageToolbarButton
           value={ELEMENT_IMAGE}
-          getImageUrl={getImageUrl}
           uploadImage={uploadImage}
           tooltip="Insert Image"
         >

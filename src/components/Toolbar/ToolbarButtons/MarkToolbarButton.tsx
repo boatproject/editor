@@ -1,12 +1,7 @@
-import {
-  getPreventDefaultHandler,
-  isMarkActive,
-  toggleMark,
-  usePlateEditorState,
-} from "@udecode/plate";
+import { isMarkActive, toggleMark, usePlateEditorState } from "@udecode/plate";
 import hasSelection from "../../../plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import { useCallback } from "react";
+import { MouseEvent, useCallback } from "react";
 
 export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   /**
@@ -23,11 +18,11 @@ export function MarkToolbarButton(props: MarkToolbarButtonProps) {
     propSelected ?? (hasSelection(editor) && isMarkActive(editor, value));
 
   const onMouseDown = useCallback(
-    (e: { preventDefault: () => void }) => {
+    (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
-      toggleMark(editor, { key: value, clear });
+      toggleMark(editor, { key: e.currentTarget.value, clear });
     },
-    [editor, value, clear]
+    [editor, clear]
   );
 
   return (
