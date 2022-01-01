@@ -1,8 +1,8 @@
 import { TEditor } from "@udecode/plate";
-import { BaseSelection } from "slate";
+import { BaseRange } from "slate";
 
 export default function hasSelection(
   editor?: TEditor
-): editor is TEditor & { selection: BaseSelection } {
+): editor is TEditor & { selection: BaseRange } {
   return Boolean(editor?.selection);
 }

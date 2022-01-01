@@ -46,14 +46,11 @@ export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
     [editor, uploadImage]
   );
 
+  const inputId = "image-upload";
+
   return (
-    <label htmlFor="image-upload">
-      <Input
-        accept="image/*"
-        id={"image-upload"}
-        type="file"
-        onChange={onChange}
-      />
+    <label htmlFor={inputId}>
+      <Input accept="image/*" id={inputId} type="file" onChange={onChange} />
       <ToolbarButton ref={ref} component="span" {...buttonProps} />
     </label>
   );

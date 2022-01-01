@@ -1,3 +1,3 @@
 export { default } from "./ColorPicker";
 export * from "./ColorPicker";
-export * from "./types";
+export * from "./ColorPickerMenu";
