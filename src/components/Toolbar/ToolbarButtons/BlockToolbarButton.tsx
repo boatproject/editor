@@ -1,6 +1,13 @@
-import { someNode, toggleNodeType, usePlateEditorState } from "@udecode/plate";
+import { toggleNodeType, usePlateEditorState } from "@udecode/plate";
 import { useCallback, MouseEvent } from "react";
+import { isBlockActive } from "../../../utils";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+
+export interface UseBlockProps {
+  type: string;
+  inactiveType?: string;
+  selected?: boolean;
+}
 
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
@@ -10,10 +17,7 @@ export function BlockToolbarButton(props: BlockToolbarButtonProps) {
   const { selected: propSelected, value, inactiveType, ...buttonProps } = props;
   const editor = usePlateEditorState();
 
-  const selected =
-    propSelected ??
-    (!!editor?.selection && someNode(editor, { match: { type: value } }));
-
+  const selected = isBlockActive(editor, value);
   const onMouseDown = useCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
@@ -29,7 +33,7 @@ export function BlockToolbarButton(props: BlockToolbarButtonProps) {
   return (
     <ToolbarButton
       value={value}
-      selected={selected}
+      selected={propSelected ?? selected}
       onMouseDown={onMouseDown}
       {...buttonProps}
     />

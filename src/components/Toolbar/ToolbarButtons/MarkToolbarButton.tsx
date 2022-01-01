@@ -1,5 +1,5 @@
 import { isMarkActive, toggleMark, usePlateEditorState } from "@udecode/plate";
-import hasSelection from "../../../plate/hasSelection";
+import hasSelection from "../../../utils/plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import { MouseEvent, useCallback } from "react";
 

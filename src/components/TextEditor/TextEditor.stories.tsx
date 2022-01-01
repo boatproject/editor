@@ -41,3 +41,12 @@ export const Debug: ComponentStory<typeof TextEditor> = (args) => {
     </DebugTemplate>
   );
 };
+
+const ErrorComponent = () => {
+  throw new Error("Test Error");
+};
+
+export const RenderingError = Template.bind({});
+RenderingError.args = {
+  children: <ErrorComponent />,
+};

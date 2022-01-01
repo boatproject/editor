@@ -30,10 +30,12 @@
     "@mui/icons-material": "^5.0.4",
     "@mui/material": "^5.0.4",
     "@udecode/plate": "^9.1.0",
-    "slate": "^0.66.5",
+    "clsx": "^1.1.1",
+    "react-error-boundary": "^3.1.4",
+    "slate": "^0.72.3",
     "slate-history": "^0.66.0",
     "slate-hyperscript": "^0.67.0",
-    "slate-react": "^0.67.0",
+    "slate-react": "^0.72.1",
     "styled-components": "^5.3.3"
   },
   "peerDependencies": {

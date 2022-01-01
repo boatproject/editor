@@ -1,8 +1,8 @@
 import { Button, ButtonProps, Paper, styled, Tooltip } from "@mui/material";
-import { Color } from "./colors";
+import { ColorOption } from "./colors";
 
 interface TileProps {
-  color: Color;
+  color: ColorOption;
 }
 
 const TileButton = styled(Button, {

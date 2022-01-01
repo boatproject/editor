@@ -1,10 +1,10 @@
 import { styled, Toolbar as MuiToolbar } from "@mui/material";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, memo } from "react";
 import {
   ToolbarAlignButtons,
   ToolbarBlockButtons,
   ToolbarBlockButtonsProps,
-  ToolbarHeadingButtons,
+  ToolbarHeadingMenu,
   ToolbarIndentButtons,
   ToolbarListButtons,
   ToolbarMarkButtons,
@@ -23,23 +23,19 @@ export const ToolbarRoot = styled(MuiToolbar, {
   marginBottom: theme.spacing(1),
 }));
 
-export function Toolbar(props: ToolbarProps) {
-  const { getImageUrl, getLinkUrl, uploadImage, ...toolbarProps } = props;
+export const Toolbar = memo(function Toolbar(props: ToolbarProps) {
+  const { getLinkUrl, uploadImage, ...toolbarProps } = props;
 
   return (
     <ToolbarRoot {...toolbarProps} disableGutters variant="dense">
       <ToolbarMarkButtons />
-      <ToolbarHeadingButtons />
-      <ToolbarBlockButtons
-        getImageUrl={getImageUrl}
-        getLinkUrl={getLinkUrl}
-        uploadImage={uploadImage}
-      />
+      <ToolbarHeadingMenu />
+      <ToolbarBlockButtons getLinkUrl={getLinkUrl} uploadImage={uploadImage} />
       <ToolbarIndentButtons />
       <ToolbarListButtons />
       <ToolbarAlignButtons />
     </ToolbarRoot>
   );
-}
+});
 
 export default Toolbar;

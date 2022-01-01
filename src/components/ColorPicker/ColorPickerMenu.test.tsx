@@ -1,11 +1,11 @@
 import { render } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ColorPicker, { ColorPickerProps } from "./ColorPicker";
-import { black, red, white, Color } from "./colors";
+import ColorPickerMenu, { ColorPickerMenuProps } from "./ColorPickerMenu";
+import { black, red, white, ColorOption } from "./colors";
 
-describe("<ColorPicker />", () => {
-  let props: ColorPickerProps;
-  let colorOptions: Color[] = [];
+describe("<ColorPickerMenu />", () => {
+  let props: ColorPickerMenuProps;
+  let colorOptions: ColorOption[] = [];
 
   beforeEach(() => {
     colorOptions = [
@@ -15,15 +15,16 @@ describe("<ColorPicker />", () => {
     ];
     props = {
       open: true,
+      onClose: jest.fn(),
       anchorEl: document.body,
       onSelectColor: jest.fn((color) => color),
-      clearColor: jest.fn(),
+      onClearColor: jest.fn(),
       colorOptions,
     };
   });
 
   it("should render when open is true", () => {
-    const { queryByRole } = render(<ColorPicker {...props} />);
+    const { queryByRole } = render(<ColorPickerMenu {...props} />);
 
     const rootElement = queryByRole("presentation");
 
@@ -31,7 +32,7 @@ describe("<ColorPicker />", () => {
   });
 
   it("should not render when open is false", () => {
-    const { queryByRole } = render(<ColorPicker {...props} open={false} />);
+    const { queryByRole } = render(<ColorPickerMenu {...props} open={false} />);
 
     const rootElement = queryByRole("presentation");
 
@@ -39,7 +40,7 @@ describe("<ColorPicker />", () => {
   });
 
   it("should render a button for each color", () => {
-    const { getByRole } = render(<ColorPicker {...props} />);
+    const { getByRole } = render(<ColorPickerMenu {...props} />);
 
     colorOptions.forEach(({ name, value }) => {
       const button = getByRole("button", { name }) as HTMLButtonElement;
@@ -50,16 +51,20 @@ describe("<ColorPicker />", () => {
 
   describe("on color select", () => {
     it("should close window if closeOnSelect = true", () => {
-      const { getByRole } = render(<ColorPicker {...props} closeOnSelect />);
+      const { getByRole } = render(
+        <ColorPickerMenu {...props} closeOnSelect />
+      );
 
       const button = getByRole("button", {
         name: colorOptions[0].name,
       }) as HTMLButtonElement;
       button.click();
+
+      expect(props.onClose).toHaveBeenCalled();
     });
 
     it("should call onSelectColor with the clicked color", () => {
-      const { getByRole } = render(<ColorPicker {...props} />);
+      const { getByRole } = render(<ColorPickerMenu {...props} />);
 
       colorOptions.forEach(({ name, value }) => {
         const button = getByRole("button", { name }) as HTMLButtonElement;
@@ -71,7 +76,7 @@ describe("<ColorPicker />", () => {
 
   describe("clear color button", () => {
     it("should be disabled when no color is set", () => {
-      const { getByRole } = render(<ColorPicker {...props} />);
+      const { getByRole } = render(<ColorPickerMenu {...props} />);
 
       const button = getByRole("button", {
         name: /clear/i,
@@ -81,14 +86,16 @@ describe("<ColorPicker />", () => {
     });
 
     it("should call clearColor when clicked", () => {
-      const { getByRole } = render(<ColorPicker {...props} color={"#000"} />);
+      const { getByRole } = render(
+        <ColorPickerMenu {...props} color={"#000"} />
+      );
 
       const button = getByRole("button", {
         name: /clear/i,
       }) as HTMLButtonElement;
 
       button.click();
-      expect(props.clearColor).toHaveBeenCalled();
+      expect(props.onClearColor).toHaveBeenCalled();
     });
   });
 });

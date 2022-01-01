@@ -20,24 +20,12 @@ import {
   Highlight,
   Image,
   Link,
-  Looks3,
-  Looks4,
-  Looks5,
-  Looks6,
-  LooksOne,
-  LooksTwo,
   Subscript,
   Superscript,
 } from "@mui/icons-material";
 import {
   ELEMENT_BLOCKQUOTE,
   ELEMENT_CODE_BLOCK,
-  ELEMENT_H1,
-  ELEMENT_H2,
-  ELEMENT_H3,
-  ELEMENT_H4,
-  ELEMENT_H5,
-  ELEMENT_H6,
   ELEMENT_IMAGE,
   ELEMENT_OL,
   ELEMENT_TODO_LI,
@@ -68,115 +56,66 @@ import { LinkToolbarButton } from "./LinkToolbarButton";
 import { ListToolbarButton } from "./ListToolbarButton";
 import { MarkToolbarButton } from "./MarkToolbarButton";
 import { CodeBlockToolbarButton } from "./CodeBlockToolbarButton";
-
-import type { GetImageUrl, GetLinkUrl, UploadImage } from "../../types";
+import type { GetLinkUrl, UploadImage } from "../../types";
 
 export function ToolbarMarkButtons() {
   const editor = usePlateEditorRef();
 
   return (
     <>
-      <MarkToolbarButton
-        value={getPluginType(editor, MARK_BOLD)}
-        tooltip="Bold"
-      >
+      <MarkToolbarButton value={getPluginType(editor, MARK_BOLD)} title="Bold">
         <FormatBold />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_ITALIC)}
-        tooltip="Italic"
+        title="Italic"
       >
         <FormatItalic />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_UNDERLINE)}
-        tooltip="Underline"
+        title="Underline"
       >
         <FormatUnderlined />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_STRIKETHROUGH)}
-        tooltip="Strikethrough"
+        title="Strikethrough"
       >
         <FormatStrikethrough />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_CODE)}
-        tooltip="Code Inline"
+        title="Code Inline"
       >
         <Code />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_SUPERSCRIPT)}
         clear={getPluginType(editor, MARK_SUBSCRIPT)}
-        tooltip="Superscript"
+        title="Superscript"
       >
         <Superscript />
       </MarkToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_SUBSCRIPT)}
         clear={getPluginType(editor, MARK_SUPERSCRIPT)}
-        tooltip="Subscript"
+        title="Subscript"
       >
         <Subscript />
       </MarkToolbarButton>
-      <ColorPickerToolbarButton pluginKey={MARK_COLOR} tooltip="Font Color">
+      <ColorPickerToolbarButton pluginKey={MARK_COLOR} title="Font Color">
         <FormatColorText />
       </ColorPickerToolbarButton>
-      <ColorPickerToolbarButton pluginKey={MARK_BG_COLOR} tooltip="Fill Color">
+      <ColorPickerToolbarButton pluginKey={MARK_BG_COLOR} title="Fill Color">
         <FormatColorFill />
       </ColorPickerToolbarButton>
       <MarkToolbarButton
         value={getPluginType(editor, MARK_HIGHLIGHT)}
-        tooltip="Highlight"
+        title="Highlight"
       >
         <Highlight />
       </MarkToolbarButton>
-    </>
-  );
-}
-
-export function ToolbarHeadingButtons() {
-  const editor = usePlateEditorRef();
-
-  return (
-    <>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H1)}
-        tooltip="Heading One"
-      >
-        <LooksOne />
-      </BlockToolbarButton>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H2)}
-        tooltip="Heading Two"
-      >
-        <LooksTwo />
-      </BlockToolbarButton>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H3)}
-        tooltip="Heading Three"
-      >
-        <Looks3 />
-      </BlockToolbarButton>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H4)}
-        tooltip="Heading Four"
-      >
-        <Looks4 />
-      </BlockToolbarButton>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H5)}
-        tooltip="Heading Five"
-      >
-        <Looks5 />
-      </BlockToolbarButton>
-      <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_H6)}
-        tooltip="Heading Six"
-      >
-        <Looks6 />
-      </BlockToolbarButton>
     </>
   );
 }
@@ -188,14 +127,14 @@ export function ToolbarIndentButtons() {
       <ToolbarButton
         value={"indent-"}
         onMouseDown={editor && getPreventDefaultHandler(outdent, editor)}
-        tooltip="Decrease Indent"
+        title="Decrease Indent"
       >
         <FormatIndentDecrease />
       </ToolbarButton>
       <ToolbarButton
         value={"indent+"}
         onMouseDown={editor && getPreventDefaultHandler(indent, editor)}
-        tooltip="Increase Indent"
+        title="Increase Indent"
       >
         <FormatIndentIncrease />
       </ToolbarButton>
@@ -210,19 +149,19 @@ export function ToolbarListButtons() {
     <>
       <ListToolbarButton
         value={getPluginType(editor, ELEMENT_UL)}
-        tooltip="Bulleted List"
+        title="Bulleted List"
       >
         <FormatListBulleted />
       </ListToolbarButton>
       <ListToolbarButton
         value={getPluginType(editor, ELEMENT_OL)}
-        tooltip="Numbered List"
+        title="Numbered List"
       >
         <FormatListNumbered />
       </ListToolbarButton>
       <BlockToolbarButton
         value={getPluginType(editor, ELEMENT_TODO_LI)}
-        tooltip="Check List"
+        title="Check List"
       >
         <CheckBox />
       </BlockToolbarButton>
@@ -233,16 +172,16 @@ export function ToolbarListButtons() {
 export function ToolbarAlignButtons() {
   return (
     <>
-      <AlignToolbarButton value="left" tooltip="Align Left">
+      <AlignToolbarButton value="left" title="Align Left">
         <FormatAlignLeft />
       </AlignToolbarButton>
-      <AlignToolbarButton value="center" tooltip="Align Center">
+      <AlignToolbarButton value="center" title="Align Center">
         <FormatAlignCenter />
       </AlignToolbarButton>
-      <AlignToolbarButton value="right" tooltip="Align Right">
+      <AlignToolbarButton value="right" title="Align Right">
         <FormatAlignRight />
       </AlignToolbarButton>
-      <AlignToolbarButton value="justify" tooltip="Justify">
+      <AlignToolbarButton value="justify" title="Justify">
         <FormatAlignJustify />
       </AlignToolbarButton>
     </>
@@ -250,7 +189,6 @@ export function ToolbarAlignButtons() {
 }
 
 export interface ToolbarBlockButtonsProps {
-  getImageUrl?: GetImageUrl;
   getLinkUrl?: GetLinkUrl;
   uploadImage?: UploadImage;
 }
@@ -263,13 +201,13 @@ export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
     <>
       <BlockToolbarButton
         value={getPluginType(editor, ELEMENT_BLOCKQUOTE)}
-        tooltip="Block Quote"
+        title="Block Quote"
       >
         <FormatQuote />
       </BlockToolbarButton>
       <CodeBlockToolbarButton
         value={getPluginType(editor, ELEMENT_CODE_BLOCK)}
-        tooltip="Code Block"
+        title="Code Block"
       >
         <CodeOff />
       </CodeBlockToolbarButton>
@@ -277,12 +215,12 @@ export function ToolbarBlockButtons(props: ToolbarBlockButtonsProps) {
         <ImageToolbarButton
           value={ELEMENT_IMAGE}
           uploadImage={uploadImage}
-          tooltip="Insert Image"
+          title="Insert Image"
         >
           <Image />
         </ImageToolbarButton>
       )}
-      <LinkToolbarButton getLinkUrl={getLinkUrl} tooltip="Insert Image">
+      <LinkToolbarButton getLinkUrl={getLinkUrl} title="Insert Link">
         <Link />
       </LinkToolbarButton>
     </>

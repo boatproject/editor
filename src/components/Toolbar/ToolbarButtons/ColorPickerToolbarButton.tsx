@@ -6,53 +6,47 @@ import {
   setMarks,
   usePlateEditorState,
   usePlateEditorRef,
+  isMarkActive,
 } from "@udecode/plate";
-import { MouseEventHandler, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
-import { hasMarkSelected } from "../../../plate";
-import { ColorPicker } from "../../ColorPicker";
+import { useMenu } from "../../../hooks";
+import { ColorPickerMenu } from "../../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
-export interface ColorPickerToolbarButtonProps
-  extends Omit<ToolbarButtonProps, "value"> {
-  pluginKey: string;
-}
-
-const ColorPickerButton = styled(
-  (props: Omit<ToolbarButtonProps, "color">) => <ToolbarButton {...props} />,
-  {
-    name: "ColorPicker",
-    slot: "ToolbarButton",
-    shouldForwardProp: (prop) => prop !== "color",
-  }
-)<{ color?: string }>(({ color }) => ({
+const ColorPickerButton = styled(ToolbarButton, {
+  name: "ColorPicker",
+  slot: "ToolbarButton",
+  shouldForwardProp: (prop) => prop !== "selectedColor",
+})<{ selectedColor?: string }>(({ selectedColor }) => ({
   "&.Mui-selected": {
-    color,
+    color: selectedColor,
   },
 }));
+
+export interface ColorPickerToolbarButtonProps
+  extends Partial<ToolbarButtonProps> {
+  pluginKey: string;
+}
 
 /**
  * ColorPicker toolbar component
  * @param props
  */
 export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
-  const { pluginKey, ...buttonProps } = props;
+  const { pluginKey, title: tooltip, ...buttonProps } = props;
+
+  const baseId = "color-picker";
+  const menuId = `${baseId}-menu-${pluginKey}`;
+  const buttonId = `${baseId}-button-${pluginKey}`;
 
   const editor = usePlateEditorState();
   const editorRef = usePlateEditorRef();
   const type = getPluginType(editor, pluginKey);
   const color: string = editorRef && getMark(editorRef, type);
   const [selectedColor, setSelectedColor] = useState<string>();
-  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
-  const open = Boolean(anchorEl);
-
-  const handleOpen: MouseEventHandler<HTMLButtonElement> = useCallback(
-    (event) => setAnchorEl(event.currentTarget),
-    []
-  );
-
-  const handleClose = useCallback(() => setAnchorEl(null), []);
+  const [anchorProps, menuProps] = useMenu(menuId);
 
   const updateColor = useCallback(
     (color: string) => {
@@ -87,30 +81,25 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
     }
   }, [color, editor?.selection]);
 
-  const menuId = "color-picker-menu";
   const actualColor = selectedColor || color;
+  const selected = Boolean(editor?.selection) && isMarkActive(editor, type);
 
   return (
     <>
       <ColorPickerButton
-        id="color-picker-button"
-        color={actualColor}
-        aria-controls={menuId}
-        aria-haspopup="true"
-        aria-expanded={open}
-        onClick={handleOpen}
+        {...anchorProps}
+        id={buttonId}
+        selectedColor={actualColor}
         value={type}
-        selected={hasMarkSelected(editor, type)}
+        title={tooltip}
+        selected={selected}
         {...buttonProps}
       />
-      <ColorPicker
-        id={menuId}
-        open={open}
-        anchorEl={anchorEl}
+      <ColorPickerMenu
+        {...menuProps}
         color={actualColor}
         onSelectColor={updateColor}
-        clearColor={clearColor}
-        onClose={handleClose}
+        onClearColor={clearColor}
       />
     </>
   );

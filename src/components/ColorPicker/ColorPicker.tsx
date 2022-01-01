@@ -1,10 +1,8 @@
-import { PopoverProps, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import { useCallback, useEffect, useState, MouseEvent, useRef } from "react";
-import ColorContainer from "./ColorContainer";
-import { Color, DEFAULT_COLOR_OPTIONS } from "./colors";
-import { ColorTile } from "./ColorTile";
-import { OnSelectColorEventHandler } from "./types";
-import { Popover, Stack, styled } from "@mui/material";
+import { ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
+import { Stack, styled } from "@mui/material";
+import { ColorPickerTileGrid } from "./ColorPickerTileGrid";
 
 const ColorPickerStack = styled(Stack, {
   shouldForwardProp: (prop) => prop !== "color",
@@ -14,96 +12,80 @@ const ColorPickerStack = styled(Stack, {
   transition: theme.transitions.create("border"),
 }));
 
-export interface ColorPickerProps
-  extends Pick<PopoverProps, "open" | "anchorEl"> {
-  id?: string;
+export const ANCHOR_ORIGIN = {
+  vertical: "bottom",
+  horizontal: "center",
+} as const;
+
+export interface ColorPickerProps {
+  /**
+   * Selected color
+   *
+   * This value is also stored internally.
+   * Setting a different color that is passed
+   * will trigger a state update to the internal value.
+   */
   color?: string;
   /**
    * Memoized array of colors for populating color tiles
    */
-  colorOptions?: Color[];
-  onSelectColor?: OnSelectColorEventHandler;
-  clearColor?: () => void;
-  /** If true, automatically close window when a color is selected */
-  closeOnSelect?: boolean;
-  onClose?: () => void;
+  colorOptions?: ColorOption[];
+  /**
+   * Action called with a selected color
+   */
+  onSelectColor?: (color: string) => void;
+  /**
+   * Action called when color is cleared
+   */
+  onClearColor?: () => void;
 }
 
 export function ColorPicker(props: ColorPickerProps) {
   const {
-    id,
     color,
     colorOptions = DEFAULT_COLOR_OPTIONS,
     onSelectColor,
-    clearColor,
-    anchorEl,
-    open = false,
-    onClose,
-    closeOnSelect = true,
+    onClearColor,
   } = props;
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
-  const colorRef = useRef(color);
 
+  // keep track of color prop and sync state if it is different
+  const prevColor = useRef(color);
   useEffect(() => {
-    if (colorRef.current !== color) {
+    if (prevColor.current !== color) {
       setSelectedColor(color);
-      colorRef.current = color;
+      prevColor.current = color;
     }
   }, [color]);
-
-  const selectColor = useCallback(
-    (color: string) => {
-      onSelectColor?.(color);
-      setSelectedColor(color);
-
-      if (closeOnSelect && onClose) {
-        onClose();
-      }
-    },
-    [onSelectColor, onClose, closeOnSelect]
-  );
 
   const handleClick = useCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       const color = event.currentTarget.value;
-      selectColor(color);
+
+      onSelectColor?.(color);
+      setSelectedColor(color);
     },
-    [selectColor]
+    [onSelectColor]
   );
 
   const handleClear = useCallback(() => {
-    clearColor?.();
+    onClearColor?.();
     setSelectedColor(undefined);
-  }, [clearColor]);
+  }, [onClearColor]);
 
   return (
-    <Popover
-      id={id}
-      anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
-      }}
-      onClose={onClose}
-      open={open}
-      anchorEl={anchorEl}
-    >
-      <ColorPickerStack color={selectedColor}>
-        <ColorContainer sx={{ width: 300, height: 300 }}>
-          {colorOptions.map((color) => (
-            <ColorTile key={color.value} color={color} onClick={handleClick} />
-          ))}
-        </ColorContainer>
-        <Button
-          fullWidth
-          onClick={handleClear}
-          disabled={!selectedColor}
-          sx={{ color: selectedColor }}
-        >
-          Clear
-        </Button>
-      </ColorPickerStack>
-    </Popover>
+    <ColorPickerStack color={selectedColor} alignItems="center">
+      <Button
+        fullWidth
+        onClick={handleClear}
+        disabled={!selectedColor}
+        sx={{ color: selectedColor }}
+      >
+        Clear
+      </Button>
+      <ColorPickerTileGrid colorOptions={colorOptions} onClick={handleClick} />
+    </ColorPickerStack>
   );
 }
 

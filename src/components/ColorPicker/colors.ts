@@ -47,7 +47,7 @@ export const DEFAULT_COLORS = [
   // white,
 ];
 
-export interface Color {
+export interface ColorOption {
   name: string;
   value: string;
 }

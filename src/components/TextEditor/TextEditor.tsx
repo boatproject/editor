@@ -1,64 +1,47 @@
-import { CSSProperties, useMemo } from "react";
-import { Plate, PlateProps } from "@udecode/plate";
-import { Divider, Stack } from "@mui/material";
-import { Toolbar } from "../Toolbar";
-import { PLUGINS } from "../../plugins";
-import { AnyObject, UploadImage } from "../types";
-import { CONFIG } from "../../config";
+import { CSSProperties } from "react";
+import { Stack, styled } from "@mui/material";
+import { AnyObject } from "../../types";
+import { TextEditorBase, TextEditorBaseProps } from "./TextEditorBase";
+import { ErrorBoundary } from "react-error-boundary";
+import TextEditorFallback from "./TextEditorFallback";
+import { LoggerContext, Logger, defaultLogger } from "../LoggerContext";
 
-type PlateEditorProps<T = AnyObject> = Pick<
-  PlateProps<T>,
-  "initialValue" | "value" | "onChange" | "editableProps"
->;
+export const TextEditorRoot = styled(Stack, {
+  name: "TextEditor",
+  slot: "Root",
+})(({ theme }) => ({
+  ...theme.typography.body1,
+  color: theme.palette.text.primary,
+  lineHeight: "1.4375em",
+  position: "relative",
+  cursor: "text",
+  boxSizing: "border-box",
+  padding: "4px 0 5px",
+  width: "100%",
+}));
 
-export interface TextEditorProps<T = AnyObject> extends PlateEditorProps<T> {
-  id?: string;
-  name?: string;
-  uploadImage?: UploadImage;
+export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
   className?: string;
   style?: CSSProperties;
-  /**
-   * Additional Props passed to the Plate component
-   */
-  plateProps?: Partial<PlateProps>;
+  logger?: Logger;
 }
 
 export function TextEditor<T = AnyObject>(props: TextEditorProps<T>) {
   const {
-    id,
-    name,
-    uploadImage,
-    // children,
     className,
     style,
-    value,
-    onChange,
-    initialValue,
-    editableProps: propEditableProps,
-    plateProps = {},
+    logger = defaultLogger,
+    ...textEditorProps
   } = props;
 
-  const editableProps = useMemo(
-    () => ({ name, ...CONFIG.editableProps, ...propEditableProps }),
-    [propEditableProps, name]
-  );
-
   return (
-    <Stack className={className} style={style}>
-      <Plate
-        {...CONFIG.defaultProps}
-        id={id}
-        editableProps={editableProps}
-        value={value}
-        onChange={onChange}
-        initialValue={initialValue}
-        plugins={PLUGINS}
-        {...plateProps}
-      >
-        <Toolbar uploadImage={uploadImage} />
-        <Divider sx={{ mb: 2 }} />
-      </Plate>
-    </Stack>
+    <LoggerContext.Provider value={logger}>
+      <ErrorBoundary FallbackComponent={TextEditorFallback}>
+        <TextEditorRoot className={className} style={style}>
+          <TextEditorBase {...textEditorProps} />
+        </TextEditorRoot>
+      </ErrorBoundary>
+    </LoggerContext.Provider>
   );
 }
 
