@@ -1,12 +1,11 @@
 import { Divider } from "@mui/material";
 import { AnyObject, PlateProps, Plate } from "@udecode/plate";
-import { MutableRefObject, useMemo } from "react";
+import { useMemo } from "react";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
 import { UploadImage } from "../types";
 import { Toolbar } from "../Toolbar";
 import { EditableProps } from "slate-react/dist/components/editable";
-import { EditorHandle } from "./EditorRef";
 
 export type TextEditorPlateProps<T = AnyObject> = Pick<
   PlateProps<T>,
@@ -21,19 +20,12 @@ export interface TextEditorBaseComponentProps<T = AnyObject>
    * Additional Props passed to the Plate component
    */
   plateProps?: Partial<PlateProps>;
-  editorRef?: MutableRefObject<HTMLDivElement | null>;
 }
 
 export function TextEditorBaseComponent<T = AnyObject>(
   props: TextEditorBaseComponentProps<T>
 ) {
-  const {
-    uploadImage,
-    plateProps = {},
-    editorRef,
-    children,
-    ...componentProps
-  } = props;
+  const { uploadImage, plateProps = {}, children, ...componentProps } = props;
 
   return (
     <Plate
@@ -42,9 +34,8 @@ export function TextEditorBaseComponent<T = AnyObject>(
       {...componentProps}
       {...plateProps}
     >
-      <EditorHandle ref={editorRef} />
       <Toolbar uploadImage={uploadImage} />
-      <Divider sx={{ mb: 2 }} />
+      <Divider />
       {children}
     </Plate>
   );

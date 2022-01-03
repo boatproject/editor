@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { unstable_useId as useId } from "@mui/utils";
 import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
-import { FocusEvent, useCallback, useRef, useState } from "react";
+import { FocusEvent, useCallback, useState } from "react";
 import clsx from "clsx";
 
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
@@ -75,7 +75,10 @@ const Content = styled("div", {
   slot: "content",
 })({
   position: "relative",
-  padding: "16.5px 14px",
+  // padding: "16.5px 14px"
+  // "& > *": {
+  //   padding: "16.5px 14px",
+  // },
 });
 
 type RichTextTextFieldProps = Pick<
@@ -122,7 +125,6 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
   } = props;
 
   const [focused, setFocused] = useState(false);
-  const editorRef = useRef<HTMLDivElement | null>(null);
 
   const id = useId(idOverride);
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
@@ -150,16 +152,12 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
     [onBlur]
   );
 
-  const handleClick = () => {
-    if (editorRef.current) {
-      editorRef.current.focus();
-    }
-  };
-
   return (
     <Root
-      className={clsx({ [classes.focused]: focused })}
-      onClick={handleClick}
+      className={clsx({
+        [classes.focused]: focused,
+        [classes.error]: error,
+      })}
     >
       {label && (
         <InputLabel
@@ -184,7 +182,6 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
           onFocus={handleFocus}
           onBlur={handleBlur}
           editableProps={editableProps}
-          editorRef={editorRef}
           uploadImage={uploadImage}
           style={style}
           className={className}

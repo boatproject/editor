@@ -65,6 +65,7 @@ export const CONFIG: Config = {
   editableProps: {
     style: {
       minHeight: 150,
+      padding: "12px 10px",
     },
   },
   getEditableProps: (props) => ({ ...props, ...CONFIG.editableProps }),

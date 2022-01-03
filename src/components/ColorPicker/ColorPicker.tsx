@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
-import { useCallback, useEffect, useState, MouseEvent, useRef } from "react";
+import { useState, MouseEvent } from "react";
 import { ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
 import { Stack, styled } from "@mui/material";
 import { ColorPickerTileGrid } from "./ColorPickerTileGrid";
+import { useEventCallback } from "../../hooks";
 
 const ColorPickerStack = styled(Stack, {
   shouldForwardProp: (prop) => prop !== "color",
@@ -11,11 +12,6 @@ const ColorPickerStack = styled(Stack, {
   border: `3px solid ${color}`,
   transition: theme.transitions.create("border"),
 }));
-
-export const ANCHOR_ORIGIN = {
-  vertical: "bottom",
-  horizontal: "center",
-} as const;
 
 export interface ColorPickerProps {
   /**
@@ -50,16 +46,7 @@ export function ColorPicker(props: ColorPickerProps) {
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
 
-  // keep track of color prop and sync state if it is different
-  const prevColor = useRef(color);
-  useEffect(() => {
-    if (prevColor.current !== color) {
-      setSelectedColor(color);
-      prevColor.current = color;
-    }
-  }, [color]);
-
-  const handleClick = useCallback(
+  const handleClick = useEventCallback(
     (event: MouseEvent<HTMLButtonElement>) => {
       const color = event.currentTarget.value;
 
@@ -69,7 +56,7 @@ export function ColorPicker(props: ColorPickerProps) {
     [onSelectColor]
   );
 
-  const handleClear = useCallback(() => {
+  const handleClear = useEventCallback(() => {
     onClearColor?.();
     setSelectedColor(undefined);
   }, [onClearColor]);

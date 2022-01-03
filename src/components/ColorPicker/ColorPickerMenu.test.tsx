@@ -50,19 +50,6 @@ describe("<ColorPickerMenu />", () => {
   });
 
   describe("on color select", () => {
-    it("should close window if closeOnSelect = true", () => {
-      const { getByRole } = render(
-        <ColorPickerMenu {...props} closeOnSelect />
-      );
-
-      const button = getByRole("button", {
-        name: colorOptions[0].name,
-      }) as HTMLButtonElement;
-      button.click();
-
-      expect(props.onClose).toHaveBeenCalled();
-    });
-
     it("should call onSelectColor with the clicked color", () => {
       const { getByRole } = render(<ColorPickerMenu {...props} />);
 

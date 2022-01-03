@@ -6,14 +6,33 @@ import {
   setMarks,
   usePlateEditorState,
   usePlateEditorRef,
-  isMarkActive,
+  PlateEditor,
 } from "@udecode/plate";
-import { useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 import { useEventCallback, useMenu } from "../../../hooks";
 import { ColorPickerMenu } from "../../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
+
+function setColorMark(editor: PlateEditor, type: string, color: string) {
+  if (editor?.selection) {
+    Transforms.select(editor, editor.selection);
+    ReactEditor.focus(editor);
+
+    setMarks(editor, { [type]: color });
+  }
+}
+
+function clearColorMark(editor: PlateEditor, type: string, color: string) {
+  if (editor?.selection) {
+    Transforms.select(editor, editor.selection);
+    ReactEditor.focus(editor);
+
+    if (color) {
+      removeMark(editor, { key: type });
+    }
+  }
+}
 
 const ColorPickerButton = styled(ToolbarButton, {
   name: "ColorPicker",
@@ -44,60 +63,37 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const editor = usePlateEditorState();
   const editorRef = usePlateEditorRef();
   const type = getPluginType(editor, pluginKey);
-  const color: string = editorRef && getMark(editorRef, type);
-  const [selectedColor, setSelectedColor] = useState<string>();
+  const color: string = editor && getMark(editor, type);
   const [anchorProps, menuProps] = useMenu(menuId);
+  const { onClose } = menuProps;
 
   const updateColor = useEventCallback(
     (color: string) => {
-      if (editorRef && editor && editor.selection) {
-        setSelectedColor(color);
-
-        Transforms.select(editorRef, editor.selection);
-        ReactEditor.focus(editorRef);
-
-        setMarks(editor, { [type]: color });
-      }
+      setColorMark(editorRef, type, color);
+      onClose();
     },
-    [editorRef, editor, type]
+    [editorRef, type, onClose]
   );
 
-  const clearColor = useCallback(() => {
-    if (editorRef && editor && editor.selection) {
-      setSelectedColor(undefined);
-
-      Transforms.select(editorRef, editor.selection);
-      ReactEditor.focus(editorRef);
-
-      if (selectedColor) {
-        removeMark(editor, { key: type });
-      }
-    }
-  }, [editorRef, editor, type, selectedColor]);
-
-  useEffect(() => {
-    if (editor?.selection) {
-      setSelectedColor(color);
-    }
-  }, [color, editor?.selection]);
-
-  const actualColor = selectedColor || color;
-  const selected = Boolean(editor?.selection) && isMarkActive(editor, type);
+  const clearColor = useEventCallback(() => {
+    clearColorMark(editorRef, type, color);
+    onClose();
+  }, [editorRef, type, color, onClose]);
 
   return (
     <>
       <ColorPickerButton
         {...anchorProps}
         id={buttonId}
-        selectedColor={actualColor}
+        selectedColor={color}
         value={type}
         title={tooltip}
-        selected={selected}
+        selected={Boolean(color)}
         {...buttonProps}
       />
       <ColorPickerMenu
         {...menuProps}
-        color={actualColor}
+        color={color}
         onSelectColor={updateColor}
         onClearColor={clearColor}
       />

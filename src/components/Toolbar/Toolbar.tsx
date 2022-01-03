@@ -20,7 +20,7 @@ export const ToolbarRoot = styled(MuiToolbar, {
 })(({ theme }) => ({
   gap: theme.spacing(0.2),
   flexWrap: "wrap",
-  marginBottom: theme.spacing(1),
+  padding: "10px",
 }));
 
 export const Toolbar = memo(function Toolbar(props: ToolbarProps) {

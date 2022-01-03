@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, memo } from "react";
 import { Stack, styled } from "@mui/material";
 import { AnyObject } from "../../types";
 import { TextEditorBase, TextEditorBaseProps } from "./TextEditorBase";
@@ -16,7 +16,7 @@ export const TextEditorRoot = styled(Stack, {
   position: "relative",
   cursor: "text",
   boxSizing: "border-box",
-  padding: "4px 0 5px",
+  // padding: "4px 0 5px",
   width: "100%",
 }));
 
@@ -26,7 +26,9 @@ export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
   logger?: Logger;
 }
 
-export function TextEditor<T = AnyObject>(props: TextEditorProps<T>) {
+export const TextEditor = memo(function TextEditor<T = AnyObject>(
+  props: TextEditorProps<T>
+) {
   const {
     className,
     style,
@@ -43,6 +45,6 @@ export function TextEditor<T = AnyObject>(props: TextEditorProps<T>) {
       </ErrorBoundary>
     </LoggerContext.Provider>
   );
-}
+});
 
 export default TextEditor;
