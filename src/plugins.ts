@@ -22,7 +22,7 @@ import {
   createTrailingBlockPlugin,
   // createAutoformatPlugin,
 } from "@udecode/plate";
-import { AnyObject } from "./components/types";
+import { AnyObject } from "./types";
 import { CONFIG } from "./config";
 
 /**
