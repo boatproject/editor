@@ -11,7 +11,7 @@ import { FocusEvent, useCallback, useRef, useState } from "react";
 import clsx from "clsx";
 
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
-import { AnyObject } from "../types";
+import { AnyObject } from "../../types";
 
 const classes = generateUtilityClasses("RichTextField", [
   "root",

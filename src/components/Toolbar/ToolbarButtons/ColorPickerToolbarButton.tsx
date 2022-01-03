@@ -11,7 +11,7 @@ import {
 import { useCallback, useEffect, useState } from "react";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
-import { useMenu } from "../../../hooks";
+import { useEventCallback, useMenu } from "../../../hooks";
 import { ColorPickerMenu } from "../../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
@@ -48,7 +48,7 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
   const [selectedColor, setSelectedColor] = useState<string>();
   const [anchorProps, menuProps] = useMenu(menuId);
 
-  const updateColor = useCallback(
+  const updateColor = useEventCallback(
     (color: string) => {
       if (editorRef && editor && editor.selection) {
         setSelectedColor(color);

@@ -1,7 +1,8 @@
 import { isMarkActive, toggleMark, usePlateEditorState } from "@udecode/plate";
 import hasSelection from "../../../utils/plate/hasSelection";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import { MouseEvent, useCallback } from "react";
+import { MouseEvent } from "react";
+import { useEventCallback } from "../../../hooks";
 
 export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   /**
@@ -17,7 +18,7 @@ export function MarkToolbarButton(props: MarkToolbarButtonProps) {
   const selected =
     propSelected ?? (hasSelection(editor) && isMarkActive(editor, value));
 
-  const onMouseDown = useCallback(
+  const onMouseDown = useEventCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       toggleMark(editor, { key: e.currentTarget.value, clear });

@@ -1,10 +1,9 @@
 import { styled } from "@mui/material";
 import { insertImage, usePlateEditorRef } from "@udecode/plate";
-import { ChangeEvent, ForwardedRef, forwardRef, useCallback } from "react";
+import { ChangeEvent, ForwardedRef, forwardRef } from "react";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import type { UploadImage } from "../../types";
-
-// const defaultGetImageUrl = () => window.prompt("Enter the URL of the image:");
+import { useEventCallback } from "../../../hooks";
 
 const Input = styled("input")({
   display: "none",
@@ -25,7 +24,7 @@ export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
   const { uploadImage, ...buttonProps } = props;
   const editor = usePlateEditorRef();
 
-  const onChange = useCallback(
+  const onChange = useEventCallback(
     async (e: ChangeEvent<HTMLInputElement>) => {
       if (!editor) {
         return;

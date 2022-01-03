@@ -8,7 +8,8 @@ import {
   BlockToolbarButton,
   BlockToolbarButtonProps,
 } from "./BlockToolbarButton";
-import { MouseEvent, useCallback } from "react";
+import { MouseEvent } from "react";
+import { useEventCallback } from "../../../hooks";
 
 export type ListToolbarButtonProps = BlockToolbarButtonProps;
 
@@ -18,7 +19,7 @@ export function ListToolbarButton(props: BlockToolbarButtonProps) {
 
   const res = !!editor?.selection && getListItemEntry(editor);
 
-  const onMouseDown = useCallback(
+  const onMouseDown = useEventCallback(
     (e: MouseEvent<HTMLButtonElement>) => {
       e.preventDefault();
       toggleList(editor, { type: e.currentTarget.value });

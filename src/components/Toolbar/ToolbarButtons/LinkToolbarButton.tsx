@@ -7,7 +7,7 @@ import {
 } from "@udecode/plate";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import type { GetLinkUrl } from "../../types";
-import { useCallback } from "react";
+import { useEventCallback } from "../../../hooks";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -25,7 +25,7 @@ export function LinkToolbarButton(props: LinkToolbarButtonProps) {
   const type = getPluginType(editor, ELEMENT_LINK);
   const isLink = !!editor?.selection && someNode(editor, { match: { type } });
 
-  const onMouseDown = useCallback(
+  const onMouseDown = useEventCallback(
     async (event: { preventDefault: () => void }) => {
       if (!editor) return;
 

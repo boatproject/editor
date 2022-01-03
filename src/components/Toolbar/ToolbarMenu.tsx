@@ -1,7 +1,9 @@
 import { Box, Menu, MenuProps } from "@mui/material";
 import { ReactNode } from "react";
-import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
-import { useMenu, UseMenuReturnMenu } from "../../../hooks";
+import ToolbarButton, {
+  ToolbarButtonProps,
+} from "./ToolbarButtons/ToolbarButton";
+import { useMenu, UseMenuReturnMenu } from "../../hooks";
 
 export type ToolbarMenuRenderChildren = (
   menuProps: UseMenuReturnMenu
@@ -41,7 +43,7 @@ export interface ToolbarMenuProps {
   menuProps?: Partial<MenuProps>;
 }
 
-export default function ToolbarMenu(props: ToolbarMenuProps) {
+export function ToolbarMenu(props: ToolbarMenuProps) {
   const {
     menuId,
     icon,
@@ -74,3 +76,5 @@ export default function ToolbarMenu(props: ToolbarMenuProps) {
     </>
   );
 }
+
+export default ToolbarMenu;

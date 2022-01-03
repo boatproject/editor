@@ -1,19 +1,17 @@
-import {
-  styled,
-  ToggleButton as MuiToggleButton,
-  ToggleButtonProps,
-  Tooltip,
-} from "@mui/material";
+import { ToggleButton, ToggleButtonProps, Tooltip } from "@mui/material";
 import { ElementType, ReactNode, memo } from "react";
 
 export type ToolbarButtonProps<D extends ElementType = "button"> = {
+  /**
+   * Value passed to button. Typically represents
+   * a plugin value to pass in an event handler.
+   */
   value: string;
+  /**
+   * Title passed to tooltip component
+   */
   title?: NonNullable<ReactNode>;
 } & ToggleButtonProps<D, { component?: D }>;
-
-const ToggleButton = styled(MuiToggleButton)({
-  border: 0,
-});
 
 export const ToolbarButton = memo(function ToolbarButton<
   D extends ElementType = "button"
@@ -22,7 +20,12 @@ export const ToolbarButton = memo(function ToolbarButton<
 
   return (
     <Tooltip title={title} disableInteractive>
-      <ToggleButton value={value} size="small" {...buttonProps} />
+      <ToggleButton
+        value={value}
+        size="small"
+        sx={{ border: 0 }}
+        {...buttonProps}
+      />
     </Tooltip>
   );
 });
