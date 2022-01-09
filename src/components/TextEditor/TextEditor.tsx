@@ -16,13 +16,21 @@ export const TextEditorRoot = styled(Stack, {
   position: "relative",
   cursor: "text",
   boxSizing: "border-box",
-  // padding: "4px 0 5px",
   width: "100%",
 }));
 
 export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
+  /**
+   * CSS class passed to root of the component
+   */
   className?: string;
+  /**
+   * CSS styles passed to root of the component
+   */
   style?: CSSProperties;
+  /**
+   * Optionally pass a custom logger to log messages
+   */
   logger?: Logger;
 }
 
@@ -37,13 +45,13 @@ export const TextEditor = memo(function TextEditor<T = AnyObject>(
   } = props;
 
   return (
-    <LoggerContext.Provider value={logger}>
-      <ErrorBoundary FallbackComponent={TextEditorFallback}>
-        <TextEditorRoot className={className} style={style}>
+    <TextEditorRoot className={className} style={style}>
+      <LoggerContext.Provider value={logger}>
+        <ErrorBoundary FallbackComponent={TextEditorFallback}>
           <TextEditorBase {...textEditorProps} />
-        </TextEditorRoot>
-      </ErrorBoundary>
-    </LoggerContext.Provider>
+        </ErrorBoundary>
+      </LoggerContext.Provider>
+    </TextEditorRoot>
   );
 });
 

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   Code,
   FormatBold,
@@ -27,7 +28,7 @@ import {
 import { ColorPickerToolbarButton } from "../ToolbarButtons/ColorPickerToolbarButton";
 import { MarkToolbarButton } from "../ToolbarButtons/MarkToolbarButton";
 
-export function MarkToolbarButtonGroup() {
+export const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
   const editor = usePlateEditorRef();
 
   return (
@@ -87,4 +88,4 @@ export function MarkToolbarButtonGroup() {
       </MarkToolbarButton>
     </>
   );
-}
+});

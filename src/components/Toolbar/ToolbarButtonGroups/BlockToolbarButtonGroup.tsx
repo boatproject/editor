@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { CodeOff, FormatQuote, Image, Link } from "@mui/icons-material";
 import {
   ELEMENT_BLOCKQUOTE,
@@ -17,7 +18,9 @@ export interface BlockToolbarButtonGroupProps {
   uploadImage?: UploadImage;
 }
 
-export function BlockToolbarButtonGroup(props: BlockToolbarButtonGroupProps) {
+export const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup(
+  props: BlockToolbarButtonGroupProps
+) {
   const { getLinkUrl, uploadImage } = props;
   const editor = usePlateEditorRef();
 
@@ -49,4 +52,4 @@ export function BlockToolbarButtonGroup(props: BlockToolbarButtonGroupProps) {
       </LinkToolbarButton>
     </>
   );
-}
+});

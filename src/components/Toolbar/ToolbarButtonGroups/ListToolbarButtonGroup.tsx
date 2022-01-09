@@ -1,3 +1,4 @@
+import { memo } from "react";
 import {
   CheckBox,
   FormatListBulleted,
@@ -13,7 +14,7 @@ import {
 import { BlockToolbarButton } from "../ToolbarButtons/BlockToolbarButton";
 import { ListToolbarButton } from "../ToolbarButtons/ListToolbarButton";
 
-export function ListToolbarButtonGroup() {
+export const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   const editor = usePlateEditorRef();
 
   return (
@@ -38,4 +39,4 @@ export function ListToolbarButtonGroup() {
       </BlockToolbarButton>
     </>
   );
-}
+});

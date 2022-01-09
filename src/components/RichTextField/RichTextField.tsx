@@ -62,23 +62,28 @@ const Root = styled("div", {
 
 const InputLabel = styled(MuiInputLabel, {
   name: "RichTextField",
-  slot: "inputLabel",
+  slot: "InputLabel",
 })({
   position: "absolute",
   left: 0,
   top: 0,
-  // transform: "translate(0, 24px) scale(1)",
 });
+
+const NotchedOutlineRoot = styled(NotchedOutline, {
+  name: "RichTextField",
+  slot: "NotchedOutline",
+})(({ theme }) => ({
+  borderColor:
+    theme.palette.mode === "light"
+      ? "rgba(0, 0, 0, 0.23)"
+      : "rgba(255, 255, 255, 0.23)",
+}));
 
 const Content = styled("div", {
   name: "RichTextField",
-  slot: "content",
+  slot: "Content",
 })({
   position: "relative",
-  // padding: "16.5px 14px"
-  // "& > *": {
-  //   padding: "16.5px 14px",
-  // },
 });
 
 type RichTextTextFieldProps = Pick<
@@ -188,7 +193,7 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
           plateProps={plateProps}
         />
       </Content>
-      <NotchedOutline
+      <NotchedOutlineRoot
         className={classes.notchedOutline}
         label={
           label && required ? (

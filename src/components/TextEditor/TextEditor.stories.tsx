@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-import { AnyObject, TNode } from "@udecode/plate";
+import { AnyObject, TNode, Plate } from "@udecode/plate";
 
 import { TextEditor } from "./TextEditor";
 

@@ -76,7 +76,7 @@ const AlignButtons = memo(function AlignButtons(props: AlignButtonsProps) {
   );
 });
 
-export function AlignToolbarButtonGroup() {
+export const AlignToolbarButtonGroup = memo(function AlignToolbarButtonGroup() {
   const editor = usePlateEditorState();
   const selectedAlign = getAlign(editor); // useMemo(() => , [editor]);
 
@@ -94,4 +94,4 @@ export function AlignToolbarButtonGroup() {
   return (
     <AlignButtons selectedAlign={selectedAlign} onMouseDown={onMouseDown} />
   );
-}
+});
