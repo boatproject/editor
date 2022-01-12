@@ -4,12 +4,6 @@ import { useEventCallback } from "../../../hooks";
 import { isBlockActive } from "../../../utils";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 
-export interface UseBlockProps {
-  type: string;
-  inactiveType?: string;
-  selected?: boolean;
-}
-
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
 }

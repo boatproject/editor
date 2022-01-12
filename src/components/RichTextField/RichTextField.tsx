@@ -91,18 +91,20 @@ type RichTextTextFieldProps = Pick<
   "id" | "label" | "error" | "helperText" | "color" | "required" | "name"
 >;
 
-type RichTextTextEditorProps<T = AnyObject> = Pick<
-  TextEditorProps<T>,
-  | "value"
-  | "initialValue"
-  | "onChange"
-  | "onFocus"
-  | "onBlur"
-  | "editableProps"
-  | "uploadImage"
-  | "style"
-  | "className"
-  | "plateProps"
+type RichTextTextEditorProps<T = AnyObject> = Partial<
+  Pick<
+    TextEditorProps<T>,
+    | "value"
+    | "initialValue"
+    | "onChange"
+    | "onFocus"
+    | "onBlur"
+    | "editableProps"
+    | "uploadImage"
+    | "style"
+    | "className"
+    | "plateProps"
+  >
 >;
 
 export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
@@ -110,7 +112,7 @@ export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
 
 export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
   const {
-    id: idOverride,
+    id: idOverride = "rich-text-field",
     name,
     label,
     error,
