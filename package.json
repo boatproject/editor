@@ -45,7 +45,7 @@
     "react-dom": "^17.0.2"
   },
   "name": "boatsoft-editor",
-  "version": "2.12.0",
+  "version": "2.13.0",
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
