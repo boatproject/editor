@@ -52,6 +52,7 @@ export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
   props: TextEditorBaseProps<T>
 ) {
   const {
+    id,
     name,
     editableProps: propEditableProps,
     onFocus,
@@ -61,17 +62,19 @@ export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
 
   const editableProps = useMemo(
     () => ({
+      id,
       name,
       onFocus,
       onBlur,
       ...CONFIG.editableProps,
       ...propEditableProps,
     }),
-    [propEditableProps, name, onFocus, onBlur]
+    [id, propEditableProps, name, onFocus, onBlur]
   );
 
   return (
     <TextEditorBaseComponent
+      id={id}
       editableProps={editableProps}
       {...textEditorProps}
     />
