@@ -34,7 +34,7 @@ export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
   logger?: Logger;
 }
 
-export const TextEditor = memo(function TextEditor<T = AnyObject>(
+export const TextEditor = function TextEditor<T = AnyObject>(
   props: TextEditorProps<T>
 ) {
   const {
@@ -53,6 +53,6 @@ export const TextEditor = memo(function TextEditor<T = AnyObject>(
       </LoggerContext.Provider>
     </TextEditorRoot>
   );
-});
+};
 
 export default TextEditor;

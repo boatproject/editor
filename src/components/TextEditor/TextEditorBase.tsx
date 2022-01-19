@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
 import { AnyObject, PlateProps, Plate } from "@udecode/plate";
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
 import { UploadImage } from "../types";
@@ -25,13 +25,20 @@ export interface TextEditorBaseComponentProps<T = AnyObject>
   plateProps?: Partial<PlateProps>;
 }
 
-const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
-  T = AnyObject
->(props: TextEditorBaseComponentProps<T>) {
-  const { uploadImage, plateProps = {}, children, ...componentProps } = props;
+const TextEditorBaseComponent = function TextEditorBaseComponent<T = AnyObject>(
+  props: TextEditorBaseComponentProps<T>
+) {
+  const {
+    uploadImage,
+    plateProps = {},
+    children,
+    id = "main",
+    ...componentProps
+  } = props;
 
   return (
     <Plate
+      id={id}
       {...CONFIG.defaultProps}
       plugins={PLUGINS}
       {...componentProps}
@@ -42,13 +49,13 @@ const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
       {children}
     </Plate>
   );
-});
+};
 
 export interface TextEditorBaseProps<T = AnyObject>
   extends TextEditorBaseComponentProps<T>,
     Pick<EditableProps, "onFocus" | "onBlur" | "name"> {}
 
-export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
+export const TextEditorBase = function TextEditorBase<T = AnyObject>(
   props: TextEditorBaseProps<T>
 ) {
   const {
@@ -79,6 +86,6 @@ export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
       {...textEditorProps}
     />
   );
-});
+};
 
 export default TextEditorBase;
