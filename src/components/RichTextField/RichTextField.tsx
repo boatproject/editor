@@ -7,11 +7,10 @@ import {
 } from "@mui/material";
 import { unstable_useId as useId } from "@mui/utils";
 import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
-import { FocusEvent, useCallback, useState } from "react";
 import clsx from "clsx";
-
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
 import { AnyObject } from "../../types";
+import { useFocus } from "./useFocus";
 
 const classes = generateUtilityClasses("RichTextField", [
   "root",
@@ -131,33 +130,11 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
     plateProps,
   } = props;
 
-  const [focused, setFocused] = useState(false);
-
   const id = useId(idOverride);
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
   const inputLabelId = label && id ? `${id}-label` : undefined;
 
-  const handleFocus = useCallback(
-    (e: FocusEvent<HTMLDivElement>) => {
-      setFocused(true);
-
-      if (onFocus) {
-        onFocus(e);
-      }
-    },
-    [onFocus]
-  );
-
-  const handleBlur = useCallback(
-    (e: FocusEvent<HTMLDivElement>) => {
-      setFocused(false);
-
-      if (onBlur) {
-        onBlur(e);
-      }
-    },
-    [onBlur]
-  );
+  const [focused, focusHandlers] = useFocus({ onFocus, onBlur });
 
   return (
     <Root
@@ -186,13 +163,12 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
           value={value}
           initialValue={initialValue}
           onChange={onChange}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
           editableProps={editableProps}
           uploadImage={uploadImage}
           style={style}
           className={className}
           plateProps={plateProps}
+          {...focusHandlers}
         />
       </Content>
       <NotchedOutlineRoot

@@ -1,6 +1,6 @@
 import { Divider } from "@mui/material";
 import { AnyObject, PlateProps, Plate } from "@udecode/plate";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
 import { UploadImage } from "../types";
@@ -25,9 +25,9 @@ export interface TextEditorBaseComponentProps<T = AnyObject>
   plateProps?: Partial<PlateProps>;
 }
 
-const TextEditorBaseComponent = function TextEditorBaseComponent<T = AnyObject>(
-  props: TextEditorBaseComponentProps<T>
-) {
+const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
+  T = AnyObject
+>(props: TextEditorBaseComponentProps<T>) {
   const {
     uploadImage,
     plateProps = {},
@@ -49,13 +49,13 @@ const TextEditorBaseComponent = function TextEditorBaseComponent<T = AnyObject>(
       {children}
     </Plate>
   );
-};
+});
 
 export interface TextEditorBaseProps<T = AnyObject>
   extends TextEditorBaseComponentProps<T>,
     Pick<EditableProps, "onFocus" | "onBlur" | "name"> {}
 
-export const TextEditorBase = function TextEditorBase<T = AnyObject>(
+export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
   props: TextEditorBaseProps<T>
 ) {
   const {
@@ -86,6 +86,6 @@ export const TextEditorBase = function TextEditorBase<T = AnyObject>(
       {...textEditorProps}
     />
   );
-};
+});
 
 export default TextEditorBase;

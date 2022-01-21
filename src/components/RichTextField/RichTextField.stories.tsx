@@ -9,6 +9,7 @@ export default {
   args: {
     id: "rich-text-field",
     label: "Rich Text Field",
+    value: [{ type: "p", children: [{ text: "val" }] }],
   },
 } as ComponentMeta<typeof RichTextField>;
 
