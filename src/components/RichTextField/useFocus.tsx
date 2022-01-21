@@ -1,36 +1,41 @@
 import { FocusEvent, FocusEventHandler, useCallback, useState } from "react";
 
-/**
- * Manage focus state and return onFocus and onBlur handlers
- */
-export function useFocus<E extends HTMLElement>(handlers: {
+export interface FocusHandlers<E extends HTMLElement> {
   onFocus?: FocusEventHandler<E>;
   onBlur?: FocusEventHandler<E>;
-}) {
+}
+
+/**
+ * Get focused state with wrapped handlers that manage the state
+ */
+export function useFocus<E extends HTMLElement>(
+  handlers: FocusHandlers<E> = {}
+) {
   const { onFocus, onBlur } = handlers;
   const [focused, setFocused] = useState(false);
 
-  const handleFocus = useCallback(
-    (e: FocusEvent<E>) => {
-      setFocused(true);
+  const wrappedHandlers = {
+    onFocus: useCallback(
+      (e: FocusEvent<E>) => {
+        setFocused(true);
 
-      if (onFocus) {
-        onFocus(e);
-      }
-    },
-    [onFocus]
-  );
+        if (onFocus) {
+          onFocus(e);
+        }
+      },
+      [onFocus]
+    ),
+    onBlur: useCallback(
+      (e: FocusEvent<E>) => {
+        setFocused(false);
 
-  const handleBlur = useCallback(
-    (e: FocusEvent<E>) => {
-      setFocused(false);
+        if (onBlur) {
+          onBlur(e);
+        }
+      },
+      [onBlur]
+    ),
+  };
 
-      if (onBlur) {
-        onBlur(e);
-      }
-    },
-    [onBlur]
-  );
-
-  return [focused, { onFocus: handleFocus, onBlur: handleBlur }] as const;
+  return [focused, wrappedHandlers] as const;
 }
