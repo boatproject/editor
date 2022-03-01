@@ -25,10 +25,6 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
-    "@emotion/react": "^11.7.0",
-    "@emotion/styled": "^11.3.0",
-    "@mui/icons-material": "^5.2.5",
-    "@mui/material": "^5.2.8",
     "@udecode/plate": "^10.1.2",
     "clsx": "^1.1.1",
     "react-error-boundary": "^3.1.4",
@@ -42,7 +38,11 @@
     "@types/react": "^17.0.38",
     "@types/react-dom": "^17.0.11",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "@mui/icons-material": "^5.4.4",
+    "@mui/material": "^5.4.4"
   },
   "name": "boatsoft-editor",
   "version": "2.17.0",
