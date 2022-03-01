@@ -2,5 +2,6 @@ ignores: [
     "prettier",
     "babel-*",
     "@storybook/addon-*",
-    "@mui/utils"
+    "@mui/utils",
+    "@types/jest"
 ]
