@@ -100,5 +100,3 @@ export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
     </>
   );
 }
-
-export default ColorPickerToolbarButton;

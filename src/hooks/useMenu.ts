@@ -4,10 +4,8 @@ import useMenuAnchor from "./useMenuAnchor";
  * Utility hook for binding menu and anchor properties,
  * including open/close state management
  */
-export function useMenu<AnchorEl extends HTMLElement = HTMLButtonElement>(
-  menuId: string
-) {
-  const { element, onClick, onClose } = useMenuAnchor<AnchorEl>();
+export function useMenu(menuId: string) {
+  const { element, onClick, onClose } = useMenuAnchor();
   const open = Boolean(element);
 
   const id = element ? menuId : undefined;
@@ -28,8 +26,5 @@ export function useMenu<AnchorEl extends HTMLElement = HTMLButtonElement>(
 
   return [anchorProps, menuProps] as const;
 }
-
-export type UseMenuReturnAnchor = ReturnType<typeof useMenu>[0];
-export type UseMenuReturnMenu = ReturnType<typeof useMenu>[1];
 
 export default useMenu;
