@@ -52,6 +52,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "build": "tsc",
+    "prepare": "npm run build",
     "prepack": "npm run build",
     "postversion": "git push --follow-tags"
   },
