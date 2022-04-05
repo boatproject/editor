@@ -4,11 +4,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    "eslint:recommended",
-    "plugin:storybook/recommended",
-    "plugin:jest-dom/recommended",
-  ],
+  extends: ["eslint:recommended", "plugin:jest-dom/recommended"],
   overrides: [
     {
       files: ["**/*.ts?(x)"],
