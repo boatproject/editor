@@ -1,14 +1,14 @@
 import { toggleNodeType, usePlateEditorState } from "@udecode/plate-core";
 import { MouseEvent } from "react";
-import { useEventCallback } from "../../../hooks";
-import { isBlockActive } from "../../../utils";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import useEventCallback from "../../hooks/useEventCallback";
+import { isBlockActive } from "../../utils";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
 }
 
-export function BlockToolbarButton(props: BlockToolbarButtonProps) {
+export default function BlockToolbarButton(props: BlockToolbarButtonProps) {
   const { selected: propSelected, value, inactiveType, ...buttonProps } = props;
   const editor = usePlateEditorState();
 
@@ -34,5 +34,3 @@ export function BlockToolbarButton(props: BlockToolbarButtonProps) {
     />
   );
 }
-
-export default BlockToolbarButton;

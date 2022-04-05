@@ -4,9 +4,9 @@ import {
   usePlateEditorState,
 } from "@udecode/plate-core";
 import { ELEMENT_LINK, getAndUpsertLink } from "@udecode/plate-link";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import type { GetLinkUrl } from "../../types";
-import { useEventCallback } from "../../../hooks";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
+import type { GetLinkUrl } from "../types";
+import useEventCallback from "../../hooks/useEventCallback";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -16,7 +16,7 @@ export interface LinkToolbarButtonProps
   getLinkUrl?: GetLinkUrl;
 }
 
-export function LinkToolbarButton(props: LinkToolbarButtonProps) {
+export default function LinkToolbarButton(props: LinkToolbarButtonProps) {
   const { getLinkUrl, ...buttonProps } = props;
 
   const editor = usePlateEditorState();
@@ -43,5 +43,3 @@ export function LinkToolbarButton(props: LinkToolbarButtonProps) {
     />
   );
 }
-
-export default LinkToolbarButton;

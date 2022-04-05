@@ -2,9 +2,9 @@ import { styled } from "@mui/material";
 import { insertImage } from "@udecode/plate-image";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import { ChangeEvent, ForwardedRef, forwardRef } from "react";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
-import type { UploadImage } from "../../types";
-import { useEventCallback } from "../../../hooks";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
+import type { UploadImage } from "../types";
+import useEventCallback from "../../hooks/useEventCallback";
 
 const Input = styled("input")({
   display: "none",
@@ -18,7 +18,7 @@ export interface ImageToolbarButtonProps extends ToolbarButtonProps {
  * Button to upload an image and insert into editor
  * @todo support getImageUrl and adding image by url
  */
-export const ImageToolbarButton = forwardRef(function ImageToolbarButton(
+const ImageToolbarButton = forwardRef(function ImageToolbarButton(
   props: ImageToolbarButtonProps,
   ref: ForwardedRef<HTMLButtonElement>
 ) {

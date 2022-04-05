@@ -4,7 +4,7 @@ import useEventCallback from "./useEventCallback";
 /**
  * Utility hook for managing menu anchor state
  */
-export function useMenuAnchor() {
+export default function useMenuAnchor() {
   const [element, setElement] = useState<HTMLElement | null>(null);
 
   const onClick = useEventCallback(
@@ -19,5 +19,3 @@ export function useMenuAnchor() {
     onClose,
   } as const;
 }
-
-export default useMenuAnchor;

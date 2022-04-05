@@ -6,7 +6,7 @@ import {
 } from "@udecode/plate-code-block";
 import { ToolbarButtonProps } from "./ToolbarButton";
 import BlockToolbarButton from "./BlockToolbarButton";
-import { useEventCallback } from "../../../hooks";
+import useEventCallback from "../../hooks/useEventCallback";
 
 export interface CodeBlockToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -14,7 +14,9 @@ export interface CodeBlockToolbarButtonProps
   options?: CodeBlockInsertOptions;
 }
 
-export function CodeBlockToolbarButton(props: CodeBlockToolbarButtonProps) {
+export default function CodeBlockToolbarButton(
+  props: CodeBlockToolbarButtonProps
+) {
   const { options, ...buttonProps } = props;
   const editor = usePlateEditorRef();
 
@@ -38,5 +40,3 @@ export function CodeBlockToolbarButton(props: CodeBlockToolbarButtonProps) {
     />
   );
 }
-
-export default CodeBlockToolbarButton;

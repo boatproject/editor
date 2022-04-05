@@ -23,10 +23,10 @@ import {
 } from "@udecode/plate-basic-marks";
 import { MARK_BG_COLOR, MARK_COLOR } from "@udecode/plate-font";
 import { MARK_HIGHLIGHT } from "@udecode/plate-highlight";
-import { ColorPickerToolbarButton } from "../ToolbarButtons";
-import { MarkToolbarButton } from "../ToolbarButtons/MarkToolbarButton";
+import ColorPickerToolbarButton from "./ColorPickerToolbarButton";
+import MarkToolbarButton from "./MarkToolbarButton";
 
-export const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
+const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
   const editor = usePlateEditorRef();
 
   return (
@@ -87,3 +87,5 @@ export const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
     </>
   );
 });
+
+export default MarkToolbarButtonGroup;

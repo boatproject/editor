@@ -2,9 +2,7 @@ import { createContext, useContext } from "react";
 
 export type Logger = Pick<Console, "debug" | "error" | "info" | "log" | "warn">;
 
-export const defaultLogger = console;
-
-export const LoggerContext = createContext<Logger>(defaultLogger);
+const LoggerContext = createContext<Logger>(console);
 LoggerContext.displayName = "LoggerContext";
 
 /**

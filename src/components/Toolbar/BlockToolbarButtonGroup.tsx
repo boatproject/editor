@@ -4,18 +4,18 @@ import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_IMAGE } from "@udecode/plate-image";
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
-import { BlockToolbarButton } from "../ToolbarButtons/BlockToolbarButton";
-import { ImageToolbarButton } from "../ToolbarButtons/ImageToolbarButton";
-import { LinkToolbarButton } from "../ToolbarButtons/LinkToolbarButton";
-import { CodeBlockToolbarButton } from "../ToolbarButtons/CodeBlockToolbarButton";
-import { GetLinkUrl, UploadImage } from "../../types";
+import BlockToolbarButton from "./BlockToolbarButton";
+import ImageToolbarButton from "./ImageToolbarButton";
+import LinkToolbarButton from "./LinkToolbarButton";
+import CodeBlockToolbarButton from "./CodeBlockToolbarButton";
+import { GetLinkUrl, UploadImage } from "../types";
 
 export interface BlockToolbarButtonGroupProps {
   getLinkUrl?: GetLinkUrl;
   uploadImage?: UploadImage;
 }
 
-export const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup(
+const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup(
   props: BlockToolbarButtonGroupProps
 ) {
   const { getLinkUrl, uploadImage } = props;
@@ -50,3 +50,5 @@ export const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup(
     </>
   );
 });
+
+export default BlockToolbarButtonGroup;

@@ -4,7 +4,7 @@ import { memo, useMemo } from "react";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
 import { UploadImage } from "../types";
-import { Toolbar } from "../Toolbar";
+import Toolbar from "../Toolbar";
 import { EditableProps } from "slate-react/dist/components/editable";
 
 export type TextEditorPlateProps<T = AnyObject> = Pick<

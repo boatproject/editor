@@ -3,10 +3,10 @@ import {
   toggleMark,
   usePlateEditorState,
 } from "@udecode/plate-core";
-import hasSelection from "../../../utils/hasSelection";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import hasSelection from "../../utils/hasSelection";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 import { MouseEvent } from "react";
-import { useEventCallback } from "../../../hooks";
+import useEventCallback from "../../hooks/useEventCallback";
 
 export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   /**
@@ -15,7 +15,7 @@ export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   clear?: string | string[];
 }
 
-export function MarkToolbarButton(props: MarkToolbarButtonProps) {
+export default function MarkToolbarButton(props: MarkToolbarButtonProps) {
   const { selected: propSelected, value, clear, ...buttonProps } = props;
   const editor = usePlateEditorState();
 
@@ -39,5 +39,3 @@ export function MarkToolbarButton(props: MarkToolbarButtonProps) {
     />
   );
 }
-
-export default MarkToolbarButton;

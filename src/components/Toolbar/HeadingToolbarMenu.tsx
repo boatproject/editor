@@ -22,9 +22,9 @@ import {
   ELEMENT_H5,
   ELEMENT_H6,
 } from "@udecode/plate-heading";
-import { useMenu } from "../../hooks";
-import BlockToolbarButton from "./ToolbarButtons/BlockToolbarButton";
-import { ToolbarButton } from "./ToolbarButtons";
+import useMenu from "../../hooks/useMenu";
+import BlockToolbarButton from "./BlockToolbarButton";
+import ToolbarButton from "./ToolbarButton";
 import { useMemo } from "react";
 
 const headingButtonDefs = [
@@ -81,7 +81,7 @@ function getSelectedHeadingType(editor: PlateEditor): string | undefined {
   return undefined;
 }
 
-export function HeadingToolbarMenu() {
+export default function HeadingToolbarMenu() {
   const editor = usePlateEditorState();
   const selectedType = getSelectedHeadingType(editor);
   const selectedButtonDef = useMemo(
@@ -129,5 +129,3 @@ export function HeadingToolbarMenu() {
     </>
   );
 }
-
-export default HeadingToolbarMenu;

@@ -1,14 +1,13 @@
 import { styled, Toolbar as MuiToolbar } from "@mui/material";
 import { HTMLAttributes, memo } from "react";
-import {
-  AlignToolbarButtonGroup,
-  BlockToolbarButtonGroup,
+import AlignToolbarButtonGroup from "./AlignToolbarButtonGroup";
+import BlockToolbarButtonGroup, {
   BlockToolbarButtonGroupProps,
-  IndentToolbarButtonGroup,
-  ListToolbarButtonGroup,
-  MarkToolbarButtonGroup,
-} from "./ToolbarButtonGroups";
-import { HeadingToolbarMenu } from "./HeadingToolbarMenu";
+} from "./BlockToolbarButtonGroup";
+import IndentToolbarButtonGroup from "./IndentToolbarButtonGroup";
+import ListToolbarButtonGroup from "./ListToolbarButtonGroup";
+import MarkToolbarButtonGroup from "./MarkToolbarButtonGroup";
+import HeadingToolbarMenu from "./HeadingToolbarMenu";
 
 export interface ToolbarProps
   extends HTMLAttributes<HTMLDivElement>,
@@ -23,7 +22,7 @@ export const ToolbarRoot = styled(MuiToolbar, {
   padding: "10px",
 }));
 
-export const Toolbar = memo(function Toolbar(props: ToolbarProps) {
+const Toolbar = memo(function Toolbar(props: ToolbarProps) {
   const { getLinkUrl, uploadImage, ...toolbarProps } = props;
 
   return (

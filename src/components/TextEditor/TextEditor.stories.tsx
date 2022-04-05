@@ -33,7 +33,7 @@ const DebugTemplate = Template.bind({});
  * @returns
  */
 export const Debug: ComponentStory<typeof TextEditor> = (args) => {
-  const [debugValue, setDebugValue] = useState<TNode<AnyObject>[] | null>(null);
+  const [debugValue, setDebugValue] = useState<TNode[] | null>(null);
 
   return (
     <DebugTemplate {...args} onChange={(value) => setDebugValue(value)}>

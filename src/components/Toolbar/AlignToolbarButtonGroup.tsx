@@ -7,8 +7,8 @@ import {
 import { findNode, TEditor, usePlateEditorState } from "@udecode/plate-core";
 import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
 import { memo, MouseEvent, MouseEventHandler } from "react";
-import { useEventCallback } from "../../../hooks";
-import { ToolbarButton } from "../ToolbarButtons";
+import useEventCallback from "../../hooks/useEventCallback";
+import ToolbarButton from "./ToolbarButton";
 
 const DEFAULT_ALIGN = "left";
 
@@ -70,7 +70,7 @@ const AlignButtons = memo(function AlignButtons(props: AlignButtonsProps) {
   );
 });
 
-export const AlignToolbarButtonGroup = memo(function AlignToolbarButtonGroup() {
+const AlignToolbarButtonGroup = memo(function AlignToolbarButtonGroup() {
   const editor = usePlateEditorState();
   const selectedAlign = getAlign(editor); // useMemo(() => , [editor]);
 
@@ -89,3 +89,5 @@ export const AlignToolbarButtonGroup = memo(function AlignToolbarButtonGroup() {
     <AlignButtons selectedAlign={selectedAlign} onMouseDown={onMouseDown} />
   );
 });
+
+export default AlignToolbarButtonGroup;

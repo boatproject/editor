@@ -14,7 +14,7 @@ const throwOnRender = () => {
  * @param deps
  * @returns
  */
-export function useEventCallback<A extends unknown[], R>(
+export default function useEventCallback<A extends unknown[], R>(
   fn: (...args: A) => R,
   deps: DependencyList
 ) {
@@ -30,5 +30,3 @@ export function useEventCallback<A extends unknown[], R>(
     return fn(...args);
   }, []);
 }
-
-export default useEventCallback;

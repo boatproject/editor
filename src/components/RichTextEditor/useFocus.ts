@@ -8,7 +8,7 @@ export interface FocusHandlers<E extends HTMLElement> {
 /**
  * Get focused state with wrapped handlers that manage the state
  */
-export function useFocus<E extends HTMLElement>(
+export default function useFocus<E extends HTMLElement>(
   handlers: FocusHandlers<E> = {}
 ) {
   const { onFocus, onBlur } = handlers;

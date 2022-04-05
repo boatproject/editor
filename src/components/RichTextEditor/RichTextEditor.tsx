@@ -10,7 +10,7 @@ import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
 import clsx from "clsx";
 import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
 import { AnyObject } from "../../types";
-import { useFocus } from "./useFocus";
+import useFocus from "./useFocus";
 
 const classes = generateUtilityClasses("RichTextEditor", [
   "root",

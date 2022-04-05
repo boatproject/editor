@@ -10,8 +10,9 @@ import {
 } from "@udecode/plate-core";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
-import { useEventCallback, useMenu } from "../../../hooks";
-import { ColorPickerMenu } from "../../ColorPicker";
+import useEventCallback from "../../hooks/useEventCallback";
+import useMenu from "../../hooks/useMenu";
+import { ColorPickerMenu } from "../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 function setColorMark(editor: PlateEditor, type: string, color: string) {
@@ -53,7 +54,9 @@ export interface ColorPickerToolbarButtonProps
  * ColorPicker toolbar component
  * @param props
  */
-export function ColorPickerToolbarButton(props: ColorPickerToolbarButtonProps) {
+export default function ColorPickerToolbarButton(
+  props: ColorPickerToolbarButtonProps
+) {
   const { pluginKey, title: tooltip, ...buttonProps } = props;
 
   const baseId = "color-picker";

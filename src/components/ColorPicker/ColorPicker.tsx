@@ -3,7 +3,7 @@ import { useState, MouseEvent } from "react";
 import { ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
 import { Stack, styled } from "@mui/material";
 import { ColorPickerTileGrid } from "./ColorPickerTileGrid";
-import { useEventCallback } from "../../hooks";
+import useEventCallback from "../../hooks/useEventCallback";
 
 const ColorPickerStack = styled(Stack, {
   shouldForwardProp: (prop) => prop !== "color",

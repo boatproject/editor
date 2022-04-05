@@ -4,7 +4,7 @@ import useMenuAnchor from "./useMenuAnchor";
  * Utility hook for binding menu and anchor properties,
  * including open/close state management
  */
-export function useMenu(menuId: string) {
+export default function useMenu(menuId: string) {
   const { element, onClick, onClose } = useMenuAnchor();
   const open = Boolean(element);
 
@@ -26,5 +26,3 @@ export function useMenu(menuId: string) {
 
   return [anchorProps, menuProps] as const;
 }
-
-export default useMenu;

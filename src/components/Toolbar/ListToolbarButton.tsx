@@ -1,11 +1,10 @@
 import { usePlateEditorState } from "@udecode/plate-core";
 import { ELEMENT_UL, getListItemEntry, toggleList } from "@udecode/plate-list";
-import {
-  BlockToolbarButton,
+import BlockToolbarButton, {
   BlockToolbarButtonProps,
 } from "./BlockToolbarButton";
 import { MouseEvent } from "react";
-import { useEventCallback } from "../../../hooks";
+import useEventCallback from "../../hooks/useEventCallback";
 
 export type ListToolbarButtonProps = BlockToolbarButtonProps;
 

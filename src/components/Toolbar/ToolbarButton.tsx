@@ -3,7 +3,7 @@ import { ElementType, ReactNode, memo } from "react";
 
 export type ToolbarButtonProps<D extends ElementType = "button"> = {
   /**
-   * Value passed to button. Typically represents
+   * Value passed to button. Typically, represents
    * a plugin value to pass in an event handler.
    */
   value: string;
@@ -13,7 +13,7 @@ export type ToolbarButtonProps<D extends ElementType = "button"> = {
   title?: NonNullable<ReactNode>;
 } & ToggleButtonProps<D, { component?: D }>;
 
-export const ToolbarButton = memo(function ToolbarButton<
+const ToolbarButton = memo(function ToolbarButton<
   D extends ElementType = "button"
 >(props: ToolbarButtonProps<D>) {
   const { title = "", value, ...buttonProps } = props;

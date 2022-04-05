@@ -6,10 +6,10 @@ import {
 } from "@mui/icons-material";
 import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
-import { BlockToolbarButton } from "../ToolbarButtons/BlockToolbarButton";
-import { ListToolbarButton } from "../ToolbarButtons/ListToolbarButton";
+import BlockToolbarButton from "./BlockToolbarButton";
+import ListToolbarButton from "./ListToolbarButton";
 
-export const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
+const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   const editor = usePlateEditorRef();
 
   return (
@@ -35,3 +35,5 @@ export const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
     </>
   );
 });
+
+export default ListToolbarButtonGroup;

@@ -56,7 +56,6 @@ function createStaticPlugins(config = CONFIG) {
     createSoftBreakPlugin(config.softBreak),
     createTrailingBlockPlugin(config.trailingBlock),
     createExitBreakPlugin(config.exitBreak),
-    // createAutoformatPlugin(PLUGINS_CONFIG.autoFormat),
   ];
 
   return createPlugins<AnyObject>(

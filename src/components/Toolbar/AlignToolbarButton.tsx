@@ -4,16 +4,17 @@ import {
   usePlateEditorState,
 } from "@udecode/plate-core";
 import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
-import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 import { MouseEvent } from "react";
-import { useEventCallback } from "../../../hooks";
+import useEventCallback from "../../hooks/useEventCallback";
+
 export interface AlignToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
   value: Alignment;
   pluginKey?: string;
 }
 
-export function AlignToolbarButton(props: AlignToolbarButtonProps) {
+export default function AlignToolbarButton(props: AlignToolbarButtonProps) {
   const { value, pluginKey = KEY_ALIGN, ...buttonProps } = props;
   const editor = usePlateEditorState();
 
@@ -41,5 +42,3 @@ export function AlignToolbarButton(props: AlignToolbarButtonProps) {
     />
   );
 }
-
-export default AlignToolbarButton;
