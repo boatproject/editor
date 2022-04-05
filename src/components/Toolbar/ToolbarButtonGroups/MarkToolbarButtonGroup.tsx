@@ -11,21 +11,19 @@ import {
   Subscript,
   Superscript,
 } from "@mui/icons-material";
+import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
 import {
-  getPluginType,
-  MARK_BG_COLOR,
   MARK_BOLD,
   MARK_CODE,
-  MARK_COLOR,
-  MARK_HIGHLIGHT,
   MARK_ITALIC,
   MARK_STRIKETHROUGH,
   MARK_SUBSCRIPT,
   MARK_SUPERSCRIPT,
   MARK_UNDERLINE,
-  usePlateEditorRef,
-} from "@udecode/plate";
-import { ColorPickerToolbarButton } from "../ToolbarButtons/ColorPickerToolbarButton";
+} from "@udecode/plate-basic-marks";
+import { MARK_BG_COLOR, MARK_COLOR } from "@udecode/plate-font";
+import { MARK_HIGHLIGHT } from "@udecode/plate-highlight";
+import { ColorPickerToolbarButton } from "../ToolbarButtons";
 import { MarkToolbarButton } from "../ToolbarButtons/MarkToolbarButton";
 
 export const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {

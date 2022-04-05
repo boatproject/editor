@@ -1,4 +1,4 @@
-import { TEditor } from "@udecode/plate";
+import { TEditor } from "@udecode/plate-core";
 import { BaseRange } from "slate";
 
 export default function hasSelection(

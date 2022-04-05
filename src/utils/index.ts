@@ -1,2 +1,3 @@
-export * from "./plate";
-export * from "./slate";
+export { default as hasSelection } from "./hasSelection";
+export { default as isBlockActive } from "./isBlockActive";
+export { default as getRootNode } from "./getRootNode";

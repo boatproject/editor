@@ -1,4 +1,4 @@
-import { toggleNodeType, usePlateEditorState } from "@udecode/plate";
+import { toggleNodeType, usePlateEditorState } from "@udecode/plate-core";
 import { MouseEvent } from "react";
 import { useEventCallback } from "../../../hooks";
 import { isBlockActive } from "../../../utils";

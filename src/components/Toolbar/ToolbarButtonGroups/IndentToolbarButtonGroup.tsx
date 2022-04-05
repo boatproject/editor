@@ -5,10 +5,9 @@ import {
 } from "@mui/icons-material";
 import {
   getPreventDefaultHandler,
-  indent,
-  outdent,
   usePlateEditorState,
-} from "@udecode/plate";
+} from "@udecode/plate-core";
+import { indent, outdent } from "@udecode/plate-indent";
 import { ToolbarButton } from "../ToolbarButtons/ToolbarButton";
 
 export const IndentToolbarButtonGroup = memo(

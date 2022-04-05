@@ -1,5 +1,6 @@
 import { styled } from "@mui/material";
-import { insertImage, usePlateEditorRef } from "@udecode/plate";
+import { insertImage } from "@udecode/plate-image";
+import { usePlateEditorRef } from "@udecode/plate-core";
 import { ChangeEvent, ForwardedRef, forwardRef } from "react";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import type { UploadImage } from "../../types";

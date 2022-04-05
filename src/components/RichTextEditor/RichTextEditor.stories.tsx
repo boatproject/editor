@@ -1,21 +1,21 @@
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import { RichTextField } from "./RichTextField";
+import { RichTextEditor } from "./RichTextEditor";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: "BoatsoftEditor/RichTextField",
-  component: RichTextField,
+  title: "BoatsoftEditor/RichTextEditor",
+  component: RichTextEditor,
   args: {
-    id: "rich-text-field",
-    label: "Rich Text Field",
+    id: "rich-text-editor",
+    label: "Rich Text Editor",
     value: [{ type: "p", children: [{ text: "val" }] }],
   },
-} as ComponentMeta<typeof RichTextField>;
+} as ComponentMeta<typeof RichTextEditor>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof RichTextField> = (args) => (
-  <RichTextField {...args} />
+const Template: ComponentStory<typeof RichTextEditor> = (args) => (
+  <RichTextEditor {...args} />
 );
 
 export const Basic = Template.bind({});

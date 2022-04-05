@@ -1,4 +1,4 @@
-import { AnyObject, PlateEditor, someNode } from "@udecode/plate";
+import { AnyObject, PlateEditor, someNode } from "@udecode/plate-core";
 
 /**
  * Check if selection has a node of a matching type

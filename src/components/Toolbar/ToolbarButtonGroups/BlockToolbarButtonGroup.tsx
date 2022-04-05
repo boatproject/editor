@@ -1,12 +1,9 @@
 import { memo } from "react";
 import { CodeOff, FormatQuote, Image, Link } from "@mui/icons-material";
-import {
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_CODE_BLOCK,
-  ELEMENT_IMAGE,
-  getPluginType,
-  usePlateEditorRef,
-} from "@udecode/plate";
+import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
+import { ELEMENT_IMAGE } from "@udecode/plate-image";
+import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
+import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import { BlockToolbarButton } from "../ToolbarButtons/BlockToolbarButton";
 import { ImageToolbarButton } from "../ToolbarButtons/ImageToolbarButton";
 import { LinkToolbarButton } from "../ToolbarButtons/LinkToolbarButton";

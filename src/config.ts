@@ -1,33 +1,32 @@
+import { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
+import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
+import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import { ELEMENT_TD } from "@udecode/plate-table";
 import {
-  createPlateUI,
-  ELEMENT_BLOCKQUOTE,
-  ELEMENT_CODE_BLOCK,
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6,
-  ELEMENT_HR,
-  ELEMENT_IMAGE,
-  ELEMENT_PARAGRAPH,
-  ELEMENT_TD,
-  ELEMENT_TODO_LI,
-  // AutoformatPluginOptions,
-  ExitBreakPlugin,
-  IndentPlugin,
+  KEYS_HEADING,
+} from "@udecode/plate-heading";
+import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
+import {
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
-  KEYS_HEADING,
-  PlatePluginComponent,
   PlatePlugin,
-  ResetNodePlugin,
-  SelectOnBackspacePlugin,
-  SoftBreakPlugin,
-  TrailingBlockPlugin,
-  ELEMENT_MEDIA_EMBED,
+  PlatePluginComponent,
   PlateProps,
-} from "@udecode/plate";
+} from "@udecode/plate-core";
+import { ELEMENT_IMAGE } from "@udecode/plate-image";
+import { IndentPlugin } from "@udecode/plate-indent";
+import { ELEMENT_TODO_LI } from "@udecode/plate-list";
+import { ResetNodePlugin } from "@udecode/plate-reset-node";
+import { SelectOnBackspacePlugin } from "@udecode/plate-select";
+import { TrailingBlockPlugin } from "@udecode/plate-trailing-block";
+import { createPlateUI } from "@udecode/plate-ui";
 import { EditableProps } from "slate-react/dist/components/editable";
 
 const resetBlockTypesCommonRule = {
@@ -164,7 +163,7 @@ export const CONFIG: Config = {
   },
   selectOnBackspace: {
     options: {
-      query: { allow: [ELEMENT_IMAGE, ELEMENT_MEDIA_EMBED, ELEMENT_HR] },
+      query: { allow: [ELEMENT_IMAGE, ELEMENT_HR] },
     },
   },
   trailingBlock: { type: ELEMENT_PARAGRAPH },

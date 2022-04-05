@@ -1,10 +1,9 @@
 import {
   getPluginType,
-  ELEMENT_LINK,
   someNode,
-  getAndUpsertLink,
   usePlateEditorState,
-} from "@udecode/plate";
+} from "@udecode/plate-core";
+import { ELEMENT_LINK, getAndUpsertLink } from "@udecode/plate-link";
 import { ToolbarButton, ToolbarButtonProps } from "./ToolbarButton";
 import type { GetLinkUrl } from "../../types";
 import { useEventCallback } from "../../../hooks";

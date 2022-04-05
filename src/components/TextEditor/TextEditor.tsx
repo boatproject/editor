@@ -4,7 +4,7 @@ import { AnyObject } from "../../types";
 import { TextEditorBase, TextEditorBaseProps } from "./TextEditorBase";
 import { ErrorBoundary } from "react-error-boundary";
 import TextEditorFallback from "./TextEditorFallback";
-import { LoggerContext, Logger, defaultLogger } from "../LoggerContext";
+import { Logger, LoggerContext, defaultLogger } from "./LoggerContext";
 
 export const TextEditorRoot = styled(Stack, {
   name: "TextEditor",

@@ -4,14 +4,8 @@ import {
   FormatAlignLeft,
   FormatAlignRight,
 } from "@mui/icons-material";
-import {
-  Alignment,
-  findNode,
-  KEY_ALIGN,
-  setAlign,
-  TEditor,
-  usePlateEditorState,
-} from "@udecode/plate";
+import { findNode, TEditor, usePlateEditorState } from "@udecode/plate-core";
+import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
 import { memo, MouseEvent, MouseEventHandler } from "react";
 import { useEventCallback } from "../../../hooks";
 import { ToolbarButton } from "../ToolbarButtons";

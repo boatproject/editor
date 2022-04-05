@@ -1,9 +1,5 @@
-import {
-  ELEMENT_UL,
-  usePlateEditorState,
-  getListItemEntry,
-  toggleList,
-} from "@udecode/plate";
+import { usePlateEditorState } from "@udecode/plate-core";
+import { ELEMENT_UL, getListItemEntry, toggleList } from "@udecode/plate-list";
 import {
   BlockToolbarButton,
   BlockToolbarButtonProps,

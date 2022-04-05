@@ -4,13 +4,8 @@ import {
   FormatListBulleted,
   FormatListNumbered,
 } from "@mui/icons-material";
-import {
-  ELEMENT_OL,
-  ELEMENT_TODO_LI,
-  ELEMENT_UL,
-  getPluginType,
-  usePlateEditorRef,
-} from "@udecode/plate";
+import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
+import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
 import { BlockToolbarButton } from "../ToolbarButtons/BlockToolbarButton";
 import { ListToolbarButton } from "../ToolbarButtons/ListToolbarButton";
 

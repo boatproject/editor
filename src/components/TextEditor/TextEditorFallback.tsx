@@ -2,7 +2,7 @@ import { RestartAlt } from "@mui/icons-material";
 import { Alert, AlertTitle, Button, Stack } from "@mui/material";
 import { useEffect, useRef } from "react";
 import type { FallbackProps } from "react-error-boundary";
-import { useLogger } from "../LoggerContext";
+import { useLogger } from "./LoggerContext";
 
 /**
  * Simple fallback to display if a rendering error occurs within the editor

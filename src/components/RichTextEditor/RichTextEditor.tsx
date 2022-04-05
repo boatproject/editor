@@ -12,7 +12,7 @@ import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
 import { AnyObject } from "../../types";
 import { useFocus } from "./useFocus";
 
-const classes = generateUtilityClasses("RichTextField", [
+const classes = generateUtilityClasses("RichTextEditor", [
   "root",
   "colorSecondary",
   "focused",
@@ -22,7 +22,7 @@ const classes = generateUtilityClasses("RichTextField", [
 ]);
 
 const Root = styled("div", {
-  name: "RichTextField",
+  name: "RichTextEditor",
   slot: "Root",
   shouldForwardProp: (prop) => prop !== "color",
 })<{
@@ -60,7 +60,7 @@ const Root = styled("div", {
 });
 
 const InputLabel = styled(MuiInputLabel, {
-  name: "RichTextField",
+  name: "RichTextEditor",
   slot: "InputLabel",
 })({
   position: "absolute",
@@ -69,7 +69,7 @@ const InputLabel = styled(MuiInputLabel, {
 });
 
 const NotchedOutlineRoot = styled(NotchedOutline, {
-  name: "RichTextField",
+  name: "RichTextEditor",
   slot: "NotchedOutline",
 })(({ theme }) => ({
   borderColor:
@@ -79,7 +79,7 @@ const NotchedOutlineRoot = styled(NotchedOutline, {
 }));
 
 const Content = styled("div", {
-  name: "RichTextField",
+  name: "RichTextEditor",
   slot: "Content",
 })({
   position: "relative",
@@ -109,7 +109,7 @@ type RichTextTextEditorProps<T = AnyObject> = Partial<
 export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
   RichTextTextEditorProps<T>;
 
-export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
+export function RichTextEditor<T = AnyObject>(props: RichTextFieldProps<T>) {
   const {
     id: idOverride = "rich-text-field",
     name,
@@ -194,4 +194,4 @@ export function RichTextField<T = AnyObject>(props: RichTextFieldProps<T>) {
   );
 }
 
-export default RichTextField;
+export default RichTextEditor;

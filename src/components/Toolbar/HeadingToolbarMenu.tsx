@@ -9,17 +9,19 @@ import {
 } from "@mui/icons-material";
 import { Box, Menu } from "@mui/material";
 import {
+  getPluginType,
+  PlateEditor,
+  findNode,
+  usePlateEditorState,
+} from "@udecode/plate-core";
+import {
   ELEMENT_H1,
   ELEMENT_H2,
   ELEMENT_H3,
   ELEMENT_H4,
   ELEMENT_H5,
   ELEMENT_H6,
-  getPluginType,
-  PlateEditor,
-  findNode,
-  usePlateEditorState,
-} from "@udecode/plate";
+} from "@udecode/plate-heading";
 import { useMenu } from "../../hooks";
 import BlockToolbarButton from "./ToolbarButtons/BlockToolbarButton";
 import { ToolbarButton } from "./ToolbarButtons";

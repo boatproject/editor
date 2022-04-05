@@ -7,7 +7,7 @@ import {
   usePlateEditorState,
   usePlateEditorRef,
   PlateEditor,
-} from "@udecode/plate";
+} from "@udecode/plate-core";
 import { Transforms } from "slate";
 import { ReactEditor } from "slate-react";
 import { useEventCallback, useMenu } from "../../../hooks";

@@ -1,10 +1,9 @@
+import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
 import {
+  ELEMENT_CODE_BLOCK,
   insertEmptyCodeBlock,
   CodeBlockInsertOptions,
-  getPluginType,
-  ELEMENT_CODE_BLOCK,
-  usePlateEditorRef,
-} from "@udecode/plate";
+} from "@udecode/plate-code-block";
 import { ToolbarButtonProps } from "./ToolbarButton";
 import BlockToolbarButton from "./BlockToolbarButton";
 import { useEventCallback } from "../../../hooks";

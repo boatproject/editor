@@ -1,4 +1,4 @@
-import { PlateEditor } from "@udecode/plate";
+import { PlateEditor } from "@udecode/plate-core";
 import { ReactEditor } from "slate-react";
 
 /**

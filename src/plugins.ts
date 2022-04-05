@@ -1,27 +1,26 @@
+import { createAlignPlugin } from "@udecode/plate-alignment";
+import { createBasicElementsPlugin } from "@udecode/plate-basic-elements";
+import { createBasicMarksPlugin } from "@udecode/plate-basic-marks";
 import {
-  createBasicElementsPlugin,
-  createBasicMarksPlugin,
-  createImagePlugin,
-  createSelectOnBackspacePlugin,
-  createIndentPlugin,
-  createLinkPlugin,
-  createResetNodePlugin,
-  createSoftBreakPlugin,
   createExitBreakPlugin,
-  createListPlugin,
-  createTodoListPlugin,
-  createFontColorPlugin,
+  createSoftBreakPlugin,
+} from "@udecode/plate-break";
+import { createPlugins, PlatePlugin } from "@udecode/plate-core";
+import {
   createFontBackgroundColorPlugin,
+  createFontColorPlugin,
   createFontSizePlugin,
-  createHighlightPlugin,
-  createAlignPlugin,
-  createLineHeightPlugin,
-  createPlugins,
-  PlatePlugin,
-  createPlateUI,
-  createTrailingBlockPlugin,
-  // createAutoformatPlugin,
-} from "@udecode/plate";
+} from "@udecode/plate-font";
+import { createHighlightPlugin } from "@udecode/plate-highlight";
+import { createImagePlugin } from "@udecode/plate-image";
+import { createIndentPlugin } from "@udecode/plate-indent";
+import { createLineHeightPlugin } from "@udecode/plate-line-height";
+import { createLinkPlugin } from "@udecode/plate-link";
+import { createListPlugin, createTodoListPlugin } from "@udecode/plate-list";
+import { createResetNodePlugin } from "@udecode/plate-reset-node";
+import { createSelectOnBackspacePlugin } from "@udecode/plate-select";
+import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
+import { createPlateUI } from "@udecode/plate-ui";
 import { AnyObject } from "./types";
 import { CONFIG } from "./config";
 

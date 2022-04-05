@@ -1,5 +1,5 @@
 import { Divider } from "@mui/material";
-import { AnyObject, PlateProps, Plate } from "@udecode/plate";
+import { AnyObject, PlateProps, Plate } from "@udecode/plate-core";
 import { memo, useMemo } from "react";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
