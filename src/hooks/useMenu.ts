@@ -1,14 +1,21 @@
-import useMenuAnchor from "./useMenuAnchor";
+import { SyntheticEvent, useState } from "react";
+import useEventCallback from "./useEventCallback";
 
 /**
  * Utility hook for binding menu and anchor properties,
  * including open/close state management
  */
 export default function useMenu(menuId: string) {
-  const { element, onClick, onClose } = useMenuAnchor();
-  const open = Boolean(element);
+  const [element, setElement] = useState<HTMLElement | null>(null);
+
+  const onClick = useEventCallback(
+    (event: SyntheticEvent<HTMLElement>) => setElement(event.currentTarget),
+    []
+  );
+  const onClose = useEventCallback(() => setElement(null), []);
 
   const id = element ? menuId : undefined;
+  const open = Boolean(element);
 
   const anchorProps = {
     "aria-controls": id,
