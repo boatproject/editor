@@ -58,22 +58,11 @@ function createStaticPlugins(config = CONFIG) {
     createExitBreakPlugin(config.exitBreak),
   ];
 
-  return createPlugins<AnyObject>(
-    [...elementPlugins, ...markPlugins, ...utilPlugins],
-    {
-      components: createPlateUI(),
-    }
-  );
-}
+  const allPlugins = [...elementPlugins, ...markPlugins, ...utilPlugins];
 
-export const PLUGINS = createStaticPlugins(CONFIG);
-
-/**
- * Get full array of plugins. Needed to create dynamic
- * plugins that take props from outside the component
- */
-export function createEditorPlugins() {
-  return createPlugins(PLUGINS as PlatePlugin[], {
+  return createPlugins(allPlugins, {
     components: createPlateUI(),
   });
 }
+
+export const PLUGINS = createStaticPlugins(CONFIG);
