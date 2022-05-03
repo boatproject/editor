@@ -1,0 +1,4 @@
+ignores:
+  - "prettier"
+  - "@mui/utils"
+  - "@types/jest"
