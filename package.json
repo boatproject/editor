@@ -66,5 +66,12 @@
     "@types/react-dom": "^18.0.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "setupFilesAfterEnv": [
+      "<rootDir>/src/setup-tests.ts"
+    ],
+    "testEnvironment": "jest-environment-jsdom"
   }
 }
