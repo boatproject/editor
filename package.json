@@ -10,7 +10,7 @@
     "prepack": "npm run build",
     "postversion": "git push --follow-tags"
   },
-  "author": "zimmerel",
+  "author": "zmrl",
   "license": "ISC",
   "description": "Text editor for boatsoft",
   "files": [

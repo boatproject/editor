@@ -1,36 +1,24 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    /* Specify library files to be included in the compilation. */
     "allowJs": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "declaration": true,
     "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
+    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitAny": true,
+    "jsx": "react-jsx",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
     "moduleResolution": "node",
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitAny": true,
+    "outDir": "./dist",
     "resolveJsonModule": true,
-    "jsx": "react-jsx",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2017"
   },
-  "include": [
-    "src/"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.stories.tsx",
-    "**/*.test.ts*",
-    "src/setup-tests.ts"
-  ]
+  "exclude": ["**/*.test.ts*", "src/setup-tests.ts"],
+  "include": ["src/"]
 }

@@ -2,45 +2,53 @@
 
 name: Typescript Build
 
-# Controls when the workflow will run
 on:
   push:
-    tags: 
-      - 'v*'
-  pull_request:
-    tags:
-      - 'v*'
-
-  # Allows you to run this workflow manually from the Actions tab
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with: 
-          node-version: '14'
-          cache: "npm"
-      - run: npm ci
-      - run: npm test
+      - name: Checkout 
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Run test suite
+        run: npm test
+
   release:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with: 
-          node-version: '14'
-          cache: "npm"
-      - run: npm ci
-      - run: npm pack
-      - name: Release
-        id: release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          files: "*.tgz"
+          node-version: 16
+          cache: npm
+          
+      - name: Install deps
+        run: npm ci
+
+      - name: Semantic Release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >
+          npx
+          -p semantic-release@19
+          -p @semantic-release/changelog@6
+          -p @semantic-release/git@10
+          semantic-release
