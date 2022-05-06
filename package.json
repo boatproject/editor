@@ -66,12 +66,5 @@
     "@mui/material": "^5.6.4",
     "react": "^18",
     "react-dom": "^18"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "setupFilesAfterEnv": [
-      "<rootDir>/src/setup-tests.ts"
-    ],
-    "testEnvironment": "jest-environment-jsdom"
   }
 }
