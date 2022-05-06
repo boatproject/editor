@@ -1,5 +1,5 @@
 {
-  "name": "@boatproject/rich-text-editor",
+  "name": "@boatproject/editor",
   "version": "2.19.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "author": "zmrl",
   "license": "ISC",
-  "description": "Text editor for boatsoft",
+  "description": "Rich text editor for BoatProject",
   "files": [
     "dist/",
     "src/"
