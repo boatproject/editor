@@ -1,5 +1,3 @@
-# Boat Project editor
+# Boat Project Editor
 
-Built with:
-* Plate https://plate.udecode.io/
-* Material UI https://mui.com/
+Rich text editor component built with [Plate](https://plate.udecode.io/) and [Material UI](https://mui.com/).
