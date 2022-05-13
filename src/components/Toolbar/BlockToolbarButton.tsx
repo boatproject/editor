@@ -1,7 +1,7 @@
 import { toggleNodeType, usePlateEditorState } from "@udecode/plate-core";
 import { MouseEvent } from "react";
 import useEventCallback from "../../hooks/useEventCallback";
-import { isBlockActive } from "../../utils";
+import isBlockActive from "../../utils/isBlockActive";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface BlockToolbarButtonProps extends ToolbarButtonProps {

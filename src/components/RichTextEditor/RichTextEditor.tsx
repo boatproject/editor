@@ -106,10 +106,10 @@ type RichTextTextEditorProps<T = AnyObject> = Partial<
   >
 >;
 
-export type RichTextFieldProps<T = AnyObject> = RichTextTextFieldProps &
+export type RichTextEditorProps<T = AnyObject> = RichTextTextFieldProps &
   RichTextTextEditorProps<T>;
 
-export function RichTextEditor<T = AnyObject>(props: RichTextFieldProps<T>) {
+export function RichTextEditor<T = AnyObject>(props: RichTextEditorProps<T>) {
   const {
     id: idOverride = "rich-text-field",
     name,
@@ -173,16 +173,7 @@ export function RichTextEditor<T = AnyObject>(props: RichTextFieldProps<T>) {
       </Content>
       <NotchedOutlineRoot
         className={classes.notchedOutline}
-        label={
-          label && required ? (
-            <>
-              {label}
-              &nbsp;{"*"}
-            </>
-          ) : (
-            label
-          )
-        }
+        label={label && required ? `${label} *` : label}
         notched
       />
       {helperText && (

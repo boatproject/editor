@@ -5,6 +5,7 @@ export const ANCHOR_ORIGIN = {
   vertical: "bottom",
   horizontal: "center",
 } as const;
+
 export interface ColorPickerMenuProps
   extends Pick<PopoverProps, "open" | "anchorEl">,
     ColorPickerProps {
