@@ -1,3 +1,10 @@
+## [2.19.1](https://github.com/boatproject/editor/compare/v2.19.0...v2.19.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* useEventCallback for focus handlers ([794324c](https://github.com/boatproject/editor/commit/794324c7da18f30959b8d53e128a8c566063111d))
+
 # [2.19.0](https://github.com/boatproject/rich-text-editor/compare/v2.18.0...v2.19.0) (2022-05-03)
 
 
