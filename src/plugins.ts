@@ -5,7 +5,7 @@ import {
   createExitBreakPlugin,
   createSoftBreakPlugin,
 } from "@udecode/plate-break";
-import { createPlugins, PlatePlugin } from "@udecode/plate-core";
+import { createPlugins } from "@udecode/plate-core";
 import {
   createFontBackgroundColorPlugin,
   createFontColorPlugin,
@@ -21,7 +21,6 @@ import { createResetNodePlugin } from "@udecode/plate-reset-node";
 import { createSelectOnBackspacePlugin } from "@udecode/plate-select";
 import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
 import { createPlateUI } from "@udecode/plate-ui";
-import { AnyObject } from "./types";
 import { CONFIG } from "./config";
 
 /**
