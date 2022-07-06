@@ -7,7 +7,7 @@ import {
 import { findNode, TEditor, usePlateEditorState } from "@udecode/plate-core";
 import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
 import { memo, MouseEvent, MouseEventHandler } from "react";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
 import ToolbarButton from "./ToolbarButton";
 
 const DEFAULT_ALIGN = "left";
@@ -18,7 +18,9 @@ export function getAlign(editor: TEditor): Alignment {
   });
   if (nodeEntry) {
     const [node] = nodeEntry;
-    return node[KEY_ALIGN];
+    if (typeof node === "object") {
+      return node[KEY_ALIGN] as Alignment;
+    }
   }
 
   return DEFAULT_ALIGN;
@@ -72,18 +74,18 @@ const AlignButtons = memo(function AlignButtons(props: AlignButtonsProps) {
 
 const AlignToolbarButtonGroup = memo(function AlignToolbarButtonGroup() {
   const editor = usePlateEditorState();
-  const selectedAlign = getAlign(editor); // useMemo(() => , [editor]);
+  const selectedAlign = editor ? getAlign(editor) : "left";
 
-  const onMouseDown = useEventCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      setAlign(editor, {
-        value: e.currentTarget.value as Alignment,
-        key: KEY_ALIGN,
-      });
-    },
-    [editor]
-  );
+  const onMouseDown = useEvent((e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!editor) {
+      return;
+    }
+    setAlign(editor, {
+      value: e.currentTarget.value as Alignment,
+      key: KEY_ALIGN,
+    });
+  });
 
   return (
     <AlignButtons selectedAlign={selectedAlign} onMouseDown={onMouseDown} />

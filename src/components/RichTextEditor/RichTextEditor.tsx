@@ -3,14 +3,14 @@ import {
   generateUtilityClasses,
   InputLabel as MuiInputLabel,
   styled,
-  TextFieldProps,
+  type TextFieldProps,
 } from "@mui/material";
 import { unstable_useId as useId } from "@mui/utils";
 import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
 import clsx from "clsx";
-import TextEditor, { TextEditorProps } from "../TextEditor/TextEditor";
-import { AnyObject } from "../../types";
+import TextEditor, { type TextEditorProps } from "../TextEditor/TextEditor";
 import useFocus from "./useFocus";
+import type { Value } from "@udecode/plate-core";
 
 const classes = generateUtilityClasses("RichTextEditor", [
   "root",
@@ -90,9 +90,9 @@ type RichTextTextFieldProps = Pick<
   "id" | "label" | "error" | "helperText" | "color" | "required" | "name"
 >;
 
-type RichTextTextEditorProps<T = AnyObject> = Partial<
+type RichTextTextEditorProps<V extends Value = Value> = Partial<
   Pick<
-    TextEditorProps<T>,
+    TextEditorProps<V>,
     | "value"
     | "initialValue"
     | "onChange"
@@ -106,10 +106,12 @@ type RichTextTextEditorProps<T = AnyObject> = Partial<
   >
 >;
 
-export type RichTextEditorProps<T = AnyObject> = RichTextTextFieldProps &
-  RichTextTextEditorProps<T>;
+export type RichTextEditorProps<V extends Value = Value> =
+  RichTextTextFieldProps & RichTextTextEditorProps<V>;
 
-export function RichTextEditor<T = AnyObject>(props: RichTextEditorProps<T>) {
+export function RichTextEditor<V extends Value = Value>(
+  props: RichTextEditorProps<V>
+) {
   const {
     id: idOverride = "rich-text-field",
     name,
@@ -157,7 +159,7 @@ export function RichTextEditor<T = AnyObject>(props: RichTextEditorProps<T>) {
         </InputLabel>
       )}
       <Content>
-        <TextEditor
+        <TextEditor<V>
           id={id}
           name={name}
           value={value}

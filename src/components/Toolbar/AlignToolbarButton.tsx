@@ -6,7 +6,7 @@ import {
 import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 import { MouseEvent } from "react";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
 
 export interface AlignToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -19,19 +19,20 @@ export default function AlignToolbarButton(props: AlignToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const selected =
-    isCollapsed(editor?.selection) &&
+    !!editor &&
+    isCollapsed(editor.selection) &&
     someNode(editor, { match: { [pluginKey]: value } });
 
-  const onMouseDown = useEventCallback(
-    (e: MouseEvent<HTMLButtonElement>) => {
-      e.preventDefault();
-      setAlign(editor, {
-        value: e.currentTarget.value as Alignment,
-        key: pluginKey,
-      });
-    },
-    [editor, pluginKey]
-  );
+  const onMouseDown = useEvent((e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (!editor) {
+      return;
+    }
+    setAlign(editor, {
+      value: e.currentTarget.value as Alignment,
+      key: pluginKey,
+    });
+  });
 
   return (
     <ToolbarButton

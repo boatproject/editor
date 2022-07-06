@@ -1,19 +1,26 @@
 import { Divider } from "@mui/material";
-import { AnyObject, PlateProps, Plate } from "@udecode/plate-core";
+import {
+  AnyObject,
+  Plate,
+  PlateEditor,
+  PlatePlugin,
+  type PlateProps,
+  type Value,
+} from "@udecode/plate-core";
 import { memo, useMemo } from "react";
+import { EditableProps } from "slate-react/dist/components/editable";
 import { CONFIG } from "../../config";
 import { PLUGINS } from "../../plugins";
-import { UploadImage } from "../types";
 import Toolbar from "../Toolbar";
-import { EditableProps } from "slate-react/dist/components/editable";
+import { UploadImage } from "../types";
 
-export type TextEditorPlateProps<T = AnyObject> = Pick<
-  PlateProps<T>,
+export type TextEditorPlateProps<V extends Value = Value> = Pick<
+  PlateProps<V>,
   "initialValue" | "value" | "onChange" | "editableProps" | "children"
 >;
 
-export interface TextEditorBaseComponentProps<T = AnyObject>
-  extends TextEditorPlateProps<T> {
+export interface TextEditorBaseComponentProps<V extends Value = Value>
+  extends TextEditorPlateProps<V> {
   id?: string;
   /**
    * Async function to upload an image
@@ -22,12 +29,12 @@ export interface TextEditorBaseComponentProps<T = AnyObject>
   /**
    * Additional Props passed to the Plate component
    */
-  plateProps?: Partial<PlateProps>;
+  plateProps?: Partial<PlateProps<V>>;
 }
 
 const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
-  T = AnyObject
->(props: TextEditorBaseComponentProps<T>) {
+  V extends Value = Value
+>(props: TextEditorBaseComponentProps<V>) {
   const {
     uploadImage,
     plateProps = {},
@@ -37,27 +44,30 @@ const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
   } = props;
 
   return (
-    <Plate
+    <Plate<V>
       id={id}
-      {...CONFIG.defaultProps}
-      plugins={PLUGINS}
+      {...(CONFIG.defaultProps as Partial<PlateProps<V>>)}
+      plugins={PLUGINS as PlatePlugin<AnyObject, V, PlateEditor<V>>[]}
       {...componentProps}
       {...plateProps}
-    >
-      <Toolbar uploadImage={uploadImage} />
-      <Divider />
-      {children}
-    </Plate>
+      firstChildren={
+        <>
+          <Toolbar uploadImage={uploadImage} />
+          <Divider />
+          {children}
+        </>
+      }
+    />
   );
 });
 
-export interface TextEditorBaseProps<T = AnyObject>
-  extends TextEditorBaseComponentProps<T>,
+export interface TextEditorBaseProps<V extends Value = Value>
+  extends TextEditorBaseComponentProps<V>,
     Pick<EditableProps, "onFocus" | "onBlur" | "name"> {}
 
-export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
-  props: TextEditorBaseProps<T>
-) {
+export const TextEditorBase = memo(function TextEditorBase<
+  V extends Value = Value
+>(props: TextEditorBaseProps<V>) {
   const {
     id,
     name,
@@ -80,7 +90,7 @@ export const TextEditorBase = memo(function TextEditorBase<T = AnyObject>(
   );
 
   return (
-    <TextEditorBaseComponent
+    <TextEditorBaseComponent<V>
       id={id}
       editableProps={editableProps}
       {...textEditorProps}

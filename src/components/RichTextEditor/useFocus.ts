@@ -1,5 +1,5 @@
 import { FocusEvent, FocusEventHandler, useState } from "react";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
 
 export interface FocusHandlers<E extends HTMLElement> {
   onFocus?: FocusEventHandler<E>;
@@ -15,28 +15,19 @@ export default function useFocus<E extends HTMLElement>(
   const { onFocus, onBlur } = handlers;
   const [focused, setFocused] = useState(false);
 
-  const wrappedHandlers = {
-    onFocus: useEventCallback(
-      (e: FocusEvent<E>) => {
+  return [
+    focused,
+    {
+      onFocus: useEvent((e: FocusEvent<E>) => {
         setFocused(true);
 
-        if (onFocus) {
-          onFocus(e);
-        }
-      },
-      [onFocus]
-    ),
-    onBlur: useEventCallback(
-      (e: FocusEvent<E>) => {
+        onFocus?.(e);
+      }),
+      onBlur: useEvent((e: FocusEvent<E>) => {
         setFocused(false);
 
-        if (onBlur) {
-          onBlur(e);
-        }
-      },
-      [onBlur]
-    ),
-  };
-
-  return [focused, wrappedHandlers] as const;
+        onBlur?.(e);
+      }),
+    },
+  ] as const;
 }

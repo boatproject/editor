@@ -6,7 +6,8 @@ import {
 import { ELEMENT_LINK, getAndUpsertLink } from "@udecode/plate-link";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 import type { GetLinkUrl } from "../types";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
+import { MouseEvent } from "react";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -21,18 +22,17 @@ export default function LinkToolbarButton(props: LinkToolbarButtonProps) {
 
   const editor = usePlateEditorState();
 
-  const type = getPluginType(editor, ELEMENT_LINK);
+  const type = editor ? getPluginType(editor, ELEMENT_LINK) : ELEMENT_LINK;
   const isLink = !!editor?.selection && someNode(editor, { match: { type } });
 
-  const onMouseDown = useEventCallback(
-    async (event: { preventDefault: () => void }) => {
-      if (!editor) return;
+  const onMouseDown = useEvent(async (event: MouseEvent) => {
+    if (!editor) {
+      return;
+    }
 
-      event.preventDefault();
-      getAndUpsertLink(editor, getLinkUrl);
-    },
-    [editor, getLinkUrl]
-  );
+    event.preventDefault();
+    getAndUpsertLink(editor, getLinkUrl);
+  });
 
   return (
     <ToolbarButton

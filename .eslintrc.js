@@ -1,4 +1,7 @@
 /*eslint-env node*/
+/**
+ * @type {import('eslint').Linter.BaseConfig}
+ */
 module.exports = {
   env: {
     browser: true,
@@ -22,14 +25,7 @@ module.exports = {
         "plugin:react-hooks/recommended",
         "plugin:@typescript-eslint/recommended",
       ],
-      rules: {
-        "react-hooks/exhaustive-deps": [
-          "warn",
-          {
-            additionalHooks: "(useEventCallback)",
-          },
-        ],
-      },
+      rules: {},
     },
   ],
 };

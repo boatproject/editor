@@ -16,7 +16,7 @@ export interface ColorPickerMenuProps
   onClose?: () => void;
 }
 
-export function ColorPickerMenu(props: ColorPickerMenuProps) {
+export default function ColorPickerMenu(props: ColorPickerMenuProps) {
   const {
     id,
     color,
@@ -45,5 +45,3 @@ export function ColorPickerMenu(props: ColorPickerMenuProps) {
     </Popover>
   );
 }
-
-export default ColorPickerMenu;

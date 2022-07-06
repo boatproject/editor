@@ -1,6 +1,6 @@
-import { MouseEventHandler } from "react";
+import type { MouseEventHandler } from "react";
 import ColorContainer from "./ColorContainer";
-import { ColorOption } from "./colors";
+import type { ColorOption } from "./colors";
 import { ColorTile } from "./ColorTile";
 
 export interface ColorPickerTileGridProps {

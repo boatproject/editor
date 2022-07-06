@@ -15,9 +15,7 @@ export type ToolbarButtonProps<D extends ElementType = "button"> = {
 
 const ToolbarButton = memo(function ToolbarButton<
   D extends ElementType = "button"
->(props: ToolbarButtonProps<D>) {
-  const { title = "", value, ...buttonProps } = props;
-
+>({ title = "", value, ...buttonProps }: ToolbarButtonProps<D>) {
   return (
     <Tooltip title={title} disableInteractive>
       <ToggleButton

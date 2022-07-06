@@ -1,9 +1,9 @@
 import { Stack, styled } from "@mui/material";
-import { CSSProperties, memo } from "react";
+import { type Value } from "@udecode/plate-core";
+import { type CSSProperties, memo } from "react";
 import { ErrorBoundary } from "react-error-boundary";
-import { AnyObject } from "../../types";
-import LoggerContext, { Logger } from "./LoggerContext";
-import TextEditorBase, { TextEditorBaseProps } from "./TextEditorBase";
+import LoggerContext, { type Logger } from "./LoggerContext";
+import TextEditorBase, { type TextEditorBaseProps } from "./TextEditorBase";
 import TextEditorFallback from "./TextEditorFallback";
 
 export const TextEditorRoot = styled(Stack, {
@@ -19,7 +19,8 @@ export const TextEditorRoot = styled(Stack, {
   width: "100%",
 }));
 
-export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
+export interface TextEditorProps<V extends Value = Value>
+  extends TextEditorBaseProps<V> {
   /**
    * CSS class passed to root of the component
    */
@@ -34,8 +35,8 @@ export interface TextEditorProps<T = AnyObject> extends TextEditorBaseProps<T> {
   logger?: Logger;
 }
 
-export const TextEditor = memo(function TextEditor<T = AnyObject>(
-  props: TextEditorProps<T>
+export const TextEditor = memo(function TextEditor<V extends Value = Value>(
+  props: TextEditorProps<V>
 ) {
   const { className, style, logger = console, ...textEditorProps } = props;
 
@@ -43,7 +44,7 @@ export const TextEditor = memo(function TextEditor<T = AnyObject>(
     <TextEditorRoot className={className} style={style}>
       <LoggerContext.Provider value={logger}>
         <ErrorBoundary FallbackComponent={TextEditorFallback}>
-          <TextEditorBase {...textEditorProps} />
+          <TextEditorBase<V> {...textEditorProps} />
         </ErrorBoundary>
       </LoggerContext.Provider>
     </TextEditorRoot>

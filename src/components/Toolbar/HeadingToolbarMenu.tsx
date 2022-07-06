@@ -8,12 +8,7 @@ import {
   TextFields,
 } from "@mui/icons-material";
 import { Box, Menu } from "@mui/material";
-import {
-  getPluginType,
-  PlateEditor,
-  findNode,
-  usePlateEditorState,
-} from "@udecode/plate-core";
+import { getPluginType, usePlateEditorState } from "@udecode/plate-core";
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -22,108 +17,89 @@ import {
   ELEMENT_H5,
   ELEMENT_H6,
 } from "@udecode/plate-heading";
+import { useState } from "react";
 import useMenu from "../../hooks/useMenu";
 import BlockToolbarButton from "./BlockToolbarButton";
 import ToolbarButton from "./ToolbarButton";
-import { useMemo } from "react";
 
-const headingButtonDefs = [
-  {
-    pluginKey: ELEMENT_H1,
-    type: ELEMENT_H1,
-    icon: <LooksOne />,
-    title: "Heading One",
-  },
-  {
-    pluginKey: ELEMENT_H2,
-    type: ELEMENT_H2,
-    icon: <LooksTwo />,
-    title: "Heading Two",
-  },
-  {
-    pluginKey: ELEMENT_H3,
-    type: ELEMENT_H3,
-    icon: <Looks3 />,
-    title: "Heading Three",
-  },
-  {
-    pluginKey: ELEMENT_H4,
-    type: ELEMENT_H4,
-    icon: <Looks4 />,
-    title: "Heading Four",
-  },
-  {
-    pluginKey: ELEMENT_H5,
-    type: ELEMENT_H5,
-    icon: <Looks5 />,
-    title: "Heading Five",
-  },
-  {
-    pluginKey: ELEMENT_H6,
-    type: ELEMENT_H6,
-    icon: <Looks6 />,
-    title: "Heading Six",
-  },
-];
+const headingIcons = {
+  [ELEMENT_H1]: <LooksOne />,
+  [ELEMENT_H2]: <LooksTwo />,
+  [ELEMENT_H3]: <Looks3 />,
+  [ELEMENT_H4]: <Looks4 />,
+  [ELEMENT_H5]: <Looks5 />,
+  [ELEMENT_H6]: <Looks6 />,
+};
 
-function getSelectedHeadingType(editor: PlateEditor): string | undefined {
-  const headingTypes = headingButtonDefs.map(({ pluginKey }) =>
-    getPluginType(editor, pluginKey)
-  );
-  const nodeEntry = findNode(editor, {
-    match: { type: headingTypes },
-  });
-  if (nodeEntry) {
-    const [node] = nodeEntry;
-    return node.type;
-  }
-
-  return undefined;
-}
+type HeadingKey = keyof typeof headingIcons;
 
 export default function HeadingToolbarMenu() {
   const editor = usePlateEditorState();
-  const selectedType = getSelectedHeadingType(editor);
-  const selectedButtonDef = useMemo(
-    () =>
-      selectedType
-        ? headingButtonDefs.find(
-            (def) => getPluginType(editor, def.pluginKey) === selectedType
-          )
-        : null,
-    [editor, selectedType]
+  const [anchorProps, menuProps] = useMenu("toolbar-heading-menu");
+  const [selectedHeading, setSelectedHeading] = useState<HeadingKey | null>(
+    null
   );
 
-  const menuId = "toolbar-heading-menu";
-  const [anchorProps, menuProps] = useMenu(menuId);
-  const { open, onClose } = menuProps;
+  const showHeading = selectedHeading && !menuProps.open;
 
   return (
     <>
       <ToolbarButton
         {...anchorProps}
         value=""
-        selected={Boolean(selectedType)}
+        selected={Boolean(selectedHeading)}
         title="Heading"
       >
-        {selectedButtonDef && !open ? selectedButtonDef.icon : <TextFields />}
+        {showHeading ? headingIcons[selectedHeading] : <TextFields />}
       </ToolbarButton>
       <Menu {...menuProps}>
         <Box px={1}>
-          {headingButtonDefs.map(({ pluginKey, title, icon }) => {
-            const type = getPluginType(editor, pluginKey);
-            return (
+          {editor && (
+            <>
               <BlockToolbarButton
-                key={pluginKey}
-                value={type}
-                title={title}
-                onClick={onClose}
-                selected={selectedType === type}
+                value={getPluginType(editor, ELEMENT_H1)}
+                title="Heading One"
+                onClick={() => setSelectedHeading(ELEMENT_H1)}
               >
-                {icon}
+                <LooksOne />
               </BlockToolbarButton>
-            );
-          })}
+              <BlockToolbarButton
+                value={getPluginType(editor, ELEMENT_H2)}
+                title="Heading Two"
+                onClick={() => setSelectedHeading(ELEMENT_H2)}
+              >
+                <LooksTwo />
+              </BlockToolbarButton>
+              <BlockToolbarButton
+                value={getPluginType(editor, ELEMENT_H3)}
+                title="Heading Three"
+                onClick={() => setSelectedHeading(ELEMENT_H3)}
+              >
+                <Looks3 />
+              </BlockToolbarButton>
+              <BlockToolbarButton
+                value={getPluginType(editor, ELEMENT_H4)}
+                title="Heading Four"
+                onClick={() => setSelectedHeading(ELEMENT_H4)}
+              >
+                <Looks4 />
+              </BlockToolbarButton>
+              <BlockToolbarButton
+                value={getPluginType(editor, ELEMENT_H5)}
+                title="Heading Five"
+                onClick={() => setSelectedHeading(ELEMENT_H5)}
+              >
+                <Looks5 />
+              </BlockToolbarButton>
+              <BlockToolbarButton
+                value={getPluginType(editor, ELEMENT_H6)}
+                title="Heading Six"
+                onClick={() => setSelectedHeading(ELEMENT_H6)}
+              >
+                <Looks6 />
+              </BlockToolbarButton>
+            </>
+          )}
         </Box>
       </Menu>
     </>

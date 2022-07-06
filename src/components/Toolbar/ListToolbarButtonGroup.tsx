@@ -4,10 +4,11 @@ import {
   FormatListBulleted,
   FormatListNumbered,
 } from "@mui/icons-material";
-import { getPluginType, usePlateEditorRef } from "@udecode/plate-core";
+import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
 import BlockToolbarButton from "./BlockToolbarButton";
 import ListToolbarButton from "./ListToolbarButton";
+import getPluginTypeOrKey from "../../utils/getPluginTypeOrKey";
 
 const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   const editor = usePlateEditorRef();
@@ -15,19 +16,19 @@ const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   return (
     <>
       <ListToolbarButton
-        value={getPluginType(editor, ELEMENT_UL)}
+        value={getPluginTypeOrKey(editor, ELEMENT_UL)}
         title="Bulleted List"
       >
         <FormatListBulleted />
       </ListToolbarButton>
       <ListToolbarButton
-        value={getPluginType(editor, ELEMENT_OL)}
+        value={getPluginTypeOrKey(editor, ELEMENT_OL)}
         title="Numbered List"
       >
         <FormatListNumbered />
       </ListToolbarButton>
       <BlockToolbarButton
-        value={getPluginType(editor, ELEMENT_TODO_LI)}
+        value={getPluginTypeOrKey(editor, ELEMENT_TODO_LI)}
         title="Check List"
       >
         <CheckBox />

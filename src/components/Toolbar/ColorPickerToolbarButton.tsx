@@ -1,4 +1,3 @@
-import { styled } from "@mui/material";
 import {
   getMark,
   getPluginType,
@@ -6,44 +5,13 @@ import {
   setMarks,
   usePlateEditorState,
   usePlateEditorRef,
-  PlateEditor,
+  focusEditor,
+  select,
 } from "@udecode/plate-core";
-import { Transforms } from "slate";
-import { ReactEditor } from "slate-react";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
 import useMenu from "../../hooks/useMenu";
-import { ColorPickerMenu } from "../ColorPicker";
+import ColorPickerMenu from "../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
-
-function setColorMark(editor: PlateEditor, type: string, color: string) {
-  if (editor?.selection) {
-    Transforms.select(editor, editor.selection);
-    ReactEditor.focus(editor);
-
-    setMarks(editor, { [type]: color });
-  }
-}
-
-function clearColorMark(editor: PlateEditor, type: string, color: string) {
-  if (editor?.selection) {
-    Transforms.select(editor, editor.selection);
-    ReactEditor.focus(editor);
-
-    if (color) {
-      removeMark(editor, { key: type });
-    }
-  }
-}
-
-const ColorPickerButton = styled(ToolbarButton, {
-  name: "ColorPicker",
-  slot: "ToolbarButton",
-  shouldForwardProp: (prop) => prop !== "selectedColor",
-})<{ selectedColor?: string }>(({ selectedColor }) => ({
-  "&.Mui-selected": {
-    color: selectedColor,
-  },
-}));
 
 export interface ColorPickerToolbarButtonProps
   extends Partial<ToolbarButtonProps> {
@@ -65,33 +33,50 @@ export default function ColorPickerToolbarButton(
 
   const editor = usePlateEditorState();
   const editorRef = usePlateEditorRef();
-  const type = getPluginType(editor, pluginKey);
-  const color: string = editor && getMark(editor, type);
+  const type = editor ? getPluginType(editor, pluginKey) : "";
+  const color = editor ? getMark(editor, type) : "";
   const [anchorProps, menuProps] = useMenu(menuId);
   const { onClose } = menuProps;
 
-  const updateColor = useEventCallback(
-    (color: string) => {
-      setColorMark(editorRef, type, color);
-      onClose();
-    },
-    [editorRef, type, onClose]
-  );
+  const updateColor = useEvent((color: string) => {
+    if (!editorRef || !editor || !editor.selection) {
+      return;
+    }
 
-  const clearColor = useEventCallback(() => {
-    clearColorMark(editorRef, type, color);
+    select(editor, editor.selection);
+    focusEditor(editor);
+
+    setMarks(editor, { [type]: color });
     onClose();
-  }, [editorRef, type, color, onClose]);
+  });
+
+  const clearColor = useEvent(() => {
+    if (!editorRef || !editor || !editor.selection) {
+      return;
+    }
+
+    select(editor, editor.selection);
+    focusEditor(editor);
+
+    if (color) {
+      removeMark(editor, { key: type });
+    }
+    onClose();
+  });
 
   return (
     <>
-      <ColorPickerButton
+      <ToolbarButton
         {...anchorProps}
         id={buttonId}
-        selectedColor={color}
         value={type}
         title={tooltip}
         selected={Boolean(color)}
+        sx={{
+          "&.Mui-selected": {
+            color,
+          },
+        }}
         {...buttonProps}
       />
       <ColorPickerMenu

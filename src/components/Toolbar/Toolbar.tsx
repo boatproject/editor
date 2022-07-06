@@ -22,11 +22,13 @@ export const ToolbarRoot = styled(MuiToolbar, {
   padding: "10px",
 }));
 
-const Toolbar = memo(function Toolbar(props: ToolbarProps) {
-  const { getLinkUrl, uploadImage, ...toolbarProps } = props;
-
+const Toolbar = memo(function Toolbar({
+  getLinkUrl,
+  uploadImage,
+  ...props
+}: ToolbarProps) {
   return (
-    <ToolbarRoot {...toolbarProps} disableGutters variant="dense">
+    <ToolbarRoot {...props} disableGutters variant="dense">
       <MarkToolbarButtonGroup />
       <HeadingToolbarMenu />
       <BlockToolbarButtonGroup

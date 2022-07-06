@@ -1,8 +1,15 @@
-import { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
+import { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
-import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
-import { ELEMENT_TD } from "@udecode/plate-table";
+import {
+  AnyObject,
+  isBlockAboveEmpty,
+  isSelectionAtBlockStart,
+  Value,
+  type PlatePlugin,
+  type PlatePluginComponent,
+  type PlateProps,
+} from "@udecode/plate-core";
 import {
   ELEMENT_H1,
   ELEMENT_H2,
@@ -13,46 +20,39 @@ import {
   KEYS_HEADING,
 } from "@udecode/plate-heading";
 import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
-import {
-  isBlockAboveEmpty,
-  isSelectionAtBlockStart,
-  PlatePlugin,
-  PlatePluginComponent,
-  PlateProps,
-} from "@udecode/plate-core";
 import { ELEMENT_IMAGE } from "@udecode/plate-image";
 import { IndentPlugin } from "@udecode/plate-indent";
 import { ELEMENT_TODO_LI } from "@udecode/plate-list";
-import { ResetNodePlugin } from "@udecode/plate-reset-node";
-import { SelectOnBackspacePlugin } from "@udecode/plate-select";
-import { TrailingBlockPlugin } from "@udecode/plate-trailing-block";
+import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
+import type { ResetNodePlugin } from "@udecode/plate-reset-node";
+import type { SelectOnBackspacePlugin } from "@udecode/plate-select";
+import { ELEMENT_TD } from "@udecode/plate-table";
+import type { TrailingBlockPlugin } from "@udecode/plate-trailing-block";
 import { createPlateUI } from "@udecode/plate-ui";
-import { EditableProps } from "slate-react/dist/components/editable";
+import type { EditableProps } from "slate-react/dist/components/editable";
 
 const resetBlockTypesCommonRule = {
   types: [ELEMENT_BLOCKQUOTE, ELEMENT_TODO_LI],
   defaultType: ELEMENT_PARAGRAPH,
 };
 
-type PluginConfig<T> = Partial<PlatePlugin<Record<string, unknown>, T>>;
+type PluginConfig<P = AnyObject, V extends Value = Value> = Partial<
+  PlatePlugin<P, V>
+>;
 
-export interface Config {
-  defaultProps: Partial<PlateProps>;
-  components: Record<string, PlatePluginComponent>;
+export interface Config<V extends Value = Value> {
+  defaultProps: Partial<PlateProps<V>>;
+  components: Record<string, PlatePluginComponent<V>>;
   editableProps: EditableProps;
-  /**
-   * Merge additional props with the base config
-   */
-  getEditableProps: (props: EditableProps) => EditableProps;
   align: Partial<PlatePlugin>;
   // autoformat: AutoformatPluginOptions;
   lineHeight: Partial<PlatePlugin>;
-  exitBreak: PluginConfig<ExitBreakPlugin>;
-  indent: PluginConfig<IndentPlugin>;
-  resetBlockType: PluginConfig<ResetNodePlugin>;
+  exitBreak: PluginConfig<ExitBreakPlugin, V>;
+  indent: PluginConfig<IndentPlugin, V>;
+  resetBlockType: PluginConfig<ResetNodePlugin, V>;
   selectOnBackspace: PluginConfig<SelectOnBackspacePlugin>;
-  softBreak: PluginConfig<SoftBreakPlugin>;
-  trailingBlock: PluginConfig<TrailingBlockPlugin>;
+  softBreak: PluginConfig<SoftBreakPlugin, V>;
+  trailingBlock: PluginConfig<TrailingBlockPlugin, V>;
 }
 
 export const CONFIG: Config = {
@@ -67,7 +67,6 @@ export const CONFIG: Config = {
       padding: "12px 10px",
     },
   },
-  getEditableProps: (props) => ({ ...props, ...CONFIG.editableProps }),
   align: {
     inject: {
       props: {

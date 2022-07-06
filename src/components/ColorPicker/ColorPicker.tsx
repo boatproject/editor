@@ -3,7 +3,7 @@ import { useState, MouseEvent } from "react";
 import { ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
 import { Stack, styled } from "@mui/material";
 import { ColorPickerTileGrid } from "./ColorPickerTileGrid";
-import useEventCallback from "../../hooks/useEventCallback";
+import useEvent from "../../hooks/useEvent";
 
 const ColorPickerStack = styled(Stack, {
   shouldForwardProp: (prop) => prop !== "color",
@@ -46,20 +46,17 @@ export function ColorPicker(props: ColorPickerProps) {
 
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
 
-  const handleClick = useEventCallback(
-    (event: MouseEvent<HTMLButtonElement>) => {
-      const color = event.currentTarget.value;
+  const handleClick = useEvent((event: MouseEvent<HTMLButtonElement>) => {
+    const color = event.currentTarget.value;
 
-      onSelectColor?.(color);
-      setSelectedColor(color);
-    },
-    [onSelectColor]
-  );
+    onSelectColor?.(color);
+    setSelectedColor(color);
+  });
 
-  const handleClear = useEventCallback(() => {
+  const handleClear = useEvent(() => {
     onClearColor?.();
     setSelectedColor(undefined);
-  }, [onClearColor]);
+  });
 
   return (
     <ColorPickerStack color={selectedColor} alignItems="center">

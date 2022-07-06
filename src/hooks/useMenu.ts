@@ -1,5 +1,5 @@
 import { SyntheticEvent, useState } from "react";
-import useEventCallback from "./useEventCallback";
+import useEvent from "./useEvent";
 
 /**
  * Utility hook for binding menu and anchor properties,
@@ -8,11 +8,10 @@ import useEventCallback from "./useEventCallback";
 export default function useMenu(menuId: string) {
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const onClick = useEventCallback(
-    (event: SyntheticEvent<HTMLElement>) => setElement(event.currentTarget),
-    []
+  const onClick = useEvent((event: SyntheticEvent<HTMLElement>) =>
+    setElement(event.currentTarget)
   );
-  const onClose = useEventCallback(() => setElement(null), []);
+  const onClose = useEvent(() => setElement(null));
 
   const id = element ? menuId : undefined;
   const open = Boolean(element);

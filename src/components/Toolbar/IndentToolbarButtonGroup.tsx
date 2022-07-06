@@ -1,29 +1,44 @@
-import { memo } from "react";
+import { memo, type MouseEvent } from "react";
 import {
   FormatIndentDecrease,
   FormatIndentIncrease,
 } from "@mui/icons-material";
-import {
-  getPreventDefaultHandler,
-  usePlateEditorState,
-} from "@udecode/plate-core";
+import { usePlateEditorState } from "@udecode/plate-core";
 import { indent, outdent } from "@udecode/plate-indent";
 import ToolbarButton from "./ToolbarButton";
+import useEvent from "../../hooks/useEvent";
 
 const IndentToolbarButtonGroup = memo(function IndentToolbarButtonGroup() {
   const editor = usePlateEditorState();
+
+  const handleOutdent = useEvent((e: MouseEvent) => {
+    e.preventDefault();
+    if (!editor) {
+      return;
+    }
+    outdent(editor);
+  });
+
+  const handleIndent = useEvent((e: MouseEvent) => {
+    e.preventDefault();
+    if (!editor) {
+      return;
+    }
+    indent(editor);
+  });
+
   return (
     <>
       <ToolbarButton
         value={"indent-"}
-        onMouseDown={editor && getPreventDefaultHandler(outdent, editor)}
+        onMouseDown={handleOutdent}
         title="Decrease Indent"
       >
         <FormatIndentDecrease />
       </ToolbarButton>
       <ToolbarButton
         value={"indent+"}
-        onMouseDown={editor && getPreventDefaultHandler(indent, editor)}
+        onMouseDown={handleIndent}
         title="Increase Indent"
       >
         <FormatIndentIncrease />
