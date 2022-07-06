@@ -15,8 +15,12 @@ export interface MarkToolbarButtonProps extends ToolbarButtonProps {
   clear?: string | string[];
 }
 
-export default function MarkToolbarButton(props: MarkToolbarButtonProps) {
-  const { selected: propSelected, value, clear, ...buttonProps } = props;
+export default function MarkToolbarButton({
+  selected: propSelected,
+  value,
+  clear,
+  ...buttonProps
+}: MarkToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const selected =

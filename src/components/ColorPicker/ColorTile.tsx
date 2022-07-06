@@ -1,9 +1,5 @@
-import { Button, ButtonProps, Paper, styled, Tooltip } from "@mui/material";
-import { ColorOption } from "./colors";
-
-interface TileProps {
-  color: ColorOption;
-}
+import { Button, type ButtonProps, Paper, styled } from "@mui/material";
+import type { ColorOption } from "./colors";
 
 const TileButton = styled(Button, {
   name: "ColorPicker",
@@ -21,17 +17,12 @@ const TileButton = styled(Button, {
   },
 }));
 
-export type ColorTileProps = TileProps & Omit<ButtonProps, "color">;
+type TileProps = ColorOption & Pick<ButtonProps, "onClick">;
 
-export function ColorTile(props: ColorTileProps) {
-  const { color, ...buttonProps } = props;
+export default function ColorTile(props: TileProps) {
   return (
     <Paper>
-      <Tooltip title={color.name} disableInteractive>
-        <TileButton {...buttonProps} name={color.name} value={color.value} />
-      </Tooltip>
+      <TileButton title={props.name} {...props} />
     </Paper>
   );
 }
-
-export default ColorTile;

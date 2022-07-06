@@ -22,11 +22,11 @@ export interface ColorPickerToolbarButtonProps
  * ColorPicker toolbar component
  * @param props
  */
-export default function ColorPickerToolbarButton(
-  props: ColorPickerToolbarButtonProps
-) {
-  const { pluginKey, title: tooltip, ...buttonProps } = props;
-
+export default function ColorPickerToolbarButton({
+  pluginKey,
+  title,
+  ...buttonProps
+}: ColorPickerToolbarButtonProps) {
   const baseId = "color-picker";
   const menuId = `${baseId}-menu-${pluginKey}`;
   const buttonId = `${baseId}-button-${pluginKey}`;
@@ -70,7 +70,7 @@ export default function ColorPickerToolbarButton(
         {...anchorProps}
         id={buttonId}
         value={type}
-        title={tooltip}
+        title={title}
         selected={Boolean(color)}
         sx={{
           "&.Mui-selected": {
