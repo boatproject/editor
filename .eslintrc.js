@@ -7,7 +7,13 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["eslint:recommended", "plugin:jest-dom/recommended"],
+  extends: [
+    "eslint:recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:react/recommended",
+    "plugin:react/jsx-runtime",
+    "plugin:react-hooks/recommended",
+  ],
   overrides: [
     {
       files: ["**/*.ts?(x)"],
@@ -19,12 +25,7 @@ module.exports = {
         ecmaVersion: 13,
         sourceType: "module",
       },
-      extends: [
-        "plugin:react/recommended",
-        "plugin:react/jsx-runtime",
-        "plugin:react-hooks/recommended",
-        "plugin:@typescript-eslint/recommended",
-      ],
+      extends: ["plugin:@typescript-eslint/recommended"],
       rules: {},
     },
   ],
