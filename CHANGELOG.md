@@ -1,3 +1,10 @@
+# [3.0.0](https://github.com/boatproject/editor/compare/v2.19.1...v3.0.0) (2022-07-06)
+
+
+### Features
+
+* conventialcommits preset for analyzing commits ([4ed5fd7](https://github.com/boatproject/editor/commit/4ed5fd7bea6cc3c9c4e137ee35c8752882bed25a))
+
 ## [2.19.1](https://github.com/boatproject/editor/compare/v2.19.0...v2.19.1) (2022-05-13)
 
 
