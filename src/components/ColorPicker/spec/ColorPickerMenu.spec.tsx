@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import ColorPickerMenu, { ColorPickerMenuProps } from "./ColorPickerMenu";
-import { black, red, white, ColorOption } from "./colors";
+import ColorPickerMenu, { ColorPickerMenuProps } from "../ColorPickerMenu";
+import { black, red, white, ColorOption } from "../colors";
 
 describe("<ColorPickerMenu />", () => {
   let props: ColorPickerMenuProps;

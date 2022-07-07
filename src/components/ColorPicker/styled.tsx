@@ -1,6 +1,21 @@
-import { Box, styled } from "@mui/material";
+import { Box, styled, Button } from "@mui/material";
+import type { ColorOption } from "./colors";
 
-const ColorContainer = styled(Box)(({ theme }) => {
+export const TileButton = styled(Button)<ColorOption>(({ value, theme }) => ({
+  backgroundColor: value,
+  padding: 0,
+  minHeight: "100%",
+  minWidth: "100%",
+
+  transition: theme.transitions.create("all"),
+
+  "&:hover": {
+    opacity: 1,
+    backgroundColor: value,
+  },
+}));
+
+export const ColorContainer = styled(Box)(({ theme }) => {
   const gapSpacing = theme.spacing(0.5);
 
   return {
@@ -26,5 +41,3 @@ const ColorContainer = styled(Box)(({ theme }) => {
     },
   };
 });
-
-export default ColorContainer;

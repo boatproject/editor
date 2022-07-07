@@ -1,17 +1,38 @@
 import { Button, Stack } from "@mui/material";
 import { useState, type MouseEvent } from "react";
-import { type ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
 import useEvent from "../../hooks/useEvent";
-import ColorContainer from "./ColorContainer";
-import ColorTile from "./ColorTile";
+import { DEFAULT_COLOR_OPTIONS, type ColorOption } from "./colors";
+import { ColorContainer, TileButton } from "./styled";
+
+function useColorPicker({
+  color: propColor,
+  onSelectColor,
+  onClearColor,
+}: Omit<ColorPickerProps, "colorOptions">) {
+  const [color, setColor] = useState<string | undefined>(propColor);
+
+  const selectColor = useEvent((event: MouseEvent<HTMLButtonElement>) => {
+    const color = event.currentTarget.value;
+
+    onSelectColor?.(color);
+    setColor(color);
+  });
+
+  const clearColor = useEvent(() => {
+    onClearColor?.();
+    setColor(undefined);
+  });
+
+  return {
+    color,
+    selectColor,
+    clearColor,
+  };
+}
 
 export interface ColorPickerProps {
   /**
    * Selected color
-   *
-   * This value is also stored internally.
-   * Setting a different color that is passed
-   * will trigger a state update to the internal value.
    */
   color?: string;
   /**
@@ -29,43 +50,31 @@ export interface ColorPickerProps {
 }
 
 export default function ColorPicker({
-  color,
   colorOptions = DEFAULT_COLOR_OPTIONS,
-  onSelectColor,
-  onClearColor,
+  ...props
 }: ColorPickerProps) {
-  const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
-
-  const handleClick = useEvent((event: MouseEvent<HTMLButtonElement>) => {
-    const color = event.currentTarget.value;
-
-    onSelectColor?.(color);
-    setSelectedColor(color);
-  });
-
-  const handleClear = useEvent(() => {
-    onClearColor?.();
-    setSelectedColor(undefined);
-  });
+  const { clearColor, selectColor, color } = useColorPicker(props);
 
   return (
     <Stack
       alignItems="center"
-      border={`3px solid ${selectedColor ?? "transparent"}`}
+      border={`3px solid ${color ?? "transparent"}`}
       p={1}
-      sx={{ transition: (theme) => theme.transitions.create("border") }}
+      sx={(theme) => ({ transition: theme.transitions.create("border") })}
     >
-      <Button
-        fullWidth
-        onClick={handleClear}
-        disabled={!selectedColor}
-        sx={{ color: selectedColor }}
-      >
+      <Button fullWidth onClick={clearColor} disabled={!color} sx={{ color }}>
         Clear
       </Button>
       <ColorContainer>
-        {colorOptions.map((color) => (
-          <ColorTile key={color.value} {...color} onClick={handleClick} />
+        {colorOptions.map(({ name, value }) => (
+          <TileButton
+            variant="contained"
+            key={value}
+            title={name}
+            name={name}
+            value={value}
+            onClick={selectColor}
+          />
         ))}
       </ColorContainer>
     </Stack>
