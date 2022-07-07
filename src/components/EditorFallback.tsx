@@ -2,22 +2,29 @@ import { RestartAlt } from "@mui/icons-material";
 import { Alert, AlertTitle, Button, Stack } from "@mui/material";
 import { useEffect, useRef } from "react";
 import type { FallbackProps } from "react-error-boundary";
-import { useLogger } from "./LoggerContext";
+
+/**
+ * Perform an effect once
+ */
+function useOnce(effect: () => void) {
+  const hasRun = useRef(false);
+
+  useEffect(() => {
+    if (!hasRun.current) {
+      effect();
+      hasRun.current = true;
+    }
+  }, [effect]);
+}
 
 /**
  * Simple fallback to display if a rendering error occurs within the editor
  */
-export default function TextEditorFallback(props: FallbackProps) {
-  const { error, resetErrorBoundary } = props;
-  const logger = useLogger();
-
-  const hasLogged = useRef(false);
-  useEffect(() => {
-    if (!hasLogged.current) {
-      logger.error(error);
-      hasLogged.current = true;
-    }
-  }, [logger, error]);
+export default function EditorFallback({
+  error,
+  resetErrorBoundary,
+}: FallbackProps) {
+  useOnce(() => console.error(error));
 
   return (
     <Stack>

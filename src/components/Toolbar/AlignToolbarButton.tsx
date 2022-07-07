@@ -14,8 +14,11 @@ export interface AlignToolbarButtonProps
   pluginKey?: string;
 }
 
-export default function AlignToolbarButton(props: AlignToolbarButtonProps) {
-  const { value, pluginKey = KEY_ALIGN, ...buttonProps } = props;
+export default function AlignToolbarButton({
+  value,
+  pluginKey = KEY_ALIGN,
+  ...buttonProps
+}: AlignToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const selected =

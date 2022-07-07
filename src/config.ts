@@ -45,7 +45,6 @@ export interface Config<V extends Value = Value> {
   components: Record<string, PlatePluginComponent<V>>;
   editableProps: EditableProps;
   align: Partial<PlatePlugin>;
-  // autoformat: AutoformatPluginOptions;
   lineHeight: Partial<PlatePlugin>;
   exitBreak: PluginConfig<ExitBreakPlugin, V>;
   indent: PluginConfig<IndentPlugin, V>;
@@ -58,7 +57,6 @@ export interface Config<V extends Value = Value> {
 export const CONFIG: Config = {
   defaultProps: {
     initialValue: [{ type: "p", children: [{ text: "" }] }],
-    // normalizeInitialValue: true,
   },
   components: createPlateUI(),
   editableProps: {

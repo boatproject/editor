@@ -1,101 +1,43 @@
 import {
   FormHelperText,
-  generateUtilityClasses,
   InputLabel,
-  styled,
   type TextFieldProps,
   Box,
 } from "@mui/material";
-import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
 import { unstable_useId as useId } from "@mui/utils";
 import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
 import { useState, FocusEvent } from "react";
 import useEvent from "../../hooks/useEvent";
-import TextEditor, { type TextEditorProps } from "../TextEditor/TextEditor";
-
-const classes = generateUtilityClasses("RichTextEditor", [
-  "root",
-  "colorSecondary",
-  "focused",
-  "disabled",
-  "error",
-  "notchedOutline",
-]);
-
-const Root = styled("div", {
-  name: "RichTextEditor",
-  slot: "Root",
-  shouldForwardProp: (prop) => prop !== "color",
-})<{
-  color?: TextFieldProps["color"];
-}>(({ theme, color = "primary" }) => {
-  const borderColor =
-    theme.palette.mode === "light"
-      ? "rgba(0, 0, 0, 0.23)"
-      : "rgba(255, 255, 255, 0.23)";
-
-  return {
-    position: "relative",
-    marginTop: "8px",
-    borderRadius: theme.shape.borderRadius,
-    [`&:hover .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.text.primary,
-    },
-    // Reset on touch devices, it doesn't add specificity
-    "@media (hover: none)": {
-      [`&:hover .${classes.notchedOutline}`]: {
-        borderColor,
-      },
-    },
-    [`&.${classes.focused} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette[color].main,
-      borderWidth: 2,
-    },
-    [`&.${classes.error} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.error.main,
-    },
-    [`&.${classes.disabled} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.action.disabled,
-    },
-  };
-});
-
-const NotchedOutlineRoot = styled(NotchedOutline, {
-  name: "RichTextEditor",
-  slot: "NotchedOutline",
-})(({ theme }) => ({
-  borderColor:
-    theme.palette.mode === "light"
-      ? "rgba(0, 0, 0, 0.23)"
-      : "rgba(255, 255, 255, 0.23)",
-}));
+import EditorBase, { type EditorBaseProps } from "../EditorBase/EditorBase";
+import classes from "./classes";
+import { EditorRoot, NotchedOutline } from "./styled";
 
 type RichTextFieldProps = Pick<
   TextFieldProps,
   "id" | "label" | "error" | "helperText" | "color" | "required" | "name"
 >;
 
-type RichTextTextEditorProps<V extends Value = Value> = Partial<
+type RichTextEditorProps<V extends Value = Value> = Partial<
   Pick<
-    TextEditorProps<V>,
-    | "value"
+    EditorBaseProps<V>,
+    | "className"
+    | "editableProps"
     | "initialValue"
+    | "onBlur"
     | "onChange"
     | "onFocus"
-    | "onBlur"
-    | "editableProps"
-    | "uploadImage"
-    | "style"
-    | "className"
     | "plateProps"
+    | "style"
+    | "uploadImage"
+    | "value"
   >
 >;
 
-export type RichTextEditorProps<V extends Value = Value> = RichTextFieldProps &
-  RichTextTextEditorProps<V>;
+export type EditorProps<V extends Value = Value> = RichTextFieldProps &
+  RichTextEditorProps<V>;
 
-export default function RichTextEditor<V extends Value = Value>({
+export default function Editor<V extends Value = Value>({
   className,
   color,
   editableProps,
@@ -113,7 +55,7 @@ export default function RichTextEditor<V extends Value = Value>({
   style,
   uploadImage,
   value,
-}: RichTextEditorProps<V>) {
+}: EditorProps<V>) {
   const id = useId(idOverride);
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
   const inputLabelId = label && id ? `${id}-label` : undefined;
@@ -129,7 +71,7 @@ export default function RichTextEditor<V extends Value = Value>({
   });
 
   return (
-    <Root
+    <EditorRoot
       className={clsx({
         [classes.focused]: focused,
         [classes.error]: error,
@@ -154,7 +96,7 @@ export default function RichTextEditor<V extends Value = Value>({
         </InputLabel>
       )}
       <Box position="relative">
-        <TextEditor<V>
+        <EditorBase<V>
           id={id}
           name={name}
           value={value}
@@ -169,7 +111,7 @@ export default function RichTextEditor<V extends Value = Value>({
           onBlur={onBlur}
         />
       </Box>
-      <NotchedOutlineRoot
+      <NotchedOutline
         className={classes.notchedOutline}
         label={label && required ? `${label} *` : label}
         notched
@@ -179,6 +121,6 @@ export default function RichTextEditor<V extends Value = Value>({
           {helperText}
         </FormHelperText>
       )}
-    </Root>
+    </EditorRoot>
   );
 }
