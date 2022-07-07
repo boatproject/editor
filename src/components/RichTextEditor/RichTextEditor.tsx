@@ -1,7 +1,7 @@
 import {
   FormHelperText,
   generateUtilityClasses,
-  InputLabel as MuiInputLabel,
+  InputLabel,
   styled,
   type TextFieldProps,
   Box,
@@ -10,8 +10,9 @@ import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
 import { unstable_useId as useId } from "@mui/utils";
 import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
+import { useState, FocusEvent } from "react";
+import useEvent from "../../hooks/useEvent";
 import TextEditor, { type TextEditorProps } from "../TextEditor/TextEditor";
-import useFocus from "./useFocus";
 
 const classes = generateUtilityClasses("RichTextEditor", [
   "root",
@@ -60,15 +61,6 @@ const Root = styled("div", {
   };
 });
 
-const InputLabel = styled(MuiInputLabel, {
-  name: "RichTextEditor",
-  slot: "InputLabel",
-})({
-  position: "absolute",
-  left: 0,
-  top: 0,
-});
-
 const NotchedOutlineRoot = styled(NotchedOutline, {
   name: "RichTextEditor",
   slot: "NotchedOutline",
@@ -103,34 +95,38 @@ type RichTextTextEditorProps<V extends Value = Value> = Partial<
 export type RichTextEditorProps<V extends Value = Value> = RichTextFieldProps &
   RichTextTextEditorProps<V>;
 
-function RichTextEditor<V extends Value = Value>(
-  props: RichTextEditorProps<V>
-) {
-  const {
-    id: idOverride = "rich-text-field",
-    name,
-    label,
-    error,
-    helperText,
-    color,
-    required = false,
-    value,
-    initialValue,
-    onChange,
-    onFocus,
-    onBlur,
-    editableProps,
-    uploadImage,
-    style,
-    className,
-    plateProps,
-  } = props;
-
+export default function RichTextEditor<V extends Value = Value>({
+  className,
+  color,
+  editableProps,
+  error,
+  helperText,
+  id: idOverride = "rich-text-field",
+  initialValue,
+  label,
+  name,
+  onBlur: propOnBlur,
+  onChange,
+  onFocus: propOnFocus,
+  plateProps,
+  required = false,
+  style,
+  uploadImage,
+  value,
+}: RichTextEditorProps<V>) {
   const id = useId(idOverride);
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
   const inputLabelId = label && id ? `${id}-label` : undefined;
 
-  const [focused, focusHandlers] = useFocus({ onFocus, onBlur });
+  const [focused, setFocused] = useState(false);
+  const onFocus = useEvent((e: FocusEvent<HTMLDivElement>) => {
+    setFocused(true);
+    propOnFocus?.(e);
+  });
+  const onBlur = useEvent((e: FocusEvent<HTMLDivElement>) => {
+    setFocused(false);
+    propOnBlur?.(e);
+  });
 
   return (
     <Root
@@ -141,13 +137,18 @@ function RichTextEditor<V extends Value = Value>(
     >
       {label && (
         <InputLabel
+          color={color}
+          error={error}
+          focused={focused}
           htmlFor={id}
           id={inputLabelId}
-          variant="outlined"
           shrink
-          error={error}
-          color={color}
-          focused={focused}
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+          }}
+          variant="outlined"
         >
           {label}
         </InputLabel>
@@ -164,7 +165,8 @@ function RichTextEditor<V extends Value = Value>(
           style={style}
           className={className}
           plateProps={plateProps}
-          {...focusHandlers}
+          onFocus={onFocus}
+          onBlur={onBlur}
         />
       </Box>
       <NotchedOutlineRoot
@@ -180,5 +182,3 @@ function RichTextEditor<V extends Value = Value>(
     </Root>
   );
 }
-
-export default RichTextEditor;
