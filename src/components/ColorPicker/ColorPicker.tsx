@@ -1,17 +1,9 @@
-import { Button } from "@mui/material";
-import { useState, MouseEvent } from "react";
-import { ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
-import { Stack, styled } from "@mui/material";
-import { ColorPickerTileGrid } from "./ColorPickerTileGrid";
+import { Button, Stack } from "@mui/material";
+import { useState, type MouseEvent } from "react";
+import { type ColorOption, DEFAULT_COLOR_OPTIONS } from "./colors";
 import useEvent from "../../hooks/useEvent";
-
-const ColorPickerStack = styled(Stack, {
-  shouldForwardProp: (prop) => prop !== "color",
-})<{ color?: string }>(({ theme, color = "transparent" }) => ({
-  padding: theme.spacing(1),
-  border: `3px solid ${color}`,
-  transition: theme.transitions.create("border"),
-}));
+import ColorContainer from "./ColorContainer";
+import ColorTile from "./ColorTile";
 
 export interface ColorPickerProps {
   /**
@@ -36,14 +28,12 @@ export interface ColorPickerProps {
   onClearColor?: () => void;
 }
 
-export function ColorPicker(props: ColorPickerProps) {
-  const {
-    color,
-    colorOptions = DEFAULT_COLOR_OPTIONS,
-    onSelectColor,
-    onClearColor,
-  } = props;
-
+export default function ColorPicker({
+  color,
+  colorOptions = DEFAULT_COLOR_OPTIONS,
+  onSelectColor,
+  onClearColor,
+}: ColorPickerProps) {
   const [selectedColor, setSelectedColor] = useState<string | undefined>(color);
 
   const handleClick = useEvent((event: MouseEvent<HTMLButtonElement>) => {
@@ -59,7 +49,12 @@ export function ColorPicker(props: ColorPickerProps) {
   });
 
   return (
-    <ColorPickerStack color={selectedColor} alignItems="center">
+    <Stack
+      alignItems="center"
+      border={`3px solid ${selectedColor ?? "transparent"}`}
+      p={1}
+      sx={{ transition: (theme) => theme.transitions.create("border") }}
+    >
       <Button
         fullWidth
         onClick={handleClear}
@@ -68,9 +63,11 @@ export function ColorPicker(props: ColorPickerProps) {
       >
         Clear
       </Button>
-      <ColorPickerTileGrid colorOptions={colorOptions} onClick={handleClick} />
-    </ColorPickerStack>
+      <ColorContainer>
+        {colorOptions.map((color) => (
+          <ColorTile key={color.value} {...color} onClick={handleClick} />
+        ))}
+      </ColorContainer>
+    </Stack>
   );
 }
-
-export default ColorPicker;

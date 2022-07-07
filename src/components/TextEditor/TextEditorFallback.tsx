@@ -6,14 +6,12 @@ import { useLogger } from "./LoggerContext";
 
 /**
  * Simple fallback to display if a rendering error occurs within the editor
- * @param props
  */
 export default function TextEditorFallback(props: FallbackProps) {
   const { error, resetErrorBoundary } = props;
   const logger = useLogger();
 
   const hasLogged = useRef(false);
-
   useEffect(() => {
     if (!hasLogged.current) {
       logger.error(error);

@@ -34,15 +34,13 @@ export interface TextEditorBaseComponentProps<V extends Value = Value>
 
 const TextEditorBaseComponent = memo(function TextEditorBaseComponent<
   V extends Value = Value
->(props: TextEditorBaseComponentProps<V>) {
-  const {
-    uploadImage,
-    plateProps = {},
-    children,
-    id = "main",
-    ...componentProps
-  } = props;
-
+>({
+  uploadImage,
+  plateProps = {},
+  children,
+  id = "main",
+  ...componentProps
+}: TextEditorBaseComponentProps<V>) {
   return (
     <Plate<V>
       id={id}

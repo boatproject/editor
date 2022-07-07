@@ -35,11 +35,12 @@ export interface TextEditorProps<V extends Value = Value>
   logger?: Logger;
 }
 
-export const TextEditor = memo(function TextEditor<V extends Value = Value>(
-  props: TextEditorProps<V>
-) {
-  const { className, style, logger = console, ...textEditorProps } = props;
-
+const TextEditor = memo(function TextEditor<V extends Value = Value>({
+  className,
+  style,
+  logger = console,
+  ...textEditorProps
+}: TextEditorProps<V>) {
   return (
     <TextEditorRoot className={className} style={style}>
       <LoggerContext.Provider value={logger}>

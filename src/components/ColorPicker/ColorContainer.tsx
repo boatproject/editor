@@ -1,9 +1,6 @@
 import { Box, styled } from "@mui/material";
 
-export const ColorContainer = styled(Box, {
-  name: "ColorPicker",
-  slot: "container",
-})(({ theme }) => {
+const ColorContainer = styled(Box)(({ theme }) => {
   const gapSpacing = theme.spacing(0.5);
 
   return {

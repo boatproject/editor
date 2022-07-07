@@ -4,13 +4,14 @@ import {
   InputLabel as MuiInputLabel,
   styled,
   type TextFieldProps,
+  Box,
 } from "@mui/material";
-import { unstable_useId as useId } from "@mui/utils";
 import NotchedOutline from "@mui/material/OutlinedInput/NotchedOutline";
+import { unstable_useId as useId } from "@mui/utils";
+import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
 import TextEditor, { type TextEditorProps } from "../TextEditor/TextEditor";
 import useFocus from "./useFocus";
-import type { Value } from "@udecode/plate-core";
 
 const classes = generateUtilityClasses("RichTextEditor", [
   "root",
@@ -78,14 +79,7 @@ const NotchedOutlineRoot = styled(NotchedOutline, {
       : "rgba(255, 255, 255, 0.23)",
 }));
 
-const Content = styled("div", {
-  name: "RichTextEditor",
-  slot: "Content",
-})({
-  position: "relative",
-});
-
-type RichTextTextFieldProps = Pick<
+type RichTextFieldProps = Pick<
   TextFieldProps,
   "id" | "label" | "error" | "helperText" | "color" | "required" | "name"
 >;
@@ -106,10 +100,10 @@ type RichTextTextEditorProps<V extends Value = Value> = Partial<
   >
 >;
 
-export type RichTextEditorProps<V extends Value = Value> =
-  RichTextTextFieldProps & RichTextTextEditorProps<V>;
+export type RichTextEditorProps<V extends Value = Value> = RichTextFieldProps &
+  RichTextTextEditorProps<V>;
 
-export function RichTextEditor<V extends Value = Value>(
+function RichTextEditor<V extends Value = Value>(
   props: RichTextEditorProps<V>
 ) {
   const {
@@ -158,7 +152,7 @@ export function RichTextEditor<V extends Value = Value>(
           {label}
         </InputLabel>
       )}
-      <Content>
+      <Box position="relative">
         <TextEditor<V>
           id={id}
           name={name}
@@ -172,7 +166,7 @@ export function RichTextEditor<V extends Value = Value>(
           plateProps={plateProps}
           {...focusHandlers}
         />
-      </Content>
+      </Box>
       <NotchedOutlineRoot
         className={classes.notchedOutline}
         label={label && required ? `${label} *` : label}

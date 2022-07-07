@@ -1,5 +1,5 @@
 import { Popover, PopoverProps } from "@mui/material";
-import { ColorPicker, ColorPickerProps } from "./ColorPicker";
+import ColorPicker, { ColorPickerProps } from "./ColorPicker";
 
 export const ANCHOR_ORIGIN = {
   vertical: "bottom",
@@ -16,24 +16,18 @@ export interface ColorPickerMenuProps
   onClose?: () => void;
 }
 
+/**
+ * Popover menu composed with ColorPicker
+ */
 export default function ColorPickerMenu({
-  id,
   color,
   colorOptions,
   onSelectColor,
   onClearColor,
-  anchorEl,
-  open = false,
-  onClose,
+  ...props
 }: ColorPickerMenuProps) {
   return (
-    <Popover
-      id={id}
-      anchorOrigin={ANCHOR_ORIGIN}
-      onClose={onClose}
-      open={open}
-      anchorEl={anchorEl}
-    >
+    <Popover anchorOrigin={ANCHOR_ORIGIN} {...props}>
       <ColorPicker
         color={color}
         colorOptions={colorOptions}

@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import ColorPickerMenu, { ColorPickerMenuProps } from "./ColorPickerMenu";
 import { black, red, white, ColorOption } from "./colors";
@@ -24,26 +24,26 @@ describe("<ColorPickerMenu />", () => {
   });
 
   it("should render when open is true", () => {
-    const { queryByRole } = render(<ColorPickerMenu {...props} />);
+    render(<ColorPickerMenu {...props} />);
 
-    const rootElement = queryByRole("presentation");
+    const rootElement = screen.queryByRole("presentation");
 
     expect(rootElement).toBeInTheDocument();
   });
 
   it("should not render when open is false", () => {
-    const { queryByRole } = render(<ColorPickerMenu {...props} open={false} />);
+    render(<ColorPickerMenu {...props} open={false} />);
 
-    const rootElement = queryByRole("presentation");
+    const rootElement = screen.queryByRole("presentation");
 
     expect(rootElement).not.toBeInTheDocument();
   });
 
   it("should render a button for each color", () => {
-    const { getByRole } = render(<ColorPickerMenu {...props} />);
+    render(<ColorPickerMenu {...props} />);
 
     colorOptions.forEach(({ name, value }) => {
-      const button = getByRole("button", { name }) as HTMLButtonElement;
+      const button = screen.getByRole("button", { name }) as HTMLButtonElement;
       expect(button).toBeInTheDocument();
       expect(button.value).toEqual(value);
     });
@@ -51,10 +51,12 @@ describe("<ColorPickerMenu />", () => {
 
   describe("on color select", () => {
     it("should call onSelectColor with the clicked color", () => {
-      const { getByRole } = render(<ColorPickerMenu {...props} />);
+      render(<ColorPickerMenu {...props} />);
 
       colorOptions.forEach(({ name, value }) => {
-        const button = getByRole("button", { name }) as HTMLButtonElement;
+        const button = screen.getByRole("button", {
+          name,
+        }) as HTMLButtonElement;
         button.click();
         expect(props.onSelectColor).toHaveBeenCalledWith(value);
       });
@@ -63,9 +65,9 @@ describe("<ColorPickerMenu />", () => {
 
   describe("clear color button", () => {
     it("should be disabled when no color is set", () => {
-      const { getByRole } = render(<ColorPickerMenu {...props} />);
+      render(<ColorPickerMenu {...props} />);
 
-      const button = getByRole("button", {
+      const button = screen.getByRole("button", {
         name: /clear/i,
       }) as HTMLButtonElement;
       button.click();
@@ -73,11 +75,9 @@ describe("<ColorPickerMenu />", () => {
     });
 
     it("should call clearColor when clicked", () => {
-      const { getByRole } = render(
-        <ColorPickerMenu {...props} color={"#000"} />
-      );
+      render(<ColorPickerMenu {...props} color={"#000"} />);
 
-      const button = getByRole("button", {
+      const button = screen.getByRole("button", {
         name: /clear/i,
       }) as HTMLButtonElement;
 
