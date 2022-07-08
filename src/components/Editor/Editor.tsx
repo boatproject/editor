@@ -4,10 +4,9 @@ import {
   type TextFieldProps,
   Box,
 } from "@mui/material";
-import { unstable_useId as useId } from "@mui/utils";
 import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
-import { useState, FocusEvent } from "react";
+import { useState, FocusEvent, useId } from "react";
 import useEvent from "../../hooks/useEvent";
 import EditorBase, { type EditorBaseProps } from "../EditorBase/EditorBase";
 import classes from "./classes";
@@ -43,7 +42,7 @@ export default function Editor<V extends Value = Value>({
   editableProps,
   error,
   helperText,
-  id: idOverride = "rich-text-field",
+  id: idPrefix = "rich-text-field",
   initialValue,
   label,
   name,
@@ -56,7 +55,7 @@ export default function Editor<V extends Value = Value>({
   uploadImage,
   value,
 }: EditorProps<V>) {
-  const id = useId(idOverride);
+  const id = `${idPrefix}${useId()}`;
   const helperTextId = helperText && id ? `${id}-helper-text` : undefined;
   const inputLabelId = label && id ? `${id}-label` : undefined;
 
