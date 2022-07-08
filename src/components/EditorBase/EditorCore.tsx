@@ -1,15 +1,14 @@
 import { Divider } from "@mui/material";
 import {
-  AnyObject,
   Plate,
-  PlateEditor,
-  PlatePlugin,
+  type AnyObject,
+  type PlateEditor,
+  type PlatePlugin,
   type PlateProps,
   type Value,
 } from "@udecode/plate-core";
 import { type EditableProps } from "slate-react/dist/components/editable";
-import { CONFIG } from "../../config";
-import { PLUGINS } from "../../plugins";
+import { CONFIG, PLUGINS } from "../../configs";
 import Toolbar from "../Toolbar";
 import { type UploadImage } from "../types";
 
@@ -43,7 +42,6 @@ export default function EditorCore<V extends Value = Value>({
   return (
     <Plate<V>
       id={id}
-      plugins={PLUGINS as PlatePlugin<AnyObject, V, PlateEditor<V>>[]}
       editableProps={{
         id,
         name,
@@ -59,6 +57,7 @@ export default function EditorCore<V extends Value = Value>({
           {children}
         </>
       }
+      plugins={PLUGINS as PlatePlugin<AnyObject, V, PlateEditor<V>>[]}
       {...(CONFIG.defaultProps as Partial<PlateProps<V>>)}
       {...textEditorProps}
       {...plateProps}

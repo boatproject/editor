@@ -21,15 +21,13 @@ import { createResetNodePlugin } from "@udecode/plate-reset-node";
 import { createSelectOnBackspacePlugin } from "@udecode/plate-select";
 import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
 import { createPlateUI } from "@udecode/plate-ui";
-import { CONFIG } from "./config";
+import type { Config } from "./config";
 
 /**
  * Create any plugins that don't require dynamic
  * configuration (from props or state)
- * @param config
- * @returns
  */
-function createStaticPlugins(config = CONFIG) {
+export function createStaticPlugins(config: Config) {
   return createPlugins(
     [
       /**
@@ -65,5 +63,3 @@ function createStaticPlugins(config = CONFIG) {
     }
   );
 }
-
-export const PLUGINS = createStaticPlugins(CONFIG);

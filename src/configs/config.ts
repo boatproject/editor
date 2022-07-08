@@ -36,6 +36,16 @@ const resetBlockTypesCommonRule = {
   defaultType: ELEMENT_PARAGRAPH,
 };
 
+const textTypes = [
+  ELEMENT_PARAGRAPH,
+  ELEMENT_H1,
+  ELEMENT_H2,
+  ELEMENT_H3,
+  ELEMENT_H4,
+  ELEMENT_H5,
+  ELEMENT_H6,
+];
+
 type PluginConfig<P = AnyObject, V extends Value = Value> = Partial<
   PlatePlugin<P, V>
 >;
@@ -68,35 +78,14 @@ export const CONFIG: Config = {
   align: {
     inject: {
       props: {
-        validTypes: [
-          ELEMENT_PARAGRAPH,
-          ELEMENT_H1,
-          ELEMENT_H2,
-          ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
-        ],
+        validTypes: textTypes,
       },
     },
   },
-  // autoFormat: {
-  //   rules: [autoformatArrow],
-  // },
   indent: {
     inject: {
       props: {
-        validTypes: [
-          ELEMENT_PARAGRAPH,
-          ELEMENT_H1,
-          ELEMENT_H2,
-          ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
-          ELEMENT_BLOCKQUOTE,
-          ELEMENT_CODE_BLOCK,
-        ],
+        validTypes: [...textTypes, ELEMENT_BLOCKQUOTE, ELEMENT_CODE_BLOCK],
       },
     },
   },
@@ -105,15 +94,7 @@ export const CONFIG: Config = {
       props: {
         defaultNodeValue: 1.5,
         validNodeValues: [1, 1.2, 1.5, 2, 3],
-        validTypes: [
-          ELEMENT_PARAGRAPH,
-          ELEMENT_H1,
-          ELEMENT_H2,
-          ELEMENT_H3,
-          ELEMENT_H4,
-          ELEMENT_H5,
-          ELEMENT_H6,
-        ],
+        validTypes: textTypes,
       },
     },
   },

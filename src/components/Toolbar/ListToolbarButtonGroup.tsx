@@ -8,7 +8,7 @@ import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
 import BlockToolbarButton from "./BlockToolbarButton";
 import ListToolbarButton from "./ListToolbarButton";
-import getPluginTypeOrKey from "../../utils/getPluginTypeOrKey";
+import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 
 const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   const editor = usePlateEditorRef();

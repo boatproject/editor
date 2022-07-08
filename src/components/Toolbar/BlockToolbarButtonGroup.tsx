@@ -4,7 +4,7 @@ import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_IMAGE } from "@udecode/plate-image";
 import { memo } from "react";
-import getPluginTypeOrKey from "../../utils/getPluginTypeOrKey";
+import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import type { GetLinkUrl, UploadImage } from "../types";
 import BlockToolbarButton from "./BlockToolbarButton";
 import CodeBlockToolbarButton from "./CodeBlockToolbarButton";

@@ -20,6 +20,6 @@
     "strict": true,
     "target": "ES2017"
   },
-  "exclude": ["**/*.test.ts*", "src/setup-tests.ts"],
-  "include": ["src/"]
+  "exclude": ["**/*.test.ts*"],
+  "include": ["src/", "setup-tests.ts", "react.d.ts"]
 }

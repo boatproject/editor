@@ -1,8 +1,8 @@
-import { Button, Stack } from "@mui/material";
+import { Button, Grid, Paper, Stack, useTheme } from "@mui/material";
 import { useState, type MouseEvent } from "react";
 import useEvent from "../../hooks/useEvent";
 import { DEFAULT_COLOR_OPTIONS, type ColorOption } from "./colors";
-import { ColorContainer, TileButton } from "./styled";
+import { TileButton } from "./styled";
 
 function useColorPicker({
   color: propColor,
@@ -54,29 +54,61 @@ export default function ColorPicker({
   ...props
 }: ColorPickerProps) {
   const { clearColor, selectColor, color } = useColorPicker(props);
+  const theme = useTheme();
 
   return (
     <Stack
+      component={Paper}
       alignItems="center"
       border={`3px solid ${color ?? "transparent"}`}
       p={1}
-      sx={(theme) => ({ transition: theme.transitions.create("border") })}
+      gap={1}
+      sx={{ transition: theme.transitions.create("border") }}
     >
-      <Button fullWidth onClick={clearColor} disabled={!color} sx={{ color }}>
+      <Button
+        fullWidth
+        onClick={clearColor}
+        disabled={!color}
+        sx={{
+          color,
+          fontWeight: 600,
+          transition: theme.transitions.create("all"),
+
+          "&:hover": {
+            color: color ? theme.palette.getContrastText(color) : undefined,
+            bgcolor: color,
+          },
+        }}
+      >
         Clear
       </Button>
-      <ColorContainer>
+      <Grid
+        container
+        spacing={0.5}
+        columns={4}
+        height={300}
+        width={300}
+        p={1}
+        sx={{
+          "&:hover": {
+            "& .MuiButton-root:not(:hover)": {
+              opacity: 0.7,
+            },
+          },
+        }}
+      >
         {colorOptions.map(({ name, value }) => (
-          <TileButton
-            variant="contained"
-            key={value}
-            title={name}
-            name={name}
-            value={value}
-            onClick={selectColor}
-          />
+          <Grid item key={value} xs={1} minHeight="20%">
+            <TileButton
+              variant="contained"
+              title={name}
+              name={name}
+              value={value}
+              onClick={selectColor}
+            />
+          </Grid>
         ))}
-      </ColorContainer>
+      </Grid>
     </Stack>
   );
 }

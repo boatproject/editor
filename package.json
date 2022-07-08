@@ -7,6 +7,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
+    "start:demo": "parcel demo/index.html",
     "watch": "parcel watch",
     "build": "parcel build",
     "lint": "eslint",
@@ -40,6 +41,7 @@
     "jest-environment-jsdom": "^28.1.2",
     "parcel": "^2.6.2",
     "prettier": "^2.7.1",
+    "process": "^0.11.10",
     "ts-jest": "^28.0.5",
     "typescript": "^4.7.4"
   },

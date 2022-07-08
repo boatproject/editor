@@ -3,7 +3,7 @@ import {
   toggleMark,
   usePlateEditorState,
 } from "@udecode/plate-core";
-import hasSelection from "../../utils/hasSelection";
+import hasSelection from "../../plate-utils/hasSelection";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 import type { MouseEvent } from "react";
 import useEvent from "../../hooks/useEvent";
