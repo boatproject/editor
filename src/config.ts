@@ -1,11 +1,11 @@
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
-import { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
+import type { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import {
-  AnyObject,
+  type AnyObject,
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
-  Value,
+  type Value,
   type PlatePlugin,
   type PlatePluginComponent,
   type PlateProps,

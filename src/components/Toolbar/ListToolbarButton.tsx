@@ -8,8 +8,10 @@ import useEvent from "../../hooks/useEvent";
 
 export type ListToolbarButtonProps = BlockToolbarButtonProps;
 
-export function ListToolbarButton(props: BlockToolbarButtonProps) {
-  const { value = ELEMENT_UL, ...elementProps } = props;
+export function ListToolbarButton({
+  value = ELEMENT_UL,
+  ...elementProps
+}: BlockToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const res = !!editor?.selection && getListItemEntry(editor);

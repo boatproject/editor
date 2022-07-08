@@ -24,44 +24,46 @@ import { createPlateUI } from "@udecode/plate-ui";
 import { CONFIG } from "./config";
 
 /**
- * Create any plugins that dont require dynamic
+ * Create any plugins that don't require dynamic
  * configuration (from props or state)
  * @param config
  * @returns
  */
 function createStaticPlugins(config = CONFIG) {
-  const elementPlugins = [
-    createBasicElementsPlugin(),
-    createAlignPlugin(config.align),
-    createLineHeightPlugin(config.lineHeight),
-    createSelectOnBackspacePlugin(config.selectOnBackspace),
-    createIndentPlugin(config.indent),
-    createLinkPlugin(),
-    createImagePlugin(),
-    createListPlugin(),
-    createTodoListPlugin(),
-  ];
-
-  const markPlugins = [
-    createBasicMarksPlugin(),
-    createFontColorPlugin(),
-    createFontBackgroundColorPlugin(),
-    createFontSizePlugin(),
-    createHighlightPlugin(),
-  ];
-
-  const utilPlugins = [
-    createResetNodePlugin(config.resetBlockType),
-    createSoftBreakPlugin(config.softBreak),
-    createTrailingBlockPlugin(config.trailingBlock),
-    createExitBreakPlugin(config.exitBreak),
-  ];
-
-  const allPlugins = [...elementPlugins, ...markPlugins, ...utilPlugins];
-
-  return createPlugins(allPlugins, {
-    components: createPlateUI(),
-  });
+  return createPlugins(
+    [
+      /**
+       * Element plugins
+       */
+      createAlignPlugin(config.align),
+      createBasicElementsPlugin(),
+      createImagePlugin(),
+      createIndentPlugin(config.indent),
+      createLineHeightPlugin(config.lineHeight),
+      createLinkPlugin(),
+      createListPlugin(),
+      createSelectOnBackspacePlugin(config.selectOnBackspace),
+      createTodoListPlugin(),
+      /**
+       * Mark plugins
+       */
+      createBasicMarksPlugin(),
+      createFontBackgroundColorPlugin(),
+      createFontColorPlugin(),
+      createFontSizePlugin(),
+      createHighlightPlugin(),
+      /**
+       * Util plugins
+       */
+      createExitBreakPlugin(config.exitBreak),
+      createResetNodePlugin(config.resetBlockType),
+      createSoftBreakPlugin(config.softBreak),
+      createTrailingBlockPlugin(config.trailingBlock),
+    ],
+    {
+      components: createPlateUI(),
+    }
+  );
 }
 
 export const PLUGINS = createStaticPlugins(CONFIG);

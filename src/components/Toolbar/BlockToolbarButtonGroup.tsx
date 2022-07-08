@@ -16,10 +16,10 @@ export interface BlockToolbarButtonGroupProps {
   uploadImage?: UploadImage;
 }
 
-const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup(
-  props: BlockToolbarButtonGroupProps
-) {
-  const { getLinkUrl, uploadImage } = props;
+const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup({
+  getLinkUrl,
+  uploadImage,
+}: BlockToolbarButtonGroupProps) {
   const editor = usePlateEditorRef();
 
   return (

@@ -14,10 +14,10 @@ export interface CodeBlockToolbarButtonProps
   options?: CodeBlockInsertOptions;
 }
 
-export default function CodeBlockToolbarButton(
-  props: CodeBlockToolbarButtonProps
-) {
-  const { options, ...buttonProps } = props;
+export default function CodeBlockToolbarButton({
+  options,
+  ...buttonProps
+}: CodeBlockToolbarButtonProps) {
   const editor = usePlateEditorRef();
 
   const onMouseDown = useEvent((e: { preventDefault: () => void }) => {

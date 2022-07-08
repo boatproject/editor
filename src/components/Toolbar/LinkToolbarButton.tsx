@@ -17,9 +17,10 @@ export interface LinkToolbarButtonProps
   getLinkUrl?: GetLinkUrl;
 }
 
-export default function LinkToolbarButton(props: LinkToolbarButtonProps) {
-  const { getLinkUrl, ...buttonProps } = props;
-
+export default function LinkToolbarButton({
+  getLinkUrl,
+  ...buttonProps
+}: LinkToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const type = editor ? getPluginType(editor, ELEMENT_LINK) : ELEMENT_LINK;

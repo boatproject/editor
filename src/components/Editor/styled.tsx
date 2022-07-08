@@ -1,8 +1,10 @@
-import { TextFieldProps, styled } from "@mui/material";
+import { type TextFieldProps, styled } from "@mui/material";
 import NotchedOutlineRoot from "@mui/material/OutlinedInput/NotchedOutline";
 import classes from "./classes";
 
 export const EditorRoot = styled("div", {
+  name: "Editor",
+  slot: "EditorRoot",
   shouldForwardProp: (prop) => prop !== "color",
 })<{
   color?: TextFieldProps["color"];

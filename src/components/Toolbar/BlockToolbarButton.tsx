@@ -8,8 +8,12 @@ export interface BlockToolbarButtonProps extends ToolbarButtonProps {
   inactiveType?: string;
 }
 
-export default function BlockToolbarButton(props: BlockToolbarButtonProps) {
-  const { selected: propSelected, value, inactiveType, ...buttonProps } = props;
+export default function BlockToolbarButton({
+  selected: propSelected,
+  value,
+  inactiveType,
+  ...buttonProps
+}: BlockToolbarButtonProps) {
   const editor = usePlateEditorState();
 
   const selected = propSelected ?? (!!editor && isBlockActive(editor, value));

@@ -1,5 +1,5 @@
-import { ToggleButton, ToggleButtonProps } from "@mui/material";
-import { ElementType } from "react";
+import { ToggleButton, type ToggleButtonProps } from "@mui/material";
+import type { ElementType } from "react";
 
 export type ToolbarButtonProps<D extends ElementType = "button"> =
   ToggleButtonProps<
@@ -15,17 +15,7 @@ export type ToolbarButtonProps<D extends ElementType = "button"> =
   >;
 
 export default function ToolbarButton<D extends ElementType>({
-  title = "",
-  value,
   ...buttonProps
 }: ToolbarButtonProps<D>) {
-  return (
-    <ToggleButton
-      title={title}
-      value={value}
-      size="small"
-      sx={{ border: 0 }}
-      {...buttonProps}
-    />
-  );
+  return <ToggleButton size="small" sx={{ border: 0 }} {...buttonProps} />;
 }

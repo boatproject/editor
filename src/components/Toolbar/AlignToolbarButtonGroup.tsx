@@ -31,9 +31,10 @@ interface AlignButtonsProps {
   selectedAlign: Alignment;
 }
 
-const AlignButtons = memo(function AlignButtons(props: AlignButtonsProps) {
-  const { selectedAlign, onMouseDown } = props;
-
+const AlignButtons = memo(function AlignButtons({
+  selectedAlign,
+  onMouseDown,
+}: AlignButtonsProps) {
   return (
     <>
       <ToolbarButton
