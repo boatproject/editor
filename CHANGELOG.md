@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/boatproject/editor/compare/v4.0.0...v4.1.0) (2022-07-08)
+
+
+### Features
+
+* new demo component viewer setup with color picker ([cd342e7](https://github.com/boatproject/editor/commit/cd342e70be6933561f959190f4cdc7f09b5aa6bc))
+
 # [4.0.0](https://github.com/boatproject/editor/compare/v3.0.0...v4.0.0) (2022-07-08)
 
 # [3.0.0](https://github.com/boatproject/editor/compare/v2.19.1...v3.0.0) (2022-07-06)
