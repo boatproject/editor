@@ -1,3 +1,5 @@
+# [4.0.0](https://github.com/boatproject/editor/compare/v3.0.0...v4.0.0) (2022-07-08)
+
 # [3.0.0](https://github.com/boatproject/editor/compare/v2.19.1...v3.0.0) (2022-07-06)
 
 
