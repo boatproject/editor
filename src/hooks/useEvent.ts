@@ -6,7 +6,7 @@ const throwOnRender = () => {
 
 /**
  * Isomorphic layout effect that falls back
- * to useEffect during server rendering
+ * to useEffect when server rendering
  */
 const useIsoLayoutEffect =
   typeof document !== "undefined" ? useLayoutEffect : useEffect;
@@ -18,7 +18,7 @@ const useIsoLayoutEffect =
  * *Must be called outside of render,
  * usually while handling an event*
  *
- * @param handler - Event handler
+ * @param handler - Callback event handler
  *
  * @returns Referentially stable event handler
  */
