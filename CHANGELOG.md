@@ -1,3 +1,10 @@
+## [4.1.1](https://github.com/boatproject/editor/compare/v4.1.0...v4.1.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **deps:** less strict overrides ([74a40e4](https://github.com/boatproject/editor/commit/74a40e45f8fe903531d0d9e74a58c86c1aaa547a))
+
 # [4.1.0](https://github.com/boatproject/editor/compare/v4.0.0...v4.1.0) (2022-07-08)
 
 
