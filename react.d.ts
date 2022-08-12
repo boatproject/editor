@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { memo } from "react";
+import React, { type memo } from "react";
 
 /**
  * Override memo to allow for generics
