@@ -3,8 +3,15 @@
   "version": "4.1.1",
   "source": "src/index.ts",
   "main": "dist/index.js",
-  "module": "dist/module.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "test": "jest",
     "start:demo": "parcel demo/index.html",
@@ -18,10 +25,6 @@
   "author": "zmrl",
   "license": "ISC",
   "description": "Rich text editor for BoatProject",
-  "files": [
-    "dist/",
-    "src/"
-  ],
   "devDependencies": {
     "@parcel/packager-ts": "^2.6.2",
     "@parcel/reporter-bundle-analyzer": "^2.6.2",
@@ -33,6 +36,7 @@
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.30.5",
     "@typescript-eslint/parser": "^5.30.5",
+    "@zmrl/eslint-config": "^3.1.0",
     "eslint": "^8.19.0",
     "eslint-plugin-jest-dom": "^4.0.2",
     "eslint-plugin-react": "^7.30.1",

@@ -40,7 +40,7 @@ export default function ImageToolbarButton({
         if (url) {
           insertImage(editor, url);
         }
-      } catch (err) {
+      } catch (err: unknown) {
         handleError(err);
       }
     }

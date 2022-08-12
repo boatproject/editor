@@ -6,9 +6,9 @@ import {
 } from "@mui/icons-material";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
+import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import BlockToolbarButton from "./BlockToolbarButton";
 import ListToolbarButton from "./ListToolbarButton";
-import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 
 const ListToolbarButtonGroup = memo(function ListToolbarButtonGroup() {
   const editor = usePlateEditorRef();

@@ -1,12 +1,12 @@
 import {
+  Box,
   FormHelperText,
   InputLabel,
   type TextFieldProps,
-  Box,
 } from "@mui/material";
 import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
-import { useState, FocusEvent, useId } from "react";
+import { FocusEvent, useId, useState } from "react";
 import useEvent from "../../hooks/useEvent";
 import EditorBase, { type EditorBaseProps } from "../EditorBase/EditorBase";
 import classes from "./classes";
@@ -76,7 +76,7 @@ export default function Editor<V extends Value = Value>({
         [classes.error]: error,
       })}
     >
-      {label && (
+      {!!label && (
         <InputLabel
           color={color}
           error={error}
@@ -112,10 +112,19 @@ export default function Editor<V extends Value = Value>({
       </Box>
       <NotchedOutline
         className={classes.notchedOutline}
-        label={label && required ? `${label} *` : label}
+        label={
+          label && required ? (
+            <>
+              {label}
+              {"  *"}
+            </>
+          ) : (
+            label
+          )
+        }
         notched
       />
-      {helperText && (
+      {!!helperText && (
         <FormHelperText id={helperTextId} error={error} color={color}>
           {helperText}
         </FormHelperText>

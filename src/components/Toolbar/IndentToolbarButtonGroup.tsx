@@ -5,8 +5,8 @@ import {
 } from "@mui/icons-material";
 import { usePlateEditorState } from "@udecode/plate-core";
 import { indent, outdent } from "@udecode/plate-indent";
-import ToolbarButton from "./ToolbarButton";
 import useEvent from "../../hooks/useEvent";
+import ToolbarButton from "./ToolbarButton";
 
 const IndentToolbarButtonGroup = memo(function IndentToolbarButtonGroup() {
   const editor = usePlateEditorState();
@@ -30,14 +30,14 @@ const IndentToolbarButtonGroup = memo(function IndentToolbarButtonGroup() {
   return (
     <>
       <ToolbarButton
-        value={"indent-"}
+        value="indent-"
         onMouseDown={handleOutdent}
         title="Decrease Indent"
       >
         <FormatIndentDecrease />
       </ToolbarButton>
       <ToolbarButton
-        value={"indent+"}
+        value="indent+"
         onMouseDown={handleIndent}
         title="Increase Indent"
       >

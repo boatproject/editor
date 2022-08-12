@@ -9,7 +9,7 @@ const throwOnRender = () => {
  * to useEffect when server rendering
  */
 const useIsoLayoutEffect =
-  typeof document !== "undefined" ? useLayoutEffect : useEffect;
+  typeof document === "undefined" ? useEffect : useLayoutEffect;
 
 /**
  * Memoize a callback function that holds

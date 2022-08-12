@@ -4,9 +4,9 @@ import {
   usePlateEditorState,
 } from "@udecode/plate-core";
 import { type Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
-import ToolbarButton, { type ToolbarButtonProps } from "./ToolbarButton";
 import type { MouseEvent } from "react";
 import useEvent from "../../hooks/useEvent";
+import ToolbarButton, { type ToolbarButtonProps } from "./ToolbarButton";
 
 export interface AlignToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {

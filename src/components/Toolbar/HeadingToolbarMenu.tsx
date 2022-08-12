@@ -54,52 +54,50 @@ export default function HeadingToolbarMenu() {
       </ToolbarButton>
       <Menu {...menuProps}>
         <Box px={1}>
-          {editor && (
-            <>
+          {editor ? <>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H1)}
                 title="Heading One"
-                onClick={() => setSelectedHeading(ELEMENT_H1)}
+                onClick={() => { setSelectedHeading(ELEMENT_H1); }}
               >
                 <LooksOne />
               </BlockToolbarButton>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H2)}
                 title="Heading Two"
-                onClick={() => setSelectedHeading(ELEMENT_H2)}
+                onClick={() => { setSelectedHeading(ELEMENT_H2); }}
               >
                 <LooksTwo />
               </BlockToolbarButton>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H3)}
                 title="Heading Three"
-                onClick={() => setSelectedHeading(ELEMENT_H3)}
+                onClick={() => { setSelectedHeading(ELEMENT_H3); }}
               >
                 <Looks3 />
               </BlockToolbarButton>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H4)}
                 title="Heading Four"
-                onClick={() => setSelectedHeading(ELEMENT_H4)}
+                onClick={() => { setSelectedHeading(ELEMENT_H4); }}
               >
                 <Looks4 />
               </BlockToolbarButton>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H5)}
                 title="Heading Five"
-                onClick={() => setSelectedHeading(ELEMENT_H5)}
+                onClick={() => { setSelectedHeading(ELEMENT_H5); }}
               >
                 <Looks5 />
               </BlockToolbarButton>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H6)}
                 title="Heading Six"
-                onClick={() => setSelectedHeading(ELEMENT_H6)}
+                onClick={() => { setSelectedHeading(ELEMENT_H6); }}
               >
                 <Looks6 />
               </BlockToolbarButton>
-            </>
-          )}
+            </> : null}
         </Box>
       </Menu>
     </>

@@ -1,4 +1,4 @@
-import { RestartAlt } from "@mui/icons-material";
+import RestartAlt from "@mui/icons-material/RestartAlt";
 import { Alert, AlertTitle, Button, Stack } from "@mui/material";
 import { useEffect, useRef } from "react";
 import type { FallbackProps } from "react-error-boundary";
@@ -24,7 +24,9 @@ export default function EditorFallback({
   error,
   resetErrorBoundary,
 }: FallbackProps) {
-  useOnce(() => console.error(error));
+  useOnce(() => {
+    console.error(error);
+  });
 
   return (
     <Stack>

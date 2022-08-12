@@ -4,10 +4,10 @@ import {
   usePlateEditorState,
 } from "@udecode/plate-core";
 import { ELEMENT_LINK, getAndUpsertLink } from "@udecode/plate-link";
-import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
+import { MouseEvent } from "react";
 import type { GetLinkUrl } from "../types";
 import useEvent from "../../hooks/useEvent";
-import { MouseEvent } from "react";
+import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface LinkToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {
@@ -32,7 +32,7 @@ export default function LinkToolbarButton({
     }
 
     event.preventDefault();
-    getAndUpsertLink(editor, getLinkUrl);
+    getAndUpsertLink(editor, getLinkUrl).catch(console.error);
   });
 
   return (

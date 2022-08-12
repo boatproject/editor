@@ -10,7 +10,7 @@ import {
 } from "@udecode/plate-core";
 import useEvent from "../../hooks/useEvent";
 import useMenu from "../../hooks/useMenu";
-import ColorPickerMenu from "../ColorPicker";
+import { ColorPickerMenu } from "../ColorPicker";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
 export interface ColorPickerToolbarButtonProps
@@ -38,7 +38,7 @@ export default function ColorPickerToolbarButton({
   const [anchorProps, menuProps] = useMenu(menuId);
   const { onClose } = menuProps;
 
-  const updateColor = useEvent((color: string) => {
+  const updateColor = useEvent((value: string) => {
     if (!editorRef || !editor || !editor.selection) {
       return;
     }
@@ -46,7 +46,7 @@ export default function ColorPickerToolbarButton({
     select(editor, editor.selection);
     focusEditor(editor);
 
-    setMarks(editor, { [type]: color });
+    setMarks(editor, { [type]: value });
     onClose();
   });
 

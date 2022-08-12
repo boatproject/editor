@@ -8,10 +8,13 @@ import useEvent from "./useEvent";
 export default function useMenu(menuId: string) {
   const [element, setElement] = useState<HTMLElement | null>(null);
 
-  const onClick = useEvent((event: SyntheticEvent<HTMLElement>) =>
-    setElement(event.currentTarget)
-  );
-  const onClose = useEvent(() => setElement(null));
+  const onClick = useEvent((event: SyntheticEvent<HTMLElement>) => {
+    setElement(event.currentTarget);
+  });
+
+  const onClose = useEvent(() => {
+    setElement(null);
+  });
 
   const id = element ? menuId : undefined;
   const open = Boolean(element);

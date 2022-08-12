@@ -42,7 +42,7 @@ describe("<ColorPickerMenu />", () => {
     render(<ColorPickerMenu {...props} />);
 
     colorOptions.forEach(({ name, value }) => {
-      const button = screen.getByRole("button", { name }) as HTMLButtonElement;
+      const button = screen.getByRole<HTMLButtonElement>("button", { name });
       expect(button).toBeInTheDocument();
       expect(button.value).toEqual(value);
     });
@@ -55,7 +55,7 @@ describe("<ColorPickerMenu />", () => {
       colorOptions.forEach(({ name, value }) => {
         const button = screen.getByRole("button", {
           name,
-        }) as HTMLButtonElement;
+        });
         button.click();
         expect(props.onSelectColor).toHaveBeenCalledWith(value);
       });
@@ -66,22 +66,22 @@ describe("<ColorPickerMenu />", () => {
     it("should be disabled when no color is set", () => {
       render(<ColorPickerMenu {...props} />);
 
-      const button = screen.getByRole("button", {
+      const button = screen.getByRole<HTMLButtonElement>("button", {
         name: /clear/i,
-      }) as HTMLButtonElement;
+      });
       button.click();
       expect(button.disabled).toBeTruthy();
     });
 
     it("should call clearColor when clicked", () => {
-      render(<ColorPickerMenu {...props} color={"#000"} />);
+      render(<ColorPickerMenu {...props} color="#000" />);
 
       const button = screen.getByRole("button", {
         name: /clear/i,
-      }) as HTMLButtonElement;
+      });
 
       button.click();
-      expect(props.onClearColor).toHaveBeenCalled();
+      expect(props.onClearColor).toHaveBeenCalledWith();
     });
   });
 });

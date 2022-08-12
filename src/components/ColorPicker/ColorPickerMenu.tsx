@@ -1,11 +1,6 @@
 import { Popover, PopoverProps } from "@mui/material";
 import ColorPicker, { ColorPickerProps } from "./ColorPicker";
 
-const ANCHOR_ORIGIN = {
-  vertical: "bottom",
-  horizontal: "center",
-} as const;
-
 export type ColorPickerMenuProps = PopoverProps & ColorPickerProps;
 
 /**
@@ -19,7 +14,13 @@ export default function ColorPickerMenu({
   ...props
 }: ColorPickerMenuProps) {
   return (
-    <Popover anchorOrigin={ANCHOR_ORIGIN} {...props}>
+    <Popover
+      anchorOrigin={{
+        vertical: "bottom",
+        horizontal: "center",
+      }}
+      {...props}
+    >
       <ColorPicker
         color={color}
         colorOptions={colorOptions}

@@ -23,9 +23,9 @@ import {
 } from "@udecode/plate-basic-marks";
 import { MARK_BG_COLOR, MARK_COLOR } from "@udecode/plate-font";
 import { MARK_HIGHLIGHT } from "@udecode/plate-highlight";
+import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import ColorPickerToolbarButton from "./ColorPickerToolbarButton";
 import MarkToolbarButton from "./MarkToolbarButton";
-import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 
 const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
   const editor = usePlateEditorRef();

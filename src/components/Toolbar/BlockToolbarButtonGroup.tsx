@@ -36,7 +36,7 @@ const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup({
       >
         <CodeOff />
       </CodeBlockToolbarButton>
-      {uploadImage && (
+      {!!uploadImage && (
         <ImageToolbarButton
           value={ELEMENT_IMAGE}
           uploadImage={uploadImage}

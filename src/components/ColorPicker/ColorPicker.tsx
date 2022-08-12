@@ -12,10 +12,10 @@ function useColorPicker({
   const [color, setColor] = useState<string | undefined>(propColor);
 
   const selectColor = useEvent((event: MouseEvent<HTMLButtonElement>) => {
-    const color = event.currentTarget.value;
+    const newColor = event.currentTarget.value;
 
-    onSelectColor?.(color);
-    setColor(color);
+    onSelectColor?.(newColor);
+    setColor(newColor);
   });
 
   const clearColor = useEvent(() => {

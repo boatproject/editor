@@ -4,9 +4,9 @@ import {
   insertEmptyCodeBlock,
   CodeBlockInsertOptions,
 } from "@udecode/plate-code-block";
+import useEvent from "../../hooks/useEvent";
 import { ToolbarButtonProps } from "./ToolbarButton";
 import BlockToolbarButton from "./BlockToolbarButton";
-import useEvent from "../../hooks/useEvent";
 
 export interface CodeBlockToolbarButtonProps
   extends Omit<ToolbarButtonProps, "value"> {

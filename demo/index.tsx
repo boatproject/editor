@@ -21,7 +21,9 @@ const App = () => {
         {Object.keys(COMPONENTS).map((key) => (
           <MenuItem
             key={key}
-            onClick={() => setComponentKey(key as ComponentKey)}
+            onClick={() => {
+              setComponentKey(key as ComponentKey);
+            }}
           >
             {key}
           </MenuItem>
@@ -35,6 +37,9 @@ const App = () => {
 };
 
 const appElement = document.getElementById("app");
-if (appElement) {
-  createRoot(appElement).render(<App />);
+
+if (!appElement) {
+  throw Error("app element not found");
 }
+
+createRoot(appElement).render(<App />);

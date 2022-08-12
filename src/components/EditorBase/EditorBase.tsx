@@ -1,9 +1,9 @@
 import { type Value } from "@udecode/plate-core";
 import { type CSSProperties } from "react";
 import { ErrorBoundary } from "react-error-boundary";
+import EditorFallback from "../EditorFallback";
 import { EditorBaseStack } from "./styled";
 import EditorCore, { type EditorCoreProps } from "./EditorCore";
-import EditorFallback from "../EditorFallback";
 
 export interface EditorBaseProps<V extends Value = Value>
   extends EditorCoreProps<V> {
