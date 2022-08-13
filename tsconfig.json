@@ -11,12 +11,13 @@
     "moduleResolution": "node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": true,
-    "outDir": "./dist",
+    "outDir": "dist",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
-    "target": "ES2017"
+    "target": "ESNext",
+    "useDefineForClassFields": true
   },
-  "include": ["src", "setup-tests.ts", "react.d.ts", "demo"]
+  "include": ["src"]
 }

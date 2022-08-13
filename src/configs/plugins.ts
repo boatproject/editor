@@ -5,7 +5,7 @@ import {
   createExitBreakPlugin,
   createSoftBreakPlugin,
 } from "@udecode/plate-break";
-import { createPlugins } from "@udecode/plate-core";
+import { createPlugins, type PlatePlugin } from "@udecode/plate-core";
 import {
   createFontBackgroundColorPlugin,
   createFontColorPlugin,
@@ -27,7 +27,7 @@ import type { Config } from "./config";
  * Create any plugins that don't require dynamic
  * configuration (from props or state)
  */
-export function createStaticPlugins(config: Config) {
+export function createStaticPlugins(config: Config): PlatePlugin[] {
   return createPlugins(
     [
       /**

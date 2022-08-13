@@ -1,11 +1,7 @@
 import { memo } from "react";
-import {
-  CheckBox,
-  FormatListBulleted,
-  FormatListNumbered,
-} from "@mui/icons-material";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_OL, ELEMENT_TODO_LI, ELEMENT_UL } from "@udecode/plate-list";
+import { CheckBox, FormatListBulleted, FormatListNumbered } from "../../icons";
 import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import BlockToolbarButton from "./BlockToolbarButton";
 import ListToolbarButton from "./ListToolbarButton";

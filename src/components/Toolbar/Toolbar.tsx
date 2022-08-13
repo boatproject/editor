@@ -13,7 +13,7 @@ export interface ToolbarProps
   extends HTMLAttributes<HTMLDivElement>,
     BlockToolbarButtonGroupProps {}
 
-export const ToolbarRoot = styled(MuiToolbar, {
+const ToolbarRoot = styled(MuiToolbar, {
   name: "Toolbar",
   slot: "Root",
 })(({ theme }) => ({

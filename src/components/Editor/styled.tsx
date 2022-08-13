@@ -1,51 +1,59 @@
-import { type TextFieldProps, styled } from "@mui/material";
+import { type TextFieldProps, styled, Theme } from "@mui/material";
 import NotchedOutlineRoot from "@mui/material/OutlinedInput/NotchedOutline";
+import { type ComponentPropsWithoutRef } from "react";
 import classes from "./classes";
 
-export const EditorRoot = styled("div", {
-  name: "Editor",
-  slot: "EditorRoot",
-  shouldForwardProp: (prop) => prop !== "color",
-})<{
+type ColorFieldProps = {
   color?: TextFieldProps["color"];
-}>(({ theme, color = "primary" }) => {
-  const borderColor =
-    theme.palette.mode === "light"
-      ? "rgba(0, 0, 0, 0.23)"
-      : "rgba(255, 255, 255, 0.23)";
+};
+type EditorRootProps = ComponentPropsWithoutRef<"div"> & ColorFieldProps;
 
-  return {
-    position: "relative",
-    marginTop: "8px",
-    borderRadius: theme.shape.borderRadius,
-    [`&:hover .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.text.primary,
-    },
-    // Reset on touch devices, it doesn't add specificity
-    "@media (hover: none)": {
+function getBorderColor(theme: Theme) {
+  return theme.palette.mode === "light"
+    ? "rgba(0, 0, 0, 0.23)"
+    : "rgba(255, 255, 255, 0.23)";
+}
+
+export const EditorRoot: (props: EditorRootProps) => JSX.Element | null =
+  styled("div", {
+    name: "Editor",
+    slot: "EditorRoot",
+    shouldForwardProp: (prop) => prop !== "color",
+  })<ColorFieldProps>(({ theme, color = "primary" }) => {
+    const borderColor = getBorderColor(theme);
+
+    return {
+      position: "relative",
+      marginTop: theme.spacing(4),
+      borderRadius: theme.shape.borderRadius,
       [`&:hover .${classes.notchedOutline}`]: {
-        borderColor,
+        borderColor: theme.palette.text.primary,
       },
-    },
-    [`&.${classes.focused} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette[color].main,
-      borderWidth: 2,
-    },
-    [`&.${classes.error} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.error.main,
-    },
-    [`&.${classes.disabled} .${classes.notchedOutline}`]: {
-      borderColor: theme.palette.action.disabled,
-    },
-  };
-});
+      // Reset on touch devices, it doesn't add specificity
+      "@media (hover: none)": {
+        [`&:hover .${classes.notchedOutline}`]: {
+          borderColor,
+        },
+      },
+      [`&.${classes.focused} .${classes.notchedOutline}`]: {
+        borderColor: theme.palette[color].main,
+        borderWidth: 2,
+      },
+      [`&.${classes.error} .${classes.notchedOutline}`]: {
+        borderColor: theme.palette.error.main,
+      },
+      [`&.${classes.disabled} .${classes.notchedOutline}`]: {
+        borderColor: theme.palette.action.disabled,
+      },
+    };
+  });
 
-export const NotchedOutline = styled(NotchedOutlineRoot, {
-  name: "Editor",
-  slot: "NotchedOutline",
-})(({ theme }) => ({
-  borderColor:
-    theme.palette.mode === "light"
-      ? "rgba(0, 0, 0, 0.23)"
-      : "rgba(255, 255, 255, 0.23)",
+export const NotchedOutline: typeof NotchedOutlineRoot = styled(
+  NotchedOutlineRoot,
+  {
+    name: "Editor",
+    slot: "NotchedOutline",
+  }
+)(({ theme }) => ({
+  borderColor: getBorderColor(theme),
 }));

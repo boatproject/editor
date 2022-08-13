@@ -1,5 +1,1 @@
-export {
-  default,
-  default as Editor,
-  type EditorProps,
-} from "./components/Editor";
+export { default as Editor, type EditorProps } from "./components/Editor";

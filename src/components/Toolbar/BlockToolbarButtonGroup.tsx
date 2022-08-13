@@ -1,9 +1,9 @@
-import { CodeOff, FormatQuote, Image, Link } from "@mui/icons-material";
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import { ELEMENT_IMAGE } from "@udecode/plate-image";
 import { memo } from "react";
+import { CodeOff, FormatQuote, Image, Link } from "../../icons";
 import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import type { GetLinkUrl, UploadImage } from "../types";
 import BlockToolbarButton from "./BlockToolbarButton";

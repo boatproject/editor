@@ -1,10 +1,7 @@
 import { memo, type MouseEvent } from "react";
-import {
-  FormatIndentDecrease,
-  FormatIndentIncrease,
-} from "@mui/icons-material";
 import { usePlateEditorState } from "@udecode/plate-core";
 import { indent, outdent } from "@udecode/plate-indent";
+import { FormatIndentDecrease, FormatIndentIncrease } from "../../icons";
 import useEvent from "../../hooks/useEvent";
 import ToolbarButton from "./ToolbarButton";
 

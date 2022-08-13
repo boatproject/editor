@@ -1,16 +1,4 @@
 import { memo } from "react";
-import {
-  Code,
-  FormatBold,
-  FormatColorFill,
-  FormatColorText,
-  FormatItalic,
-  FormatStrikethrough,
-  FormatUnderlined,
-  Highlight,
-  Subscript,
-  Superscript,
-} from "@mui/icons-material";
 import { usePlateEditorRef } from "@udecode/plate-core";
 import {
   MARK_BOLD,
@@ -23,6 +11,18 @@ import {
 } from "@udecode/plate-basic-marks";
 import { MARK_BG_COLOR, MARK_COLOR } from "@udecode/plate-font";
 import { MARK_HIGHLIGHT } from "@udecode/plate-highlight";
+import {
+  Code,
+  FormatBold,
+  FormatColorFill,
+  FormatColorText,
+  FormatItalic,
+  FormatStrikethrough,
+  FormatUnderlined,
+  Highlight,
+  Subscript,
+  Superscript,
+} from "../../icons";
 import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
 import ColorPickerToolbarButton from "./ColorPickerToolbarButton";
 import MarkToolbarButton from "./MarkToolbarButton";

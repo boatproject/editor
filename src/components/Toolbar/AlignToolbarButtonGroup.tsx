@@ -1,12 +1,12 @@
+import { findNode, TEditor, usePlateEditorState } from "@udecode/plate-core";
+import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
+import { memo, MouseEvent, MouseEventHandler } from "react";
 import {
   FormatAlignCenter,
   FormatAlignJustify,
   FormatAlignLeft,
   FormatAlignRight,
-} from "@mui/icons-material";
-import { findNode, TEditor, usePlateEditorState } from "@udecode/plate-core";
-import { Alignment, KEY_ALIGN, setAlign } from "@udecode/plate-alignment";
-import { memo, MouseEvent, MouseEventHandler } from "react";
+} from "../../icons";
 import useEvent from "../../hooks/useEvent";
 import ToolbarButton from "./ToolbarButton";
 

@@ -3,7 +3,7 @@ import {
   someNode,
   usePlateEditorState,
 } from "@udecode/plate-core";
-import { ELEMENT_LINK, getAndUpsertLink } from "@udecode/plate-link";
+import { ELEMENT_LINK } from "@udecode/plate-link";
 import { MouseEvent } from "react";
 import type { GetLinkUrl } from "../types";
 import useEvent from "../../hooks/useEvent";
@@ -32,7 +32,7 @@ export default function LinkToolbarButton({
     }
 
     event.preventDefault();
-    getAndUpsertLink(editor, getLinkUrl).catch(console.error);
+    // getAndUpsertLink(editor, getLinkUrl).catch(console.error);
   });
 
   return (

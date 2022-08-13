@@ -1,7 +1,9 @@
-import { styled, Button } from "@mui/material";
+import { styled, Button, type ButtonProps } from "@mui/material";
 import type { ColorOption } from "./colors";
 
-export const TileButton = styled(Button)<ColorOption>(({ theme, value }) => ({
+export const TileButton: (
+  props: ButtonProps & ColorOption
+) => JSX.Element | null = styled(Button)<ColorOption>(({ theme, value }) => ({
   backgroundColor: value,
   width: "100%",
   height: "100%",
