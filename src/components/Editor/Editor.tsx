@@ -6,9 +6,9 @@ import {
 } from "@mui/material";
 import { type Value } from "@udecode/plate-core";
 import clsx from "clsx";
-import { FocusEvent, useId, useState } from "react";
+import { FocusEvent, memo, useId, useState } from "react";
 import useEvent from "../../hooks/useEvent";
-import EditorBase, { type EditorBaseProps } from "../EditorBase/EditorBase";
+import EditorBase, { type EditorBaseProps } from "./EditorBase";
 import classes from "./classes";
 import { EditorRoot, NotchedOutline } from "./styled";
 
@@ -36,7 +36,7 @@ type RichTextEditorProps<V extends Value = Value> = Partial<
 export type EditorProps<V extends Value = Value> = RichTextFieldProps &
   RichTextEditorProps<V>;
 
-export default function Editor<V extends Value = Value>({
+function EditorRaw<V extends Value = Value>({
   className,
   color,
   editableProps,
@@ -132,3 +132,7 @@ export default function Editor<V extends Value = Value>({
     </EditorRoot>
   );
 }
+
+const Editor = memo(EditorRaw) as typeof EditorRaw;
+
+export default Editor;

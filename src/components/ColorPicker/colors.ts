@@ -1,54 +1,26 @@
 import { colors } from "@mui/material";
 
-export const {
-  common: { white, black },
-  brown,
-  lime,
-  lightGreen,
-  green,
-  teal,
-  yellow,
-  amber,
-  orange,
-  deepOrange,
-  pink,
-  red,
-  purple,
-  deepPurple,
-  indigo,
-  blue,
-  lightBlue,
-  cyan,
-  blueGrey,
-  grey,
-} = colors;
+export type ColorOption = [name: string, value: string];
 
-export interface ColorOption {
-  name: string;
-  value: string;
-}
-
-export const DEFAULT_COLOR_OPTIONS = [
-  { name: "black", value: black },
-  { name: "brown", value: brown[500] },
-  { name: "teal", value: teal[500] },
-  { name: "green", value: green[500] },
-  { name: "light green", value: lightGreen[500] },
-  { name: "lime", value: lime[500] },
-  { name: "yellow", value: yellow[500] },
-  { name: "amber", value: amber[500] },
-  { name: "orange", value: orange[500] },
-  { name: "deep orange", value: deepOrange[500] },
-  { name: "red", value: red[500] },
-  { name: "pink", value: pink[500] },
-  { name: "purple", value: purple[500] },
-  { name: "deep purple", value: deepPurple[500] },
-  { name: "indigo", value: indigo[500] },
-  { name: "blue", value: blue[500] },
-  { name: "light blue", value: lightBlue[500] },
-  { name: "cyan", value: cyan[500] },
-  { name: "blue grey", value: blueGrey[500] },
-  { name: "grey", value: grey[500] },
+export const DEFAULT_COLOR_OPTIONS: ColorOption[] = [
+  ["black", colors.common.black],
+  ["brown", colors.brown[500]],
+  ["teal", colors.teal[500]],
+  ["green", colors.green[500]],
+  ["light green", colors.lightGreen[500]],
+  ["lime", colors.lime[500]],
+  ["yellow", colors.yellow[500]],
+  ["amber", colors.amber[500]],
+  ["orange", colors.orange[500]],
+  ["deep orange", colors.deepOrange[500]],
+  ["red", colors.red[500]],
+  ["pink", colors.pink[500]],
+  ["purple", colors.purple[500]],
+  ["deep purple", colors.deepPurple[500]],
+  ["indigo", colors.indigo[500]],
+  ["blue", colors.blue[500]],
+  ["light blue", colors.lightBlue[500]],
+  ["cyan", colors.cyan[500]],
+  ["blue grey", colors.blueGrey[500]],
+  ["grey", colors.grey[500]],
 ];
-
-export default colors;

@@ -97,7 +97,7 @@ export default function ColorPicker({
           },
         }}
       >
-        {colorOptions.map(({ name, value }) => (
+        {colorOptions.map(([name, value]) => (
           <Grid item key={value} xs={1} minHeight="20%">
             <TileButton
               variant="contained"

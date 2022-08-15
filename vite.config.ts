@@ -28,7 +28,7 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: [...dependencies, "react/jsx-runtime"],
+      external: [...dependencies, "react/jsx-runtime", "react-is"],
     },
     sourcemap: true,
     // Reduce bloat from legacy polyfills.
@@ -39,6 +39,6 @@ export default defineConfig({
   test: {
     globals: true,
     environment: "jsdom",
-    setupFiles: "src/test/setup.ts",
+    setupFiles: "setupTests.ts",
   },
 });

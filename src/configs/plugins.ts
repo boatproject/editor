@@ -5,7 +5,11 @@ import {
   createExitBreakPlugin,
   createSoftBreakPlugin,
 } from "@udecode/plate-break";
-import { createPlugins, type PlatePlugin } from "@udecode/plate-core";
+import {
+  createPlugins,
+  type PlatePluginComponent,
+  type PlatePlugin,
+} from "@udecode/plate-core";
 import {
   createFontBackgroundColorPlugin,
   createFontColorPlugin,
@@ -20,46 +24,45 @@ import { createListPlugin, createTodoListPlugin } from "@udecode/plate-list";
 import { createResetNodePlugin } from "@udecode/plate-reset-node";
 import { createSelectOnBackspacePlugin } from "@udecode/plate-select";
 import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
-import { createPlateUI } from "@udecode/plate-ui";
 import type { Config } from "./config";
 
 /**
  * Create any plugins that don't require dynamic
  * configuration (from props or state)
  */
-export function createStaticPlugins(config: Config): PlatePlugin[] {
-  return createPlugins(
-    [
-      /**
-       * Element plugins
-       */
-      createAlignPlugin(config.align),
-      createBasicElementsPlugin(),
-      createImagePlugin(),
-      createIndentPlugin(config.indent),
-      createLineHeightPlugin(config.lineHeight),
-      createLinkPlugin(),
-      createListPlugin(),
-      createSelectOnBackspacePlugin(config.selectOnBackspace),
-      createTodoListPlugin(),
-      /**
-       * Mark plugins
-       */
-      createBasicMarksPlugin(),
-      createFontBackgroundColorPlugin(),
-      createFontColorPlugin(),
-      createFontSizePlugin(),
-      createHighlightPlugin(),
-      /**
-       * Util plugins
-       */
-      createExitBreakPlugin(config.exitBreak),
-      createResetNodePlugin(config.resetBlockType),
-      createSoftBreakPlugin(config.softBreak),
-      createTrailingBlockPlugin(config.trailingBlock),
-    ],
-    {
-      components: createPlateUI(),
-    }
-  );
+export function createStaticPlugins(
+  config: Config,
+  components: Record<string, PlatePluginComponent> = {}
+): PlatePlugin[] {
+  const plugins = [
+    /**
+     * Element plugins
+     */
+    createAlignPlugin(config.align),
+    createBasicElementsPlugin(),
+    createImagePlugin(),
+    createIndentPlugin(config.indent),
+    createLineHeightPlugin(config.lineHeight),
+    createLinkPlugin(),
+    createListPlugin(),
+    createSelectOnBackspacePlugin(config.selectOnBackspace),
+    createTodoListPlugin(),
+    /**
+     * Mark plugins
+     */
+    createBasicMarksPlugin(),
+    createFontBackgroundColorPlugin(),
+    createFontColorPlugin(),
+    createFontSizePlugin(),
+    createHighlightPlugin(),
+    /**
+     * Util plugins
+     */
+    createExitBreakPlugin(config.exitBreak),
+    createResetNodePlugin(config.resetBlockType),
+    createSoftBreakPlugin(config.softBreak),
+    createTrailingBlockPlugin(config.trailingBlock),
+  ];
+
+  return createPlugins(plugins, { components });
 }

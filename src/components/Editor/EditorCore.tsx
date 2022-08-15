@@ -7,6 +7,7 @@ import {
   type PlateProps,
   type Value,
 } from "@udecode/plate-core";
+import { memo } from "react";
 import { type EditableProps } from "slate-react/dist/components/editable";
 import { CONFIG, PLUGINS } from "../../configs";
 import Toolbar from "../Toolbar";
@@ -28,7 +29,7 @@ export type EditorCoreProps<V extends Value = Value> = Pick<
     plateProps?: Partial<PlateProps<V>>;
   };
 
-export default function EditorCore<V extends Value = Value>({
+function EditorCoreRaw<V extends Value = Value>({
   id = "main",
   name,
   editableProps,
@@ -64,3 +65,7 @@ export default function EditorCore<V extends Value = Value>({
     />
   );
 }
+
+const EditorCore = memo(EditorCoreRaw) as typeof EditorCoreRaw;
+
+export default EditorCore;

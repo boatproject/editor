@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { usePlateEditorRef } from "@udecode/plate-core";
+import { usePlateEditorState } from "@udecode/plate-core";
 import {
   MARK_BOLD,
   MARK_CODE,
@@ -28,7 +28,7 @@ import ColorPickerToolbarButton from "./ColorPickerToolbarButton";
 import MarkToolbarButton from "./MarkToolbarButton";
 
 const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
-  const editor = usePlateEditorRef();
+  const editor = usePlateEditorState();
 
   return (
     <>

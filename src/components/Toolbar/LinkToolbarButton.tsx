@@ -1,9 +1,10 @@
 import {
+  focusEditor,
   getPluginType,
   someNode,
   usePlateEditorState,
 } from "@udecode/plate-core";
-import { ELEMENT_LINK } from "@udecode/plate-link";
+import { ELEMENT_LINK, triggerFloatingLink } from "@udecode/plate-link";
 import { MouseEvent } from "react";
 import type { GetLinkUrl } from "../types";
 import useEvent from "../../hooks/useEvent";
@@ -32,6 +33,13 @@ export default function LinkToolbarButton({
     }
 
     event.preventDefault();
+    event.stopPropagation();
+
+    focusEditor(editor, editor.selection ?? editor.prevSelection ?? undefined);
+
+    setTimeout(() => {
+      triggerFloatingLink(editor, { focused: true });
+    }, 0);
     // getAndUpsertLink(editor, getLinkUrl).catch(console.error);
   });
 

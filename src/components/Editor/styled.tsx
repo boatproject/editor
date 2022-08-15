@@ -1,7 +1,27 @@
-import { type TextFieldProps, styled, Theme } from "@mui/material";
+import {
+  type TextFieldProps,
+  styled,
+  Stack,
+  type StackProps,
+  Theme,
+} from "@mui/material";
 import NotchedOutlineRoot from "@mui/material/OutlinedInput/NotchedOutline";
 import { type ComponentPropsWithoutRef } from "react";
 import classes from "./classes";
+
+export const EditorBaseStack: (props: StackProps) => JSX.Element | null =
+  styled(Stack, {
+    name: "EditorBase",
+    slot: "Stack",
+  })(({ theme }) => ({
+    ...theme.typography.body1,
+    color: theme.palette.text.primary,
+    lineHeight: "1.4375em",
+    position: "relative",
+    cursor: "text",
+    boxSizing: "border-box",
+    width: "100%",
+  }));
 
 type ColorFieldProps = {
   color?: TextFieldProps["color"];

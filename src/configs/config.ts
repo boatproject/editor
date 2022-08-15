@@ -2,13 +2,13 @@ import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
 import type { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import {
-  type AnyObject,
   isBlockAboveEmpty,
   isSelectionAtBlockStart,
-  type Value,
+  type AnyObject,
   type PlatePlugin,
   type PlatePluginComponent,
   type PlateProps,
+  type Value,
 } from "@udecode/plate-core";
 import {
   ELEMENT_H1,

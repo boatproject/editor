@@ -4,7 +4,6 @@ import {
   usePlateEditorState,
 } from "@udecode/plate-core";
 import type { MouseEvent } from "react";
-import hasSelection from "../../plate-utils/hasSelection";
 import useEvent from "../../hooks/useEvent";
 import ToolbarButton, { ToolbarButtonProps } from "./ToolbarButton";
 
@@ -25,7 +24,7 @@ export default function MarkToolbarButton({
 
   const selected =
     propSelected ??
-    (!!editor && hasSelection(editor) && isMarkActive(editor, value));
+    (!!editor && Boolean(editor.selection) && isMarkActive(editor, value));
 
   const onMouseDown = useEvent((e: MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

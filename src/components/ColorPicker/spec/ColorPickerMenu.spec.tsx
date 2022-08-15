@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { common, red } from "@mui/material/colors";
 import ColorPickerMenu, { ColorPickerMenuProps } from "../ColorPickerMenu";
-import { black, red, white, ColorOption } from "../colors";
+import { ColorOption } from "../colors";
 
 describe("<ColorPickerMenu />", () => {
   let props: ColorPickerMenuProps;
@@ -8,9 +9,9 @@ describe("<ColorPickerMenu />", () => {
 
   beforeEach(() => {
     colorOptions = [
-      { name: "black", value: black },
-      { name: "white", value: white },
-      { name: "red", value: red[500] },
+      ["black", common.black],
+      ["white", common.white],
+      ["red", red[500]],
     ];
     props = {
       open: true,
@@ -41,9 +42,8 @@ describe("<ColorPickerMenu />", () => {
   it("should render a button for each color", () => {
     render(<ColorPickerMenu {...props} />);
 
-    colorOptions.forEach(({ name, value }) => {
+    colorOptions.forEach(([name, value]) => {
       const button = screen.getByRole<HTMLButtonElement>("button", { name });
-      expect(button).toBeInTheDocument();
       expect(button.value).toEqual(value);
     });
   });
@@ -52,7 +52,7 @@ describe("<ColorPickerMenu />", () => {
     it("should call onSelectColor with the clicked color", () => {
       render(<ColorPickerMenu {...props} />);
 
-      colorOptions.forEach(({ name, value }) => {
+      colorOptions.forEach(([name, value]) => {
         const button = screen.getByRole("button", {
           name,
         });

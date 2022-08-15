@@ -3,7 +3,6 @@
   "version": "4.1.1",
   "source": "src/index.ts",
   "main": "dist/index.js",
-  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist/",
@@ -22,7 +21,6 @@
     "build": "vite build",
     "clean": "rimraf dist",
     "lint": "eslint --fix src",
-    "check": "tsc --noEmit",
     "ci": "pnpm build && pnpm test && pnpm lint",
     "prepack": "pnpm build"
   },
