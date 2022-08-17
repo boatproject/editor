@@ -1,5 +1,7 @@
-import { render, screen } from "@testing-library/react";
 import { common, red } from "@mui/material/colors";
+import userEvent from "@testing-library/user-event";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { render, screen } from "../../../test/util";
 import ColorPickerMenu, { ColorPickerMenuProps } from "../ColorPickerMenu";
 import { ColorOption } from "../colors";
 
@@ -15,10 +17,10 @@ describe("<ColorPickerMenu />", () => {
     ];
     props = {
       open: true,
-      onClose: jest.fn(),
+      onClose: vi.fn(),
       anchorEl: document.body,
-      onSelectColor: jest.fn((color) => color),
-      onClearColor: jest.fn(),
+      onSelectColor: vi.fn((color) => color),
+      onClearColor: vi.fn(),
       colorOptions,
     };
   });
@@ -39,48 +41,52 @@ describe("<ColorPickerMenu />", () => {
     expect(rootElement).not.toBeInTheDocument();
   });
 
-  it("should render a button for each color", () => {
-    render(<ColorPickerMenu {...props} />);
+  describe.each(colorOptions)(
+    "color tile representing: %j",
+    ([name, value]) => {
+      const color = JSON.stringify({ name, value });
+      it(`should render a tile for ${color}`, () => {
+        render(<ColorPickerMenu {...props} />);
 
-    colorOptions.forEach(([name, value]) => {
-      const button = screen.getByRole<HTMLButtonElement>("button", { name });
-      expect(button.value).toEqual(value);
-    });
-  });
+        const button = screen.getByRole<HTMLButtonElement>("button", { name });
 
-  describe("on color select", () => {
-    it("should call onSelectColor with the clicked color", () => {
-      render(<ColorPickerMenu {...props} />);
+        expect(button.value).toEqual(value);
+      });
 
-      colorOptions.forEach(([name, value]) => {
-        const button = screen.getByRole("button", {
-          name,
-        });
-        button.click();
+      it(`should call onSelectColor with ${color} when selected`, async () => {
+        render(<ColorPickerMenu {...props} />);
+
+        const button = screen.getByRole("button", { name });
+
+        await userEvent.click(button);
+
         expect(props.onSelectColor).toHaveBeenCalledWith(value);
       });
-    });
-  });
+    }
+  );
 
   describe("clear color button", () => {
-    it("should be disabled when no color is set", () => {
+    it("should be disabled when no color is set", async () => {
       render(<ColorPickerMenu {...props} />);
 
       const button = screen.getByRole<HTMLButtonElement>("button", {
         name: /clear/i,
       });
-      button.click();
+
+      await userEvent.click(button);
+
       expect(button.disabled).toBeTruthy();
     });
 
-    it("should call clearColor when clicked", () => {
+    it("should call clearColor when clicked", async () => {
       render(<ColorPickerMenu {...props} color="#000" />);
 
       const button = screen.getByRole("button", {
         name: /clear/i,
       });
 
-      button.click();
+      await userEvent.click(button);
+
       expect(props.onClearColor).toHaveBeenCalledWith();
     });
   });

@@ -13,4 +13,9 @@ module.exports = {
     },
   ],
   ignorePatterns: ["dist"],
+  settings: {
+    jest: {
+      version: 28,
+    },
+  },
 };

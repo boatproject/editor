@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["udecode", "Upsert"]
+  "cSpell.words": ["udecode", "Upsert"],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }

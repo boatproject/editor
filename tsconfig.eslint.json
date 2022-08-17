@@ -1,11 +1,4 @@
 {
-  "include": [
-    "src",
-    "setupTests.ts",
-    "react.d.ts",
-    "demo",
-    "vite.config.ts",
-    ".eslintrc.cjs"
-  ],
+  "include": ["src", "demo", "vite.config.ts", ".eslintrc.cjs"],
   "extends": "./tsconfig.json"
 }
