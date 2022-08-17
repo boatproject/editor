@@ -1,35 +1,38 @@
-import { Box, Container, MenuItem, TextField } from "@mui/material";
+import { Box, Container, MenuItem, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { createRoot } from "react-dom/client";
 import ColorPicker from "../src/components/ColorPicker";
 import Editor from "../src/components/Editor";
 
 const COMPONENTS = {
-  ColorPicker,
   Editor,
+  ColorPicker,
 };
 
 type ComponentKey = keyof typeof COMPONENTS;
 
 const App = () => {
-  const [componentKey, setComponentKey] = useState<ComponentKey>("ColorPicker");
+  const [componentKey, setComponentKey] = useState<ComponentKey>("Editor");
   const Component = COMPONENTS[componentKey];
 
   return (
     <Container>
-      <TextField select>
+      <Typography variant="h3">Component Viewer</Typography>
+      <TextField
+        select
+        fullWidth
+        value={componentKey}
+        onChange={(e) => {
+          setComponentKey(e.target.value as ComponentKey);
+        }}
+      >
         {Object.keys(COMPONENTS).map((key) => (
-          <MenuItem
-            key={key}
-            onClick={() => {
-              setComponentKey(key as ComponentKey);
-            }}
-          >
+          <MenuItem key={key} value={key}>
             {key}
           </MenuItem>
         ))}
       </TextField>
-      <Box height={300} width={300} position="absolute">
+      <Box width="100%">
         <Component />
       </Box>
     </Container>
