@@ -73,8 +73,6 @@ describe("<ColorPickerMenu />", () => {
         name: /clear/i,
       });
 
-      await userEvent.click(button);
-
       expect(button.disabled).toBeTruthy();
     });
 
