@@ -1,3 +1,13 @@
+# [5.0.0](https://github.com/boatproject/editor/compare/v4.1.1...v5.0.0) (2022-08-17)
+
+
+### Bug Fixes
+
+* change actions order ([6888e26](https://github.com/boatproject/editor/commit/6888e265a8bb61da23549373e825c17a963a935b))
+* install and lock rollup version ([0e00c50](https://github.com/boatproject/editor/commit/0e00c500c56f1f958bb1a2d51baa7a4d96242d9b))
+* remove extraneous click action in tests ([4162267](https://github.com/boatproject/editor/commit/41622671ca522a40df296ea6beaa3822cd19e068))
+* use vite for dev in scripts ([feb07ae](https://github.com/boatproject/editor/commit/feb07ae7324def34888a74f386602f5d9f3ee900))
+
 ## [4.1.1](https://github.com/boatproject/editor/compare/v4.1.0...v4.1.1) (2022-08-04)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "@boatproject/editor",
-  "version": "4.1.1",
+  "version": "5.0.0",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
