@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "vitest",
-    "start:demo": "parcel demo/index.html",
+    "dev": "parcel demo/index.html",
     "watch": "vite build --watch",
     "build": "vite build",
     "clean": "rimraf dist",
@@ -25,7 +25,7 @@
     "prepack": "pnpm build"
   },
   "author": "zmrl",
-  "license": "ISC",
+  "license": "MIT",
   "description": "Rich text editor for BoatProject",
   "devDependencies": {
     "@emotion/react": "^11.10.0",
@@ -41,18 +41,19 @@
     "@types/react-dom": "^18.0.6",
     "@types/testing-library__jest-dom": "^5.14.5",
     "@vitejs/plugin-react": "^2.0.1",
-    "@zmrl/eslint-config": "^3.1.8",
+    "@zmrl/eslint-config": "^3.2.0",
     "eslint": "^8.22.0",
     "jsdom": "^20.0.0",
-    "pnpm": "^7.9.0",
+    "pnpm": "^7.9.3",
     "prettier": "^2.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "rimraf": "^3.0.2",
+    "rollup": "~2.77.3",
     "tslib": "^2.4.0",
     "typescript": "^4.7.4",
     "vite": "^3.0.8",
-    "vitest": "^0.21.1"
+    "vitest": "^0.22.0"
   },
   "dependencies": {
     "@udecode/plate-alignment": "^16.3.0",
@@ -95,7 +96,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@radix-ui/react-slot": "^1.0.0"
+      "@radix-ui/react-slot": "^1.0.0",
+      "rollup": "2.77.3"
     }
   }
 }
