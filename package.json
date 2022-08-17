@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "vitest",
-    "dev": "parcel demo/index.html",
+    "dev": "vite -c vite.config.ts demo",
     "watch": "vite build --watch",
     "build": "vite build",
     "clean": "rimraf dist",
