@@ -7,11 +7,9 @@ import {
 /**
  * Extends getPluginType to handle a situation where editor might be null.
  *
- * @todo check back here when problems start, because this smells funky
- *
  * @see {@link getPluginType}
  */
-export default function getPluginTypeOrKey<V extends Value = Value>(
+export default function resolvePluginType<V extends Value = Value>(
   editor: PlateEditor<V> | null = null,
   key: string
 ): string {

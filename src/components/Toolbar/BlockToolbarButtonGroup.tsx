@@ -1,10 +1,10 @@
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import { usePlateEditorRef } from "@udecode/plate-core";
-import { ELEMENT_IMAGE } from "@udecode/plate-image";
+import { ELEMENT_IMAGE } from "@udecode/plate-media";
 import { memo } from "react";
 import { CodeOff, FormatQuote, Image, Link } from "../../icons";
-import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
+import resolvePluginType from "../../plate-utils/resolvePluginType";
 import type { GetLinkUrl, UploadImage } from "../types";
 import BlockToolbarButton from "./BlockToolbarButton";
 import CodeBlockToolbarButton from "./CodeBlockToolbarButton";
@@ -25,13 +25,13 @@ const BlockToolbarButtonGroup = memo(function BlockToolbarButtonGroup({
   return (
     <>
       <BlockToolbarButton
-        value={getPluginTypeOrKey(editor, ELEMENT_BLOCKQUOTE)}
+        value={resolvePluginType(editor, ELEMENT_BLOCKQUOTE)}
         title="Block Quote"
       >
         <FormatQuote />
       </BlockToolbarButton>
       <CodeBlockToolbarButton
-        value={getPluginTypeOrKey(editor, ELEMENT_CODE_BLOCK)}
+        value={resolvePluginType(editor, ELEMENT_CODE_BLOCK)}
         title="Code Block"
       >
         <CodeOff />

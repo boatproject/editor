@@ -16,7 +16,7 @@ import {
   createFontSizePlugin,
 } from "@udecode/plate-font";
 import { createHighlightPlugin } from "@udecode/plate-highlight";
-import { createImagePlugin } from "@udecode/plate-image";
+import { createImagePlugin } from "@udecode/plate-media";
 import { createIndentPlugin } from "@udecode/plate-indent";
 import { createLineHeightPlugin } from "@udecode/plate-line-height";
 import { createLinkPlugin } from "@udecode/plate-link";
@@ -34,35 +34,36 @@ export function createStaticPlugins(
   config: Config,
   components: Record<string, PlatePluginComponent> = {}
 ): PlatePlugin[] {
-  const plugins = [
-    /**
-     * Element plugins
-     */
-    createAlignPlugin(config.align),
-    createBasicElementsPlugin(),
-    createImagePlugin(),
-    createIndentPlugin(config.indent),
-    createLineHeightPlugin(config.lineHeight),
-    createLinkPlugin(),
-    createListPlugin(),
-    createSelectOnBackspacePlugin(config.selectOnBackspace),
-    createTodoListPlugin(),
-    /**
-     * Mark plugins
-     */
-    createBasicMarksPlugin(),
-    createFontBackgroundColorPlugin(),
-    createFontColorPlugin(),
-    createFontSizePlugin(),
-    createHighlightPlugin(),
-    /**
-     * Util plugins
-     */
-    createExitBreakPlugin(config.exitBreak),
-    createResetNodePlugin(config.resetBlockType),
-    createSoftBreakPlugin(config.softBreak),
-    createTrailingBlockPlugin(config.trailingBlock),
-  ];
-
-  return createPlugins(plugins, { components });
+  return createPlugins(
+    [
+      /**
+       * Element plugins
+       */
+      createAlignPlugin(config.align),
+      createBasicElementsPlugin(),
+      createImagePlugin(),
+      createIndentPlugin(config.indent),
+      createLineHeightPlugin(config.lineHeight),
+      createLinkPlugin(),
+      createListPlugin(),
+      createSelectOnBackspacePlugin(config.selectOnBackspace),
+      createTodoListPlugin(),
+      /**
+       * Mark plugins
+       */
+      createBasicMarksPlugin(),
+      createFontBackgroundColorPlugin(),
+      createFontColorPlugin(),
+      createFontSizePlugin(),
+      createHighlightPlugin(),
+      /**
+       * Util plugins
+       */
+      createExitBreakPlugin(config.exitBreak),
+      createResetNodePlugin(config.resetBlockType),
+      createSoftBreakPlugin(config.softBreak),
+      createTrailingBlockPlugin(config.trailingBlock),
+    ],
+    { components }
+  );
 }

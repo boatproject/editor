@@ -23,7 +23,7 @@ import {
   Subscript,
   Superscript,
 } from "../../icons";
-import getPluginTypeOrKey from "../../plate-utils/getPluginTypeOrKey";
+import resolvePluginType from "../../plate-utils/resolvePluginType";
 import ColorPickerToolbarButton from "./ColorPickerToolbarButton";
 import MarkToolbarButton from "./MarkToolbarButton";
 
@@ -33,45 +33,45 @@ const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
   return (
     <>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_BOLD)}
+        value={resolvePluginType(editor, MARK_BOLD)}
         title="Bold"
       >
         <FormatBold />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_ITALIC)}
+        value={resolvePluginType(editor, MARK_ITALIC)}
         title="Italic"
       >
         <FormatItalic />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_UNDERLINE)}
+        value={resolvePluginType(editor, MARK_UNDERLINE)}
         title="Underline"
       >
         <FormatUnderlined />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_STRIKETHROUGH)}
+        value={resolvePluginType(editor, MARK_STRIKETHROUGH)}
         title="Strikethrough"
       >
         <FormatStrikethrough />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_CODE)}
+        value={resolvePluginType(editor, MARK_CODE)}
         title="Code Inline"
       >
         <Code />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_SUPERSCRIPT)}
-        clear={getPluginTypeOrKey(editor, MARK_SUBSCRIPT)}
+        value={resolvePluginType(editor, MARK_SUPERSCRIPT)}
+        clear={resolvePluginType(editor, MARK_SUBSCRIPT)}
         title="Superscript"
       >
         <Superscript />
       </MarkToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_SUBSCRIPT)}
-        clear={getPluginTypeOrKey(editor, MARK_SUPERSCRIPT)}
+        value={resolvePluginType(editor, MARK_SUBSCRIPT)}
+        clear={resolvePluginType(editor, MARK_SUPERSCRIPT)}
         title="Subscript"
       >
         <Subscript />
@@ -83,7 +83,7 @@ const MarkToolbarButtonGroup = memo(function MarkToolbarButtonGroup() {
         <FormatColorFill />
       </ColorPickerToolbarButton>
       <MarkToolbarButton
-        value={getPluginTypeOrKey(editor, MARK_HIGHLIGHT)}
+        value={resolvePluginType(editor, MARK_HIGHLIGHT)}
         title="Highlight"
       >
         <Highlight />

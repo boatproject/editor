@@ -1,6 +1,6 @@
 import { styled } from "@mui/material";
 import { usePlateEditorRef } from "@udecode/plate-core";
-import { insertImage } from "@udecode/plate-image";
+import { insertImage } from "@udecode/plate-media";
 import { ChangeEvent } from "react";
 import { useErrorHandler } from "react-error-boundary";
 import useEvent from "../../hooks/useEvent";

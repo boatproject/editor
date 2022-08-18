@@ -1,5 +1,8 @@
 import { ELEMENT_BLOCKQUOTE } from "@udecode/plate-block-quote";
-import type { ExitBreakPlugin, SoftBreakPlugin } from "@udecode/plate-break";
+import {
+  type ExitBreakPlugin,
+  type SoftBreakPlugin,
+} from "@udecode/plate-break";
 import { ELEMENT_CODE_BLOCK } from "@udecode/plate-code-block";
 import {
   isBlockAboveEmpty,
@@ -20,9 +23,9 @@ import {
   KEYS_HEADING,
 } from "@udecode/plate-heading";
 import { ELEMENT_HR } from "@udecode/plate-horizontal-rule";
-import { ELEMENT_IMAGE } from "@udecode/plate-image";
-import { IndentPlugin } from "@udecode/plate-indent";
+import { type IndentPlugin } from "@udecode/plate-indent";
 import { ELEMENT_TODO_LI } from "@udecode/plate-list";
+import { ELEMENT_IMAGE } from "@udecode/plate-media";
 import { ELEMENT_PARAGRAPH } from "@udecode/plate-paragraph";
 import type { ResetNodePlugin } from "@udecode/plate-reset-node";
 import type { SelectOnBackspacePlugin } from "@udecode/plate-select";
