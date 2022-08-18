@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/boatproject/editor/compare/v5.0.0...v5.0.1) (2022-08-18)
+
+
+### Bug Fixes
+
+* use plate media plugin instead of image ([ba9dc21](https://github.com/boatproject/editor/commit/ba9dc21263ed9607951c5519bd424933782c1a30))
+
 # [5.0.0](https://github.com/boatproject/editor/compare/v4.1.1...v5.0.0) (2022-08-17)
 
 
