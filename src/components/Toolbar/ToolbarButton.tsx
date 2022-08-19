@@ -8,6 +8,10 @@ export default function ToolbarButton<D extends ElementType>(
   props: ToolbarButtonProps<D>
 ) {
   return (
-    <ToggleButton size="small" {...props} sx={{ border: 0, ...props.sx }} />
+    <ToggleButton
+      size="small"
+      {...props}
+      style={{ border: 0, ...props.style }}
+    />
   );
 }
