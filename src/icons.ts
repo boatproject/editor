@@ -1,12 +1,10 @@
 export { default as CheckBox } from "@mui/icons-material/CheckBox";
 export { default as Code } from "@mui/icons-material/Code";
 export { default as CodeOff } from "@mui/icons-material/CodeOff";
-export {
-  default as FormatAlignCenter,
-  default as FormatAlignJustify,
-  default as FormatAlignLeft,
-  default as FormatAlignRight
-} from "@mui/icons-material/FormatAlignCenter";
+export { default as FormatAlignCenter } from "@mui/icons-material/FormatAlignCenter";
+export { default as FormatAlignJustify } from "@mui/icons-material/FormatAlignCenter";
+export { default as FormatAlignLeft } from "@mui/icons-material/FormatAlignCenter";
+export { default as FormatAlignRight } from "@mui/icons-material/FormatAlignRight";
 export { default as FormatBold } from "@mui/icons-material/FormatBold";
 export { default as FormatColorFill } from "@mui/icons-material/FormatColorFill";
 export { default as FormatColorText } from "@mui/icons-material/FormatColorText";
