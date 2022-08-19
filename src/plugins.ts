@@ -27,7 +27,7 @@ import { createTrailingBlockPlugin } from "@udecode/plate-trailing-block";
 import type { Config } from "./config";
 
 /**
- * Create any plugins that don't require dynamic
+ * Create plugins that don't require dynamic
  * configuration (from props or state)
  */
 export function createStaticPlugins(
