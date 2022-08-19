@@ -12,7 +12,7 @@ import ToolbarButton from "./ToolbarButton";
 
 const DEFAULT_ALIGN = "left";
 
-export function getAlign(editor: TEditor): Alignment {
+function getAlign(editor: TEditor): Alignment {
   const nodeEntry = findNode(editor, {
     match: { [KEY_ALIGN]: ["left", "center", "right", "justify"] },
   });

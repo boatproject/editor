@@ -3,6 +3,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import typescript from "@rollup/plugin-typescript";
+import { visualizer } from "rollup-plugin-visualizer";
 import pkg from "./package.json";
 
 const dependencies = Object.keys({
@@ -20,6 +21,10 @@ export default defineConfig({
       ],
     }),
     react(),
+    visualizer({ 
+      sourcemap: true, 
+      template: 'treemap'
+    })
   ],
   build: {
     lib: {
@@ -28,7 +33,8 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      external: [...dependencies, "react/jsx-runtime", "react-is"],
+      // external: [...dependencies, "react/jsx-runtime", "react-is"],
+      external: ['react', "react/jsx-runtime", "react-is", 'react-dom'],
     },
     sourcemap: true,
     // Reduce bloat from legacy polyfills.
