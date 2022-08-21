@@ -1,3 +1,18 @@
+# [5.1.0](https://github.com/boatproject/editor/compare/v5.0.1...v5.1.0) (2022-08-21)
+
+
+### Bug Fixes
+
+* alignment icons exported incorrectly ([8f57b14](https://github.com/boatproject/editor/commit/8f57b14f8223363c65812d29865129ca2462021b))
+* all toolbar align buttons are the same ([1b1b89c](https://github.com/boatproject/editor/commit/1b1b89c7396bc29190d7c94aeeb01bf7556ccba0))
+* plugins are not being imported by core ([ce0476a](https://github.com/boatproject/editor/commit/ce0476a7bc63bf81438b23003814f086d99f3c6a))
+* sx prop merging potentially broken ([ec8045c](https://github.com/boatproject/editor/commit/ec8045c29ef71aad4ebc246f1c6acb7ccf7ff4ac))
+
+
+### Features
+
+* include rollup-plugin-visualizer ([eeeb831](https://github.com/boatproject/editor/commit/eeeb83196117fb0b8e43628d2b7ddb665b4d7300))
+
 ## [5.0.1](https://github.com/boatproject/editor/compare/v5.0.0...v5.0.1) (2022-08-18)
 
 
