@@ -23,12 +23,12 @@ import BlockToolbarButton from "./BlockToolbarButton";
 import ToolbarButton from "./ToolbarButton";
 
 const headingIcons = {
-  [ELEMENT_H1]: <LooksOne />,
-  [ELEMENT_H2]: <LooksTwo />,
-  [ELEMENT_H3]: <Looks3 />,
-  [ELEMENT_H4]: <Looks4 />,
-  [ELEMENT_H5]: <Looks5 />,
-  [ELEMENT_H6]: <Looks6 />,
+  [ELEMENT_H1]: LooksOne,
+  [ELEMENT_H2]: LooksTwo,
+  [ELEMENT_H3]: Looks3,
+  [ELEMENT_H4]: Looks4,
+  [ELEMENT_H5]: Looks5,
+  [ELEMENT_H6]: Looks6,
 };
 
 type HeadingKey = keyof typeof headingIcons;
@@ -40,7 +40,10 @@ export default function HeadingToolbarMenu() {
     null
   );
 
-  const showHeading = selectedHeading && !menuProps.open;
+  const Icon =
+    selectedHeading && !menuProps.open
+      ? headingIcons[selectedHeading]
+      : TextFields;
 
   return (
     <>
@@ -50,11 +53,11 @@ export default function HeadingToolbarMenu() {
         selected={Boolean(selectedHeading)}
         title="Heading"
       >
-        {showHeading ? headingIcons[selectedHeading] : <TextFields />}
+        <Icon />
       </ToolbarButton>
       <Menu {...menuProps}>
         <Box px={1}>
-          {editor ? (
+          {!!editor && (
             <>
               <BlockToolbarButton
                 value={getPluginType(editor, ELEMENT_H1)}
@@ -111,7 +114,7 @@ export default function HeadingToolbarMenu() {
                 <Looks6 />
               </BlockToolbarButton>
             </>
-          ) : null}
+          )}
         </Box>
       </Menu>
     </>

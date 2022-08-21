@@ -3,8 +3,10 @@ lockfileVersion: 5.4
 overrides:
   '@radix-ui/react-slot': ^1.0.0
   rollup: 2.77.3
+  styled-components: '@emotion/react'
 
 specifiers:
+  '@emotion/babel-plugin': ^11.10.0
   '@emotion/react': ^11.10.0
   '@emotion/styled': ^11.10.0
   '@mui/icons-material': ^5.8.4
@@ -56,7 +58,6 @@ specifiers:
   slate-history: ^0.66.0
   slate-hyperscript: ^0.77.0
   slate-react: ^0.82.0
-  styled-components: ^5.3.5
   tslib: ^2.4.0
   typescript: ^4.7.4
   vite: ^3.0.8
@@ -91,9 +92,9 @@ dependencies:
   slate-history: 0.66.0_slate@0.82.0
   slate-hyperscript: 0.77.0_slate@0.82.0
   slate-react: 0.82.0_bg222ifi7it6hblyfyz26virpa
-  styled-components: 5.3.5_7i5myeigehqah43i5u7wbekgba
 
 devDependencies:
+  '@emotion/babel-plugin': 11.10.0_@babel+core@7.18.10
   '@emotion/react': 11.10.0_msmmgljd7hl2w2irtggflhmema
   '@emotion/styled': 11.10.0_5sec57kzpgkzooe4crua5kfcly
   '@mui/icons-material': 5.8.4_uxiimzjvigalxf5okfzuivgjva
@@ -6445,6 +6446,7 @@ packages:
   /unified/9.2.2:
     resolution: {integrity: sha512-Sg7j110mtefBD+qunSLO1lqOEKdrwBFBrR6Qd8f4uwkhWNlbkaqwHse6e7QvD3AP/MNoJdEDLaf8OxYyoWgorQ==}
     dependencies:
+      '@types/unist': 2.0.6
       bail: 1.0.5
       extend: 3.0.2
       is-buffer: 2.0.5

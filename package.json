@@ -28,6 +28,7 @@
   "license": "MIT",
   "description": "Rich text editor for BoatProject",
   "devDependencies": {
+    "@emotion/babel-plugin": "^11.10.0",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/icons-material": "^5.8.4",
@@ -84,8 +85,7 @@
     "slate": "^0.82.0",
     "slate-history": "^0.66.0",
     "slate-hyperscript": "^0.77.0",
-    "slate-react": "^0.82.0",
-    "styled-components": "^5.3.5"
+    "slate-react": "^0.82.0"
   },
   "peerDependencies": {
     "@emotion/react": "^11.10.0",
@@ -98,7 +98,8 @@
   "pnpm": {
     "overrides": {
       "@radix-ui/react-slot": "^1.0.0",
-      "rollup": "2.77.3"
+      "rollup": "2.77.3",
+      "styled-components": "@emotion/react"
     }
   }
 }

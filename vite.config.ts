@@ -1,16 +1,9 @@
 /// <reference types="vitest" />
 
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 import typescript from "@rollup/plugin-typescript";
+import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import pkg from "./package.json";
-
-const dependencies = Object.keys({
-  ...pkg.dependencies,
-  ...pkg.peerDependencies,
-  ...pkg.devDependencies,
-});
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [
@@ -20,10 +13,11 @@ export default defineConfig({
         "**/{spec,test,__test__}/*.{ts,tsx}",
       ],
     }),
-    react(),
-    visualizer({ 
-      sourcemap: true, 
-      template: 'treemap'
+    react({
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
     })
   ],
   build: {
@@ -33,8 +27,15 @@ export default defineConfig({
       fileName: "index",
     },
     rollupOptions: {
-      // external: [...dependencies, "react/jsx-runtime", "react-is"],
-      external: ['react', "react/jsx-runtime", "react-is", 'react-dom'],
+      // external: [...dependencies, "react/jsx-runtime"],
+      external: ["node_modules"],
+      plugins: [
+        visualizer({
+          sourcemap: true,
+          open: true,
+          filename: './bundle-size/bundle.html'
+        })
+      ],
     },
     sourcemap: true,
     // Reduce bloat from legacy polyfills.
