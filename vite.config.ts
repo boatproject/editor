@@ -18,23 +18,22 @@ export default defineConfig({
       babel: {
         plugins: ["@emotion/babel-plugin"],
       },
-    })
+    }),
   ],
   build: {
     lib: {
-      entry: "src/index.ts",
+      entry: "./src/index.ts",
       formats: ["es", "cjs"],
       fileName: "index",
     },
     rollupOptions: {
-      // external: [...dependencies, "react/jsx-runtime"],
-      external: ["node_modules"],
+      external: [/node_modules/],
       plugins: [
         visualizer({
           sourcemap: true,
-          open: true,
-          filename: './bundle-size/bundle.html'
-        })
+          template: "treemap", // sunburst | treemap | network
+          filename: "./bundle-size/bundle.html",
+        }),
       ],
     },
     sourcemap: true,
