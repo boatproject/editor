@@ -10,8 +10,11 @@ import {
  * @see {@link getPluginType}
  */
 export default function resolvePluginType<V extends Value = Value>(
-  editor: PlateEditor<V> | null = null,
+  editor: PlateEditor<V> | null,
   key: string
 ): string {
-  return editor ? getPluginType(editor, key) : key;
+  if (!editor) {
+    return key;
+  }
+  return getPluginType(editor, key);
 }
