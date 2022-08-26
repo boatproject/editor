@@ -3,12 +3,9 @@
 import typescript from "@rollup/plugin-typescript";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
-import { defineConfig, loadEnv } from "vite";
-import type { BuildEnv } from "./env";
+import { defineConfig } from "vite";
 
 export default defineConfig(({ mode }) => {
-  const env: BuildEnv = loadEnv(mode, process.cwd(), "");
-
   return {
     plugins: [
       typescript({
@@ -33,9 +30,10 @@ export default defineConfig(({ mode }) => {
       rollupOptions: {
         external: [/node_modules/],
         plugins: [
-          env.ENABLE_BUNDLE_VISUALIZER &&
+          mode === "visualizer" &&
             visualizer({
               sourcemap: true,
+              open: true,
               template: "treemap", // sunburst | treemap | network
               filename: "./bundle-size/bundle.html",
             }),

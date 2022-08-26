@@ -20,15 +20,15 @@
     "pnpm": ">=7.8.0"
   },
   "scripts": {
-    "test": "vitest",
-    "dev": "vite -c vite.config.ts demo",
-    "watch": "vite build --watch",
     "build": "vite build",
-    "build:visualizer": "",
-    "clean": "rimraf dist",
-    "lint": "eslint --fix src",
+    "build:visualizer": "vite build --mode visualizer",
     "ci": "pnpm build && pnpm test && pnpm lint",
-    "prepack": "pnpm build"
+    "clean": "rimraf dist",
+    "dev": "vite -c vite.config.ts demo",
+    "lint": "eslint --fix src",
+    "prepack": "pnpm build",
+    "test": "vitest",
+    "watch": "vite build --watch"
   },
   "author": "zmrl",
   "license": "MIT",
