@@ -4,23 +4,10 @@ import typescript from "@rollup/plugin-typescript";
 import react from "@vitejs/plugin-react";
 import { visualizer } from "rollup-plugin-visualizer";
 import { defineConfig, loadEnv } from "vite";
-
-export interface ViteConfigEnv {
-  ENABLE_BUNDLE_VISUALIZER?: boolean;
-}
+import type { BuildEnv } from "./env";
 
 export default defineConfig(({ mode }) => {
-  const env: ViteConfigEnv = loadEnv(mode, process.cwd(), "");
-
-  const rollupPlugins = env.ENABLE_BUNDLE_VISUALIZER
-    ? [
-        visualizer({
-          sourcemap: true,
-          template: "treemap", // sunburst | treemap | network
-          filename: "./bundle-size/bundle.html",
-        }),
-      ]
-    : [];
+  const env: BuildEnv = loadEnv(mode, process.cwd(), "");
 
   return {
     plugins: [
@@ -45,7 +32,14 @@ export default defineConfig(({ mode }) => {
       },
       rollupOptions: {
         external: [/node_modules/],
-        plugins: rollupPlugins,
+        plugins: [
+          env.ENABLE_BUNDLE_VISUALIZER &&
+            visualizer({
+              sourcemap: true,
+              template: "treemap", // sunburst | treemap | network
+              filename: "./bundle-size/bundle.html",
+            }),
+        ],
       },
       sourcemap: true,
       // Reduce bloat from legacy polyfills.
