@@ -5,3 +5,6 @@ build
 
 .parcel-cache
 bundle-size/
+
+# for sensitive .env.*.local files
+*.local

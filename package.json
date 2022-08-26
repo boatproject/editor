@@ -3,13 +3,18 @@
   "version": "5.1.0",
   "source": "src/index.ts",
   "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
     "dist/",
     "src/"
   ],
   "exports": {
-    ".": "./dist/index.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
   },
   "engines": {
     "pnpm": ">=7.8.0"
@@ -19,6 +24,7 @@
     "dev": "vite -c vite.config.ts demo",
     "watch": "vite build --watch",
     "build": "vite build",
+    "build:visualizer": "",
     "clean": "rimraf dist",
     "lint": "eslint --fix src",
     "ci": "pnpm build && pnpm test && pnpm lint",
